@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Building AI-Native Companies | Stanford Inception</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/theme/black.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/highlight/monokai.css">
+    <style>
+        :root {
+            --r-background-color: #1a1a2e;
+            --r-main-color: #eee;
+            --r-heading-color: #fff;
+            --r-link-color: #42a5f5;
+            --r-link-color-hover: #64b5f6;
+        }
+        .reveal h1, .reveal h2 { text-transform: none; }
+        .reveal pre { box-shadow: none; }
+        .reveal .highlight-red { color: #ef5350; }
+        .reveal .highlight-green { color: #66bb6a; }
+        .reveal .highlight-blue { color: #42a5f5; }
+        .reveal .small { font-size: 0.7em; }
+        .reveal table { font-size: 0.8em; margin: auto; }
+        .reveal th { background: #333; }
+        .reveal td, .reveal th { border: 1px solid #444; padding: 0.4em 0.8em; }
+        .two-column { display: flex; gap: 2em; }
+        .two-column > div { flex: 1; }
+        .stat-box {
+            background: #2a2a4e;
+            border-radius: 8px;
+            padding: 1em;
+            margin: 0.5em;
+            text-align: center;
+        }
+        .stat-number { font-size: 2.5em; font-weight: bold; color: #42a5f5; }
+        .stat-label { font-size: 0.8em; color: #aaa; }
+    </style>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+<!-- Title -->
+<section>
+    <h1>Building AI-Native Companies</h1>
+    <h3>And Evaluating Agents Without Losing Your Mind</h3>
+    <p style="margin-top: 2em;">
+        <strong>Ryan Brandt</strong><br>
+        <span class="small">Vunda Labs</span>
+    </p>
+    <p class="small" style="margin-top: 2em;">
+        Stanford Inception | February 3, 2026
+    </p>
+</section>
+
+<!-- Agenda -->
+<section>
+    <h2>Today's Agenda</h2>
+    <ol>
+        <li><strong>AI-Native Operations</strong> — What it actually means</li>
+        <li><strong>Automated Consulting</strong> — Live demo</li>
+        <li><strong>Agent Evals</strong> — 179 failures analyzed</li>
+        <li><strong>Q&A</strong> — The good stuff</li>
+    </ol>
+</section>
+
+<!-- Part 1: AI Native -->
+<section>
+    <section>
+        <h1>Part 1</h1>
+        <h2>What Does "AI Native" Mean?</h2>
+    </section>
+
+    <section>
+        <h2>What AI Native is <span class="highlight-red">NOT</span></h2>
+        <ul>
+            <li class="fragment">"We use ChatGPT for customer support"</li>
+            <li class="fragment">"We have an AI chatbot on our site"</li>
+            <li class="fragment">"Our engineers use Copilot"</li>
+            <li class="fragment">"We fine-tuned a model once"</li>
+        </ul>
+        <p class="fragment" style="margin-top: 1em; color: #888;">
+            These are AI-assisted. Not AI-native.
+        </p>
+    </section>
+
+    <section>
+        <h2>What AI Native <span class="highlight-green">IS</span></h2>
+        <p style="font-size: 1.3em; margin-top: 1em;">
+            System design where AI is a<br>
+            <strong>first-class execution layer</strong>
+        </p>
+        <p class="fragment" style="margin-top: 1em;">
+            Not a tool you use. An actor that does work.
+        </p>
+    </section>
+
+    <section>
+        <h2>The Test</h2>
+        <p style="font-size: 1.2em;">
+            Can unstructured input become<br>
+            <strong>executed work product</strong><br>
+            with zero human in the loop?
+        </p>
+        <div class="fragment" style="margin-top: 1em; font-size: 0.9em; color: #888;">
+            Meeting notes → Code → Commit → PR
+        </div>
+    </section>
+</section>
+
+<!-- Part 2: Automated Consulting -->
+<section>
+    <section>
+        <h1>Part 2</h1>
+        <h2>Automated Consulting Pipeline</h2>
+        <p class="small">Live demo time</p>
+    </section>
+
+    <section>
+        <h2>The Pipeline</h2>
+        <pre style="font-size: 0.6em; background: #1e1e3f; padding: 1em; border-radius: 8px;"><code>
+┌─────────────────┐
+│ Unstructured    │   Meeting notes, Slack, transcripts
+│ Input           │
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│ Spec Generator  │   Claude extracts structured spec
+│ (Claude)        │
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│ Task Manager    │   Dooist holds spec as context
+│ (Dooist)        │
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│ Executor        │   Claude Code runs in repo
+│ (Claude Code)   │   Makes commits, creates PRs
+└─────────────────┘
+        </code></pre>
+    </section>
+
+    <section>
+        <h2>The Spec Format</h2>
+        <pre style="font-size: 0.55em;"><code class="language-markdown">Repo: ~/git/client-project
+Client: acme_corp
+Intent: Add user authentication to the API
+
+## Done When
+- [ ] POST /login returns JWT on valid credentials
+- [ ] Protected routes return 401 without token
+- [ ] Tests pass with `pytest`
+
+## Requirements
+- JWT tokens with 24h expiry
+- bcrypt for password hashing
+- Return 401 for invalid credentials
+
+## Technical Architecture
+- FastAPI with python-jose for JWT
+- SQLAlchemy for user storage
+
+## Key Files
+- src/auth.py - authentication logic
+- src/routes/login.py - login endpoint
+- tests/test_auth.py - auth tests</code></pre>
+    </section>
+
+    <section>
+        <h2>Why This Works</h2>
+        <div class="two-column">
+            <div>
+                <h4 class="highlight-green">Checkable</h4>
+                <p class="small">Every "Done When" item is verifiable</p>
+            </div>
+            <div>
+                <h4 class="highlight-green">Scoped</h4>
+                <p class="small">Key files listed explicitly</p>
+            </div>
+        </div>
+        <div class="two-column" style="margin-top: 1em;">
+            <div>
+                <h4 class="highlight-green">Contextual</h4>
+                <p class="small">Technical architecture specified</p>
+            </div>
+            <div>
+                <h4 class="highlight-green">Executable</h4>
+                <p class="small">Claude Code can run autonomously</p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>Demo: Transcript → PR</h2>
+        <p class="small" style="color: #888;">
+            [Live demo of pipeline execution]
+        </p>
+        <pre style="font-size: 0.6em; margin-top: 1em;"><code class="language-bash"># From meeting notes to spec
+python pipeline.py spec notes.txt
+
+# Execute spec in target repo
+python execute_spec.py --spec spec.md \
+    --repo ~/git/client-project \
+    --pr</code></pre>
+    </section>
+
+    <section>
+        <h2>Context as Appreciating Asset</h2>
+        <p>Every interaction adds to the context</p>
+        <ul style="font-size: 0.9em;">
+            <li class="fragment">Client preferences accumulate</li>
+            <li class="fragment">Past decisions inform future ones</li>
+            <li class="fragment">The more you use it, the better it gets</li>
+        </ul>
+        <p class="fragment" style="margin-top: 1em; color: #42a5f5;">
+            Your context file is your moat.
+        </p>
+    </section>
+</section>
+
+<!-- Part 3: Agent Evals -->
+<section>
+    <section>
+        <h1>Part 3</h1>
+        <h2>Agent Evaluation</h2>
+        <p class="small">179 failures analyzed</p>
+    </section>
+
+    <section>
+        <h2>The Cold Start Paradox</h2>
+        <div style="font-size: 1.1em; line-height: 1.8;">
+            <p class="fragment">"I need evals to ship safely"</p>
+            <p class="fragment">"But I need production data for evals"</p>
+            <p class="fragment">"But I can't get data without shipping"</p>
+        </div>
+        <p class="fragment" style="margin-top: 1em; color: #ef5350; font-size: 1.3em;">
+            ???
+        </p>
+    </section>
+
+    <section>
+        <h2>The Resolution</h2>
+        <p style="font-size: 1.3em;">
+            <strong>Human-in-the-loop bootstrap</strong>
+        </p>
+        <ol style="font-size: 0.9em; margin-top: 1em;">
+            <li class="fragment">Ship with human review on every action</li>
+            <li class="fragment">Collect rejections + reasons</li>
+            <li class="fragment">Categorize failures → fix prompts</li>
+            <li class="fragment">Graduate to spot checks</li>
+            <li class="fragment">Automate eval on critical paths only</li>
+        </ol>
+    </section>
+
+    <section>
+        <h2>Case Study: Scheduling Assistant</h2>
+        <div style="display: flex; justify-content: center; gap: 2em; margin-top: 1em;">
+            <div class="stat-box">
+                <div class="stat-number">179</div>
+                <div class="stat-label">Total Rejections</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">96%</div>
+                <div class="stat-label">Specification Errors</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">4%</div>
+                <div class="stat-label">True Model Failures</div>
+            </div>
+        </div>
+        <p class="fragment" style="margin-top: 1em; color: #66bb6a;">
+            Almost all failures were fixable with better prompts.
+        </p>
+    </section>
+
+    <section>
+        <h2>Top Failure Categories</h2>
+        <table>
+            <thead>
+                <tr><th>Category</th><th>Count</th><th>Root Cause</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>STOP_IGNORED</td><td>23</td><td>Missing stop detection</td></tr>
+                <tr><td>WRONG_DURATION</td><td>13</td><td>Unclear defaults</td></tr>
+                <tr><td>EXPLANATION_REQUEST</td><td>10</td><td>No transparency</td></tr>
+                <tr><td>CALENDAR_ORDER</td><td>9</td><td>Wrong action sequence</td></tr>
+                <tr><td>EXEC_OVERRIDE</td><td>5</td><td>Boss override ignored</td></tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section>
+        <h2>Example: STOP_IGNORED</h2>
+        <div class="two-column">
+            <div>
+                <h4 class="highlight-red">Before</h4>
+                <p class="small">User says "STOP" or "stop the processing"</p>
+                <p class="small">Agent continues sending emails</p>
+            </div>
+            <div>
+                <h4 class="highlight-green">After</h4>
+                <pre style="font-size: 0.5em;"><code>If user message contains:
+- "stop"
+- "STOP"
+- "stop the processing"
+
+→ Immediately halt
+→ Do not send anything
+→ Acknowledge the stop</code></pre>
+            </div>
+        </div>
+        <p class="fragment small" style="margin-top: 1em; color: #888;">
+            23 failures → 1 prompt rule → 0 failures
+        </p>
+    </section>
+
+    <section>
+        <h2>The Pattern</h2>
+        <pre style="font-size: 0.7em; background: #1e1e3f; padding: 1em; border-radius: 8px;"><code>
+Failure Category
+      │
+      ▼
+User Feedback (Why they rejected)
+      │
+      ▼
+Root Cause (What spec was missing)
+      │
+      ▼
+Prompt Fix (Explicit rule or constraint)
+      │
+      ▼
+Eval Test (Catches this failure forever)
+        </code></pre>
+    </section>
+
+    <section>
+        <h2>Failures Are Data</h2>
+        <p style="font-size: 1.2em;">
+            Every rejection is a <strong>prompt fix</strong><br>
+            waiting to happen.
+        </p>
+        <ul style="font-size: 0.9em; margin-top: 1em;">
+            <li class="fragment">Don't hide failures — categorize them</li>
+            <li class="fragment">Don't blame the model — fix the spec</li>
+            <li class="fragment">Don't build evals in isolation — use production data</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Writing Good Prompts</h2>
+        <p style="font-size: 1.1em;">
+            "Good is the absence of bad"
+        </p>
+        <div class="two-column" style="margin-top: 1em; font-size: 0.8em;">
+            <div>
+                <h4 class="highlight-red">Don't</h4>
+                <ul>
+                    <li>Ask same question twice</li>
+                    <li>Use vague language</li>
+                    <li>Assume user context</li>
+                    <li>Return unstructured text</li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="highlight-green">Do</h4>
+                <ul>
+                    <li>Track conversation state</li>
+                    <li>Define terms explicitly</li>
+                    <li>Ask clarifying questions</li>
+                    <li>Use fixed output schemas</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>Eval Graduation Path</h2>
+        <table style="font-size: 0.8em;">
+            <thead>
+                <tr><th>Stage</th><th>Coverage</th><th>When to Use</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Human review all</td><td>100%</td><td>Launch</td></tr>
+                <tr><td>Spot checks + flags</td><td>~20%</td><td>After patterns emerge</td></tr>
+                <tr><td>Auto eval critical paths</td><td>~5%</td><td>After prompt stabilizes</td></tr>
+            </tbody>
+        </table>
+        <p class="fragment small" style="margin-top: 1em; color: #888;">
+            Never: 100% automated coverage before shipping
+        </p>
+    </section>
+</section>
+
+<!-- Takeaways -->
+<section>
+    <h2>Key Takeaways</h2>
+    <ol style="font-size: 0.95em;">
+        <li class="fragment"><strong>Specs over prose</strong> — Make requirements checkable</li>
+        <li class="fragment"><strong>Human-in-the-loop bootstrap</strong> — Ship with review, graduate to evals</li>
+        <li class="fragment"><strong>Failures are data</strong> — Each rejection = prompt fix</li>
+        <li class="fragment"><strong>Context is your moat</strong> — Accumulated knowledge compounds</li>
+    </ol>
+</section>
+
+<!-- Q&A -->
+<section>
+    <h1>Q&A</h1>
+    <p style="margin-top: 2em;">
+        <strong>Ryan Brandt</strong><br>
+        <span class="small">ryan@vunda.io</span>
+    </p>
+    <p class="small" style="margin-top: 1em; color: #888;">
+        vunda.io/blog — More on prompting and AI-native design
+    </p>
+</section>
+
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/highlight/highlight.js"></script>
+<script>
+    Reveal.initialize({
+        hash: true,
+        slideNumber: true,
+        plugins: [ RevealHighlight ],
+        transition: 'slide',
+        backgroundTransition: 'fade'
+    });
+</script>
+</body>
+</html>
