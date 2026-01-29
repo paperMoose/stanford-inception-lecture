@@ -310,7 +310,7 @@
 <!-- Agenda -->
 <section>
     <h2>Today's Agenda</h2>
-    <div style="display: flex; flex-direction: column; gap: 0.8em; margin-top: 1em;">
+    <div style="display: flex; flex-direction: column; gap: 0.8em; margin: 1em auto; max-width: 500px; text-align: left;">
         <div style="display: flex; align-items: center; gap: 1em;">
             <span class="icon-badge blue">1</span>
             <span><strong>AI-Native Operations</strong> — What it actually means</span>
@@ -338,60 +338,60 @@
 
 <section>
     <h2>What AI Native is <span class="highlight-red">NOT</span></h2>
-        <div style="display: flex; flex-direction: column; gap: 0.6em; margin-top: 1em;">
-            <div class="fragment" style="display: flex; align-items: center; gap: 0.8em; padding: 0.5em; background: rgba(239,83,80,0.1); border-radius: 8px;">
-                <span style="color: var(--accent-red);">✗</span>
-                <span>"We use ChatGPT for customer support"</span>
-            </div>
-            <div class="fragment" style="display: flex; align-items: center; gap: 0.8em; padding: 0.5em; background: rgba(239,83,80,0.1); border-radius: 8px;">
-                <span style="color: var(--accent-red);">✗</span>
-                <span>"We have an AI chatbot on our site"</span>
-            </div>
-            <div class="fragment" style="display: flex; align-items: center; gap: 0.8em; padding: 0.5em; background: rgba(239,83,80,0.1); border-radius: 8px;">
-                <span style="color: var(--accent-red);">✗</span>
-                <span>"Our engineers use Copilot"</span>
-            </div>
-            <div class="fragment" style="display: flex; align-items: center; gap: 0.8em; padding: 0.5em; background: rgba(239,83,80,0.1); border-radius: 8px;">
-                <span style="color: var(--accent-red);">✗</span>
-                <span>"We fine-tuned a model once"</span>
-            </div>
+    <div style="display: flex; flex-direction: column; gap: 0.6em; margin: 1em auto; max-width: 550px;">
+        <div class="fragment" style="display: flex; align-items: center; gap: 0.8em; padding: 0.5em; background: rgba(239,83,80,0.1); border-radius: 8px;">
+            <span style="color: var(--accent-red);">✗</span>
+            <span>"We use ChatGPT for customer support"</span>
         </div>
-        <p class="fragment" style="margin-top: 1.5em; color: #888; font-size: 1.1em;">
-            These are <strong>AI-assisted</strong>. Not AI-native.
-        </p>
+        <div class="fragment" style="display: flex; align-items: center; gap: 0.8em; padding: 0.5em; background: rgba(239,83,80,0.1); border-radius: 8px;">
+            <span style="color: var(--accent-red);">✗</span>
+            <span>"We have an AI chatbot on our site"</span>
+        </div>
+        <div class="fragment" style="display: flex; align-items: center; gap: 0.8em; padding: 0.5em; background: rgba(239,83,80,0.1); border-radius: 8px;">
+            <span style="color: var(--accent-red);">✗</span>
+            <span>"Our engineers use Copilot"</span>
+        </div>
+        <div class="fragment" style="display: flex; align-items: center; gap: 0.8em; padding: 0.5em; background: rgba(239,83,80,0.1); border-radius: 8px;">
+            <span style="color: var(--accent-red);">✗</span>
+            <span>"We fine-tuned a model once"</span>
+        </div>
+    </div>
+    <p class="fragment" style="margin-top: 1.5em; color: #888; font-size: 1.1em;">
+        These are <strong>AI-assisted</strong>. Not AI-native.
+    </p>
 </section>
 
 <section>
     <h2>What AI Native <span class="highlight-green">IS</span></h2>
-        <div style="background: linear-gradient(135deg, var(--card-bg), #3a3a6e); border: 2px solid var(--accent-green); border-radius: 16px; padding: 1.5em; margin-top: 1em;">
-            <p style="font-size: 1.3em; margin: 0;">
-                System design where AI is a<br>
-                <strong style="color: var(--accent-green);">first-class execution layer</strong>
-            </p>
-        </div>
-        <p class="fragment" style="margin-top: 1.5em; font-size: 1.1em;">
-            Not a tool you use. An <strong>actor that does work</strong>.
+    <div style="background: linear-gradient(135deg, var(--card-bg), #3a3a6e); border: 2px solid var(--accent-green); border-radius: 16px; padding: 1.5em; margin: 1em auto; max-width: 700px;">
+        <p style="font-size: 1.3em; margin: 0;">
+            System design where AI is a<br>
+            <strong style="color: var(--accent-green);">first-class execution layer</strong>
         </p>
+    </div>
+    <p class="fragment" style="margin-top: 1.5em; font-size: 1.1em;">
+        Not a tool you use. An <strong>actor that does work</strong>.
+    </p>
 </section>
 
 <section>
     <h2>The Test</h2>
-        <div style="background: var(--card-bg); border-radius: 12px; padding: 1.5em; margin-top: 1em;">
-            <p style="font-size: 1.2em; margin: 0;">
-                Can unstructured input become<br>
-                <strong style="color: var(--accent-blue);">executed work product</strong><br>
-                with zero human in the loop?
-            </p>
-        </div>
-        <div class="fragment" style="margin-top: 1.5em; display: flex; justify-content: center; gap: 0.5em; align-items: center; font-size: 1em;">
-            <span style="background: #333; padding: 0.4em 0.8em; border-radius: 6px;">Meeting notes</span>
-            <span style="color: var(--accent-blue);">→</span>
-            <span style="background: #333; padding: 0.4em 0.8em; border-radius: 6px;">Code</span>
-            <span style="color: var(--accent-blue);">→</span>
-            <span style="background: #333; padding: 0.4em 0.8em; border-radius: 6px;">Commit</span>
-            <span style="color: var(--accent-blue);">→</span>
-            <span style="background: var(--accent-green); padding: 0.4em 0.8em; border-radius: 6px; color: #000;">PR</span>
-        </div>
+    <div style="background: var(--card-bg); border-radius: 12px; padding: 1.5em; margin: 1em auto; max-width: 600px;">
+        <p style="font-size: 1.2em; margin: 0;">
+            Can unstructured input become<br>
+            <strong style="color: var(--accent-blue);">executed work product</strong><br>
+            with zero human in the loop?
+        </p>
+    </div>
+    <div class="fragment" style="margin-top: 1.5em; display: flex; justify-content: center; gap: 0.5em; align-items: center; font-size: 1em;">
+        <span style="background: #333; padding: 0.4em 0.8em; border-radius: 6px;">Meeting notes</span>
+        <span style="color: var(--accent-blue);">→</span>
+        <span style="background: #333; padding: 0.4em 0.8em; border-radius: 6px;">Code</span>
+        <span style="color: var(--accent-blue);">→</span>
+        <span style="background: #333; padding: 0.4em 0.8em; border-radius: 6px;">Commit</span>
+        <span style="color: var(--accent-blue);">→</span>
+        <span style="background: var(--accent-green); padding: 0.4em 0.8em; border-radius: 6px; color: #000;">PR</span>
+    </div>
 </section>
 
 <!-- Part 2: Automated Consulting -->
@@ -701,44 +701,48 @@ python execute_spec.py \
 <section>
     <h2>Case Study: Scheduling Assistant</h2>
     <div style="display: flex; align-items: center; justify-content: center; gap: 3em; margin-top: 1em;">
-            <!-- Large SVG Pie Chart -->
-            <svg width="400" height="400" viewBox="0 0 400 400">
-                <!-- 96% blue slice -->
-                <circle cx="200" cy="200" r="150" fill="transparent"
-                    stroke="#42a5f5" stroke-width="80"
-                    stroke-dasharray="904 1000" stroke-dashoffset="0"
-                    transform="rotate(-90 200 200)"/>
-                <!-- 4% red slice -->
-                <circle cx="200" cy="200" r="150" fill="transparent"
-                    stroke="#ef5350" stroke-width="80"
-                    stroke-dasharray="38 1000" stroke-dashoffset="-904"
-                    transform="rotate(-90 200 200)"/>
-                <!-- Center circle -->
-                <circle cx="200" cy="200" r="100" fill="#1a1a2e"/>
-                <!-- Center text -->
-                <text x="200" y="185" text-anchor="middle" fill="#fff" font-size="48" font-weight="bold">179</text>
-                <text x="200" y="220" text-anchor="middle" fill="#888" font-size="18">rejections</text>
-            </svg>
-            <!-- Legend -->
-            <div style="font-size: 1.2em;">
-                <div style="display: flex; align-items: center; gap: 1em; margin-bottom: 1.5em;">
-                    <div style="width: 60px; height: 60px; background: #42a5f5; border-radius: 8px;"></div>
-                    <div>
-                        <div style="font-size: 2em; font-weight: bold; color: #42a5f5;">96%</div>
-                        <div style="color: #aaa;">Specification Errors</div>
-                        <div style="color: #666; font-size: 0.7em;">Fixable with better prompts</div>
-                    </div>
-                </div>
-                <div style="display: flex; align-items: center; gap: 1em;">
-                    <div style="width: 60px; height: 60px; background: #ef5350; border-radius: 8px;"></div>
-                    <div>
-                        <div style="font-size: 2em; font-weight: bold; color: #ef5350;">4%</div>
-                        <div style="color: #aaa;">True Model Failures</div>
-                        <div style="color: #666; font-size: 0.7em;">Actual model limitations</div>
-                    </div>
+        <!-- Large SVG Pie Chart -->
+        <svg width="400" height="400" viewBox="0 0 400 400">
+            <!-- 42% blue slice (76 actionable) - 42% = 396 of 942 circumference -->
+            <circle cx="200" cy="200" r="150" fill="transparent"
+                stroke="#42a5f5" stroke-width="80"
+                stroke-dasharray="396 942" stroke-dashoffset="0"
+                transform="rotate(-90 200 200)"/>
+            <!-- 58% gray slice (103 noise) -->
+            <circle cx="200" cy="200" r="150" fill="transparent"
+                stroke="#555" stroke-width="80"
+                stroke-dasharray="546 942" stroke-dashoffset="-396"
+                transform="rotate(-90 200 200)"/>
+            <!-- Center circle -->
+            <circle cx="200" cy="200" r="100" fill="#1a1a2e"/>
+            <!-- Center text -->
+            <text x="200" y="185" text-anchor="middle" fill="#fff" font-size="48" font-weight="bold">179</text>
+            <text x="200" y="220" text-anchor="middle" fill="#888" font-size="18">rejections</text>
+        </svg>
+        <!-- Legend -->
+        <div style="font-size: 1.1em; text-align: left;">
+            <div style="display: flex; align-items: center; gap: 1em; margin-bottom: 1.2em;">
+                <div style="width: 50px; height: 50px; background: #42a5f5; border-radius: 8px;"></div>
+                <div>
+                    <div style="font-size: 1.8em; font-weight: bold; color: #42a5f5;">76 <span style="font-size: 0.6em; color: #888;">(42%)</span></div>
+                    <div style="color: #aaa;">Actionable</div>
+                    <div style="color: #666; font-size: 0.7em;">Led to prompt fixes</div>
                 </div>
             </div>
+            <div style="display: flex; align-items: center; gap: 1em; margin-bottom: 1.2em;">
+                <div style="width: 50px; height: 50px; background: #555; border-radius: 8px;"></div>
+                <div>
+                    <div style="font-size: 1.8em; font-weight: bold; color: #888;">103 <span style="font-size: 0.6em; color: #666;">(58%)</span></div>
+                    <div style="color: #aaa;">Noise / Uncategorized</div>
+                    <div style="color: #666; font-size: 0.7em;">Edge cases, user tests, etc.</div>
+                </div>
+            </div>
+            <div style="margin-top: 1em; padding: 0.8em; background: rgba(66,165,245,0.1); border-radius: 8px; border-left: 3px solid #42a5f5;">
+                <div style="color: #42a5f5; font-weight: bold;">Key insight:</div>
+                <div style="color: #aaa; font-size: 0.85em;">76 failures → ~20 prompt rules</div>
+            </div>
         </div>
+    </div>
 </section>
 
 <!-- Failure Categories - BIG HORIZONTAL BAR CHART -->
@@ -794,10 +798,10 @@ python execute_spec.py \
 
             <!-- Bottom summary -->
             <text x="500" y="380" text-anchor="middle" fill="#66bb6a" font-size="22">
-                60 failures → 5 prompt rules → 0 failures
+                Top 5 categories = 60 failures fixed with 5 prompt rules
             </text>
             <text x="500" y="420" text-anchor="middle" fill="#888" font-size="16">
-                Each category = one explicit rule added to the prompt
+                Each category became one explicit rule in the prompt
             </text>
         </svg>
 </section>
@@ -898,25 +902,25 @@ python execute_spec.py \
 <section>
     <h2>Failures Are Data</h2>
     <div style="background: linear-gradient(135deg, var(--card-bg), #3a3a6e); border-radius: 16px; padding: 1.5em; margin: 1em auto; max-width: 700px;">
-            <p style="font-size: 1.3em; margin: 0;">
-                Every rejection is a <strong style="color: var(--accent-green);">prompt fix</strong><br>
-                waiting to happen.
-            </p>
+        <p style="font-size: 1.3em; margin: 0;">
+            Every rejection is a <strong style="color: var(--accent-green);">prompt fix</strong><br>
+            waiting to happen.
+        </p>
+    </div>
+    <div style="margin: 1em auto; max-width: 600px;">
+        <div class="fragment" style="display: flex; align-items: center; gap: 1em; margin: 0.6em 0; padding: 0.5em; background: rgba(102,187,106,0.1); border-radius: 8px;">
+            <span style="color: var(--accent-green); font-size: 1.3em;">✓</span>
+            <span>Don't hide failures — <strong>categorize them</strong></span>
         </div>
-        <div style="margin-top: 1em;">
-            <div class="fragment" style="display: flex; align-items: center; gap: 1em; margin: 0.6em 0; padding: 0.5em; background: rgba(102,187,106,0.1); border-radius: 8px;">
-                <span style="color: var(--accent-green); font-size: 1.3em;">✓</span>
-                <span>Don't hide failures — <strong>categorize them</strong></span>
-            </div>
-            <div class="fragment" style="display: flex; align-items: center; gap: 1em; margin: 0.6em 0; padding: 0.5em; background: rgba(102,187,106,0.1); border-radius: 8px;">
-                <span style="color: var(--accent-green); font-size: 1.3em;">✓</span>
-                <span>Don't blame the model — <strong>fix the spec</strong></span>
-            </div>
-            <div class="fragment" style="display: flex; align-items: center; gap: 1em; margin: 0.6em 0; padding: 0.5em; background: rgba(102,187,106,0.1); border-radius: 8px;">
-                <span style="color: var(--accent-green); font-size: 1.3em;">✓</span>
-                <span>Don't build evals in isolation — <strong>use production data</strong></span>
-            </div>
+        <div class="fragment" style="display: flex; align-items: center; gap: 1em; margin: 0.6em 0; padding: 0.5em; background: rgba(102,187,106,0.1); border-radius: 8px;">
+            <span style="color: var(--accent-green); font-size: 1.3em;">✓</span>
+            <span>Don't blame the model — <strong>fix the spec</strong></span>
         </div>
+        <div class="fragment" style="display: flex; align-items: center; gap: 1em; margin: 0.6em 0; padding: 0.5em; background: rgba(102,187,106,0.1); border-radius: 8px;">
+            <span style="color: var(--accent-green); font-size: 1.3em;">✓</span>
+            <span>Don't build evals in isolation — <strong>use production data</strong></span>
+        </div>
+    </div>
 </section>
 
 <!-- Writing Good Prompts - Do's and Don'ts -->
