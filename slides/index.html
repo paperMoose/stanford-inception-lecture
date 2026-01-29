@@ -401,34 +401,78 @@
         <p class="small" style="color: #888;">Live demo time</p>
     </section>
 
-    <!-- Pipeline Diagram - Visual Flowchart -->
+    <!-- Pipeline Diagram - BIG SVG FLOWCHART -->
     <section>
         <h2>The Pipeline</h2>
-        <div class="pipeline-container">
-            <div class="pipeline-box">
-                <div class="icon">📥</div>
-                <div class="title">Unstructured Input</div>
-                <div class="subtitle">Meeting notes, Slack threads, transcripts</div>
-            </div>
-            <div class="pipeline-arrow">↓</div>
-            <div class="pipeline-box" style="border-color: var(--accent-yellow);">
-                <div class="icon">🧠</div>
-                <div class="title">Spec Generator</div>
-                <div class="subtitle">Claude extracts structured spec with checklist</div>
-            </div>
-            <div class="pipeline-arrow">↓</div>
-            <div class="pipeline-box" style="border-color: var(--accent-green);">
-                <div class="icon">📋</div>
-                <div class="title">Task Manager</div>
-                <div class="subtitle">Dooist holds spec as persistent context</div>
-            </div>
-            <div class="pipeline-arrow">↓</div>
-            <div class="pipeline-box" style="border-color: var(--accent-red);">
-                <div class="icon">⚡</div>
-                <div class="title">Executor</div>
-                <div class="subtitle">Claude Code runs in repo → commits → PRs</div>
-            </div>
-        </div>
+        <svg width="1100" height="500" viewBox="0 0 1100 500">
+            <!-- Stage 1: Input -->
+            <rect x="50" y="60" width="220" height="120" rx="16" fill="#2a2a4e" stroke="#42a5f5" stroke-width="3"/>
+            <text x="160" y="105" text-anchor="middle" fill="#fff" font-size="42">📥</text>
+            <text x="160" y="140" text-anchor="middle" fill="#fff" font-size="18" font-weight="bold">Unstructured Input</text>
+            <text x="160" y="165" text-anchor="middle" fill="#888" font-size="13">Meeting notes, Slack, transcripts</text>
+
+            <!-- Arrow 1 -->
+            <path d="M 270 120 L 330 120" stroke="#42a5f5" stroke-width="4" fill="none" marker-end="url(#arrowhead)"/>
+
+            <!-- Stage 2: Spec Generator -->
+            <rect x="330" y="60" width="220" height="120" rx="16" fill="#2a2a4e" stroke="#ffca28" stroke-width="3"/>
+            <text x="440" y="105" text-anchor="middle" fill="#fff" font-size="42">🧠</text>
+            <text x="440" y="140" text-anchor="middle" fill="#fff" font-size="18" font-weight="bold">Spec Generator</text>
+            <text x="440" y="165" text-anchor="middle" fill="#888" font-size="13">Claude → structured spec</text>
+
+            <!-- Arrow 2 -->
+            <path d="M 550 120 L 610 120" stroke="#ffca28" stroke-width="4" fill="none" marker-end="url(#arrowhead2)"/>
+
+            <!-- Stage 3: Task Manager -->
+            <rect x="610" y="60" width="220" height="120" rx="16" fill="#2a2a4e" stroke="#66bb6a" stroke-width="3"/>
+            <text x="720" y="105" text-anchor="middle" fill="#fff" font-size="42">📋</text>
+            <text x="720" y="140" text-anchor="middle" fill="#fff" font-size="18" font-weight="bold">Task Manager</text>
+            <text x="720" y="165" text-anchor="middle" fill="#888" font-size="13">Dooist holds context</text>
+
+            <!-- Arrow 3 -->
+            <path d="M 830 120 L 890 120" stroke="#66bb6a" stroke-width="4" fill="none" marker-end="url(#arrowhead3)"/>
+
+            <!-- Stage 4: Executor -->
+            <rect x="890" y="60" width="180" height="120" rx="16" fill="#2a2a4e" stroke="#ef5350" stroke-width="3"/>
+            <text x="980" y="105" text-anchor="middle" fill="#fff" font-size="42">⚡</text>
+            <text x="980" y="140" text-anchor="middle" fill="#fff" font-size="18" font-weight="bold">Executor</text>
+            <text x="980" y="165" text-anchor="middle" fill="#888" font-size="13">Claude Code</text>
+
+            <!-- Output boxes below executor -->
+            <path d="M 980 180 L 980 230" stroke="#ef5350" stroke-width="3" fill="none"/>
+            <rect x="850" y="230" width="80" height="50" rx="8" fill="#1e88e5"/>
+            <text x="890" y="262" text-anchor="middle" fill="#fff" font-size="14" font-weight="bold">Commits</text>
+
+            <rect x="940" y="230" width="80" height="50" rx="8" fill="#66bb6a"/>
+            <text x="980" y="262" text-anchor="middle" fill="#fff" font-size="14" font-weight="bold">PR</text>
+
+            <rect x="1030" y="230" width="60" height="50" rx="8" fill="#9c27b0"/>
+            <text x="1060" y="262" text-anchor="middle" fill="#fff" font-size="14" font-weight="bold">Tests</text>
+
+            <!-- Example content snippets -->
+            <rect x="50" y="220" width="500" height="200" rx="12" fill="#12121f" stroke="#333" stroke-width="2"/>
+            <text x="70" y="250" fill="#42a5f5" font-size="14" font-weight="bold">INPUT EXAMPLE:</text>
+            <text x="70" y="280" fill="#aaa" font-size="13" font-family="monospace">"From the call with Acme - they need</text>
+            <text x="70" y="300" fill="#aaa" font-size="13" font-family="monospace">login working by Friday. JWT is fine.</text>
+            <text x="70" y="320" fill="#aaa" font-size="13" font-family="monospace">Sam mentioned bcrypt for passwords."</text>
+
+            <text x="70" y="360" fill="#66bb6a" font-size="14" font-weight="bold">OUTPUT:</text>
+            <text x="70" y="385" fill="#aaa" font-size="13" font-family="monospace">✓ src/auth/jwt.py created</text>
+            <text x="70" y="405" fill="#aaa" font-size="13" font-family="monospace">✓ tests/test_auth.py passing</text>
+
+            <!-- Arrow markers -->
+            <defs>
+                <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                    <polygon points="0 0, 10 3.5, 0 7" fill="#42a5f5"/>
+                </marker>
+                <marker id="arrowhead2" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                    <polygon points="0 0, 10 3.5, 0 7" fill="#ffca28"/>
+                </marker>
+                <marker id="arrowhead3" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                    <polygon points="0 0, 10 3.5, 0 7" fill="#66bb6a"/>
+                </marker>
+            </defs>
+        </svg>
     </section>
 
     <!-- Spec Format - Full Code Example -->
@@ -621,121 +665,170 @@ python execute_spec.py \
         </div>
     </section>
 
-    <!-- 179 Rejections Stats - Visual Charts -->
+    <!-- 179 Rejections Stats - BIG PIE CHART -->
     <section>
         <h2>Case Study: Scheduling Assistant</h2>
-        <div style="display: flex; justify-content: center; gap: 1.5em; margin: 1em 0;">
-            <div class="stat-box" style="min-width: 140px;">
-                <div class="stat-number">179</div>
-                <div class="stat-label">Total Rejections</div>
+        <div style="display: flex; align-items: center; justify-content: center; gap: 3em; margin-top: 1em;">
+            <!-- Large SVG Pie Chart -->
+            <svg width="400" height="400" viewBox="0 0 400 400">
+                <!-- 96% blue slice -->
+                <circle cx="200" cy="200" r="150" fill="transparent"
+                    stroke="#42a5f5" stroke-width="80"
+                    stroke-dasharray="904 1000" stroke-dashoffset="0"
+                    transform="rotate(-90 200 200)"/>
+                <!-- 4% red slice -->
+                <circle cx="200" cy="200" r="150" fill="transparent"
+                    stroke="#ef5350" stroke-width="80"
+                    stroke-dasharray="38 1000" stroke-dashoffset="-904"
+                    transform="rotate(-90 200 200)"/>
+                <!-- Center circle -->
+                <circle cx="200" cy="200" r="100" fill="#1a1a2e"/>
+                <!-- Center text -->
+                <text x="200" y="185" text-anchor="middle" fill="#fff" font-size="48" font-weight="bold">179</text>
+                <text x="200" y="220" text-anchor="middle" fill="#888" font-size="18">rejections</text>
+            </svg>
+            <!-- Legend -->
+            <div style="font-size: 1.2em;">
+                <div style="display: flex; align-items: center; gap: 1em; margin-bottom: 1.5em;">
+                    <div style="width: 60px; height: 60px; background: #42a5f5; border-radius: 8px;"></div>
+                    <div>
+                        <div style="font-size: 2em; font-weight: bold; color: #42a5f5;">96%</div>
+                        <div style="color: #aaa;">Specification Errors</div>
+                        <div style="color: #666; font-size: 0.7em;">Fixable with better prompts</div>
+                    </div>
+                </div>
+                <div style="display: flex; align-items: center; gap: 1em;">
+                    <div style="width: 60px; height: 60px; background: #ef5350; border-radius: 8px;"></div>
+                    <div>
+                        <div style="font-size: 2em; font-weight: bold; color: #ef5350;">4%</div>
+                        <div style="color: #aaa;">True Model Failures</div>
+                        <div style="color: #666; font-size: 0.7em;">Actual model limitations</div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="bar-chart" style="margin-top: 1em;">
-            <div class="bar-container">
-                <div class="bar-label">
-                    <span><strong>Specification Errors</strong></span>
-                    <span style="color: var(--accent-blue);">172 (96%)</span>
-                </div>
-                <div class="bar-track" style="height: 50px;">
-                    <div class="bar-fill blue" style="width: 96%;">Fixable with better prompts</div>
-                </div>
-            </div>
-            <div class="bar-container">
-                <div class="bar-label">
-                    <span><strong>True Model Failures</strong></span>
-                    <span style="color: var(--accent-red);">7 (4%)</span>
-                </div>
-                <div class="bar-track" style="height: 50px;">
-                    <div class="bar-fill red" style="width: 4%;"></div>
-                </div>
-            </div>
-        </div>
-        <p class="fragment" style="margin-top: 1em; color: var(--accent-green); font-size: 1.1em;">
-            Almost all failures were fixable with better prompts.
-        </p>
     </section>
 
-    <!-- Failure Categories Table - Styled -->
+    <!-- Failure Categories - BIG HORIZONTAL BAR CHART -->
     <section>
         <h2>Top Failure Categories</h2>
-        <table class="styled-table">
-            <thead>
-                <tr>
-                    <th style="width: 40%;">Category</th>
-                    <th style="width: 15%;">Count</th>
-                    <th style="width: 45%;">Root Cause</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><span class="category">STOP_IGNORED</span></td>
-                    <td><span class="count" style="color: var(--accent-red);">23</span></td>
-                    <td>Missing stop detection in prompt</td>
-                </tr>
-                <tr>
-                    <td><span class="category">WRONG_DURATION</span></td>
-                    <td><span class="count" style="color: var(--accent-yellow);">13</span></td>
-                    <td>No default duration rules</td>
-                </tr>
-                <tr>
-                    <td><span class="category">EXPLANATION_REQUEST</span></td>
-                    <td><span class="count" style="color: var(--accent-yellow);">10</span></td>
-                    <td>Didn't detect questions</td>
-                </tr>
-                <tr>
-                    <td><span class="category">CALENDAR_ORDER</span></td>
-                    <td><span class="count" style="color: var(--accent-blue);">9</span></td>
-                    <td>Actions not sequenced correctly</td>
-                </tr>
-                <tr>
-                    <td><span class="category">EXEC_OVERRIDE</span></td>
-                    <td><span class="count" style="color: var(--accent-blue);">5</span></td>
-                    <td>No priority hierarchy defined</td>
-                </tr>
-            </tbody>
-        </table>
-        <p class="small" style="margin-top: 0.5em; color: #888;">
-            60 failures across top 5 categories → 60 failures eliminated with 5 prompt rules
-        </p>
+        <svg width="1000" height="450" viewBox="0 0 1000 450" style="margin-top: 0.5em;">
+            <!-- Y-axis labels and bars -->
+            <!-- STOP_IGNORED - 23 -->
+            <text x="200" y="55" text-anchor="end" fill="#fff" font-size="18" font-family="monospace">STOP_IGNORED</text>
+            <rect x="210" y="35" width="460" height="40" rx="6" fill="url(#redGrad)"/>
+            <text x="680" y="62" fill="#fff" font-size="20" font-weight="bold">23</text>
+            <text x="720" y="62" fill="#888" font-size="14">User said stop, agent kept going</text>
+
+            <!-- WRONG_DURATION - 13 -->
+            <text x="200" y="115" text-anchor="end" fill="#fff" font-size="18" font-family="monospace">WRONG_DURATION</text>
+            <rect x="210" y="95" width="260" height="40" rx="6" fill="url(#yellowGrad)"/>
+            <text x="480" y="122" fill="#fff" font-size="20" font-weight="bold">13</text>
+            <text x="520" y="122" fill="#888" font-size="14">Guessed wrong meeting length</text>
+
+            <!-- EXPLANATION_REQUEST - 10 -->
+            <text x="200" y="175" text-anchor="end" fill="#fff" font-size="18" font-family="monospace">EXPLANATION_REQUEST</text>
+            <rect x="210" y="155" width="200" height="40" rx="6" fill="url(#yellowGrad)"/>
+            <text x="420" y="182" fill="#fff" font-size="20" font-weight="bold">10</text>
+            <text x="460" y="182" fill="#888" font-size="14">User asked "why?" - no response</text>
+
+            <!-- CALENDAR_ORDER - 9 -->
+            <text x="200" y="235" text-anchor="end" fill="#fff" font-size="18" font-family="monospace">CALENDAR_ORDER</text>
+            <rect x="210" y="215" width="180" height="40" rx="6" fill="url(#blueGrad)"/>
+            <text x="400" y="242" fill="#fff" font-size="20" font-weight="bold">9</text>
+            <text x="440" y="242" fill="#888" font-size="14">Sent invite before checking availability</text>
+
+            <!-- EXEC_OVERRIDE - 5 -->
+            <text x="200" y="295" text-anchor="end" fill="#fff" font-size="18" font-family="monospace">EXEC_OVERRIDE</text>
+            <rect x="210" y="275" width="100" height="40" rx="6" fill="url(#blueGrad)"/>
+            <text x="320" y="302" fill="#fff" font-size="20" font-weight="bold">5</text>
+            <text x="360" y="302" fill="#888" font-size="14">Boss's override ignored</text>
+
+            <!-- Gradients -->
+            <defs>
+                <linearGradient id="redGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" style="stop-color:#d32f2f"/>
+                    <stop offset="100%" style="stop-color:#ef5350"/>
+                </linearGradient>
+                <linearGradient id="yellowGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" style="stop-color:#f57c00"/>
+                    <stop offset="100%" style="stop-color:#ffca28"/>
+                </linearGradient>
+                <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" style="stop-color:#1e88e5"/>
+                    <stop offset="100%" style="stop-color:#42a5f5"/>
+                </linearGradient>
+            </defs>
+
+            <!-- Bottom summary -->
+            <text x="500" y="380" text-anchor="middle" fill="#66bb6a" font-size="22">
+                60 failures → 5 prompt rules → 0 failures
+            </text>
+            <text x="500" y="420" text-anchor="middle" fill="#888" font-size="16">
+                Each category = one explicit rule added to the prompt
+            </text>
+        </svg>
     </section>
 
-    <!-- STOP_IGNORED Before/After -->
+    <!-- STOP_IGNORED Before/After - BIG VISUAL -->
     <section>
         <h2>Example: STOP_IGNORED</h2>
-        <div class="two-column tight">
-            <div class="compare-panel bad">
-                <h4><span style="font-size: 1.5em;">✗</span> <span class="highlight-red">Before</span></h4>
-                <pre><code class="language-text" style="font-size: 0.55em;">User: "Schedule team sync for Tuesday"
-Agent: "I'll schedule that for 2pm Tuesday"
+        <svg width="1100" height="480" viewBox="0 0 1100 480">
+            <!-- BEFORE panel -->
+            <rect x="30" y="20" width="500" height="400" rx="16" fill="rgba(239,83,80,0.1)" stroke="#ef5350" stroke-width="3"/>
+            <text x="280" y="60" text-anchor="middle" fill="#ef5350" font-size="28" font-weight="bold">✗ BEFORE</text>
 
-User: "STOP - I need to rethink this"
-Agent: [Sends calendar invite anyway]
-Agent: [Sends reminder email]
-Agent: [Updates project tracker]
+            <!-- Chat bubbles - before -->
+            <rect x="60" y="90" width="300" height="40" rx="12" fill="#333"/>
+            <text x="80" y="117" fill="#fff" font-size="14">👤 "Schedule team sync for Tuesday"</text>
 
-User: 😡 "I SAID STOP!"</code></pre>
-                <p class="tiny" style="color: var(--accent-red); margin-top: 0.5em;">
-                    23 rejections from this pattern
-                </p>
-            </div>
-            <div class="compare-panel good">
-                <h4><span style="font-size: 1.5em;">✓</span> <span class="highlight-green">After</span></h4>
-                <pre><code class="language-markdown" style="font-size: 0.55em;">CRITICAL STOP HANDLING:
-If user message contains:
-- "stop", "STOP", "halt", "wait"
-- "hold on", "cancel", "nevermind"
+            <rect x="170" y="145" width="320" height="40" rx="12" fill="#1e88e5"/>
+            <text x="190" y="172" fill="#fff" font-size="14">🤖 "I'll schedule that for 2pm"</text>
 
-Then:
-1. IMMEDIATELY stop all pending actions
-2. Do NOT send any invites/emails
-3. Do NOT modify any calendars
-4. Reply: "Stopped. No changes made.
-   What would you like to change?"</code></pre>
-                <p class="tiny" style="color: var(--accent-green); margin-top: 0.5em;">
-                    23 failures → 0 failures
-                </p>
-            </div>
-        </div>
+            <rect x="60" y="200" width="350" height="45" rx="12" fill="#ef5350"/>
+            <text x="80" y="230" fill="#fff" font-size="16" font-weight="bold">👤 "STOP - I need to rethink"</text>
+
+            <!-- Agent keeps going -->
+            <rect x="170" y="260" width="280" height="35" rx="10" fill="#333" stroke="#ef5350" stroke-width="2"/>
+            <text x="190" y="283" fill="#aaa" font-size="13">🤖 [Sends calendar invite]</text>
+
+            <rect x="170" y="305" width="280" height="35" rx="10" fill="#333" stroke="#ef5350" stroke-width="2"/>
+            <text x="190" y="328" fill="#aaa" font-size="13">🤖 [Sends reminder email]</text>
+
+            <rect x="170" y="350" width="280" height="35" rx="10" fill="#333" stroke="#ef5350" stroke-width="2"/>
+            <text x="190" y="373" fill="#aaa" font-size="13">🤖 [Updates project tracker]</text>
+
+            <!-- Rejection count -->
+            <text x="280" y="420" text-anchor="middle" fill="#ef5350" font-size="20" font-weight="bold">23 rejections</text>
+
+            <!-- Arrow between panels -->
+            <path d="M 550 220 L 590 220" stroke="#66bb6a" stroke-width="6" fill="none" marker-end="url(#greenArrow)"/>
+            <defs>
+                <marker id="greenArrow" markerWidth="12" markerHeight="9" refX="11" refY="4.5" orient="auto">
+                    <polygon points="0 0, 12 4.5, 0 9" fill="#66bb6a"/>
+                </marker>
+            </defs>
+
+            <!-- AFTER panel -->
+            <rect x="600" y="20" width="480" height="400" rx="16" fill="rgba(102,187,106,0.1)" stroke="#66bb6a" stroke-width="3"/>
+            <text x="840" y="60" text-anchor="middle" fill="#66bb6a" font-size="28" font-weight="bold">✓ AFTER (Prompt Fix)</text>
+
+            <!-- The fix -->
+            <rect x="630" y="85" width="420" height="280" rx="12" fill="#12121f"/>
+            <text x="650" y="115" fill="#ffca28" font-size="14" font-weight="bold" font-family="monospace">CRITICAL STOP HANDLING:</text>
+            <text x="650" y="145" fill="#aaa" font-size="13" font-family="monospace">If user message contains:</text>
+            <text x="670" y="170" fill="#66bb6a" font-size="13" font-family="monospace">• "stop", "STOP", "halt", "wait"</text>
+            <text x="670" y="195" fill="#66bb6a" font-size="13" font-family="monospace">• "hold on", "cancel", "nevermind"</text>
+            <text x="650" y="230" fill="#aaa" font-size="13" font-family="monospace">Then:</text>
+            <text x="670" y="255" fill="#fff" font-size="13" font-family="monospace">1. IMMEDIATELY stop all actions</text>
+            <text x="670" y="280" fill="#fff" font-size="13" font-family="monospace">2. Do NOT send any invites</text>
+            <text x="670" y="305" fill="#fff" font-size="13" font-family="monospace">3. Do NOT modify calendars</text>
+            <text x="670" y="330" fill="#fff" font-size="13" font-family="monospace">4. Reply: "Stopped. What would</text>
+            <text x="700" y="355" fill="#fff" font-size="13" font-family="monospace">you like to change?"</text>
+
+            <!-- Result -->
+            <text x="840" y="410" text-anchor="middle" fill="#66bb6a" font-size="24" font-weight="bold">23 → 0 failures</text>
+        </svg>
     </section>
 
     <!-- The Pattern - Vertical Flowchart -->
