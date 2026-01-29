@@ -747,7 +747,7 @@ python execute_spec.py \
 
 <!-- Failure Categories - BIG HORIZONTAL BAR CHART -->
 <section>
-    <h2>Top Failure Categories</h2>
+    <h2>Top Actionable Categories</h2>
     <svg width="1000" height="450" viewBox="0 0 1000 450" style="margin-top: 0.5em; display: block; margin-left: auto; margin-right: auto;">
             <!-- Y-axis labels and bars -->
             <!-- STOP_IGNORED - 23 -->
@@ -798,10 +798,10 @@ python execute_spec.py \
 
             <!-- Bottom summary -->
             <text x="500" y="380" text-anchor="middle" fill="#66bb6a" font-size="22">
-                Top 5 categories = 60 failures fixed with 5 prompt rules
+                These 60 failures → 5 prompt rules → prevented recurrence
             </text>
             <text x="500" y="420" text-anchor="middle" fill="#888" font-size="16">
-                Each category became one explicit rule in the prompt
+                (88 more were uncategorized noise - edge cases, user tests, etc.)
             </text>
         </svg>
 </section>
