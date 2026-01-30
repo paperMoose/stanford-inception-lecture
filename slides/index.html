@@ -1198,9 +1198,154 @@ python execute_spec.py \
         </div>
 </section>
 
-<!-- Eval Graduation Path -->
+<!-- Prompt-Driven Evaluation -->
 <section>
-    <h2>Eval Graduation Path</h2>
+    <h2>Prompt-Driven Evaluation</h2>
+    <p style="color: #888; margin-bottom: 1em;">Your prompt IS your rubric</p>
+    <div class="svg-container" style="max-width: 950px;">
+    <svg viewBox="0 0 950 320" preserveAspectRatio="xMidYMid meet">
+        <!-- Step 1: Prompt Rules -->
+        <rect x="20" y="40" width="200" height="120" rx="14" fill="#2a2a4e" stroke="#42a5f5" stroke-width="2"/>
+        <text x="120" y="75" text-anchor="middle" fill="#42a5f5" font-size="14" font-weight="bold">PROMPT RULES</text>
+        <text x="120" y="100" text-anchor="middle" fill="#aaa" font-size="11" font-family="monospace">"If user says STOP,</text>
+        <text x="120" y="115" text-anchor="middle" fill="#aaa" font-size="11" font-family="monospace">halt immediately"</text>
+        <text x="120" y="145" text-anchor="middle" fill="#666" font-size="10">Each rule = testable case</text>
+
+        <!-- Arrow 1 -->
+        <path d="M 220 100 L 270 100" stroke="#42a5f5" stroke-width="3" fill="none" marker-end="url(#evalArrow)"/>
+
+        <!-- Step 2: Generate Cases -->
+        <rect x="270" y="40" width="200" height="120" rx="14" fill="#2a2a4e" stroke="#ffca28" stroke-width="2"/>
+        <text x="370" y="75" text-anchor="middle" fill="#ffca28" font-size="14" font-weight="bold">GENERATE CASES</text>
+        <text x="370" y="100" text-anchor="middle" fill="#aaa" font-size="11">Input: "Schedule meeting"</text>
+        <text x="370" y="115" text-anchor="middle" fill="#aaa" font-size="11">Then: "STOP"</text>
+        <text x="370" y="145" text-anchor="middle" fill="#666" font-size="10">Expected: No invite sent</text>
+
+        <!-- Arrow 2 -->
+        <path d="M 470 100 L 520 100" stroke="#ffca28" stroke-width="3" fill="none" marker-end="url(#evalArrow2)"/>
+
+        <!-- Step 3: Run Agent -->
+        <rect x="520" y="40" width="200" height="120" rx="14" fill="#2a2a4e" stroke="#ef5350" stroke-width="2"/>
+        <text x="620" y="75" text-anchor="middle" fill="#ef5350" font-size="14" font-weight="bold">RUN AGENT</text>
+        <text x="620" y="100" text-anchor="middle" fill="#aaa" font-size="11">Capture full trace:</text>
+        <text x="620" y="115" text-anchor="middle" fill="#aaa" font-size="11">Actions + Context + Output</text>
+        <text x="620" y="145" text-anchor="middle" fill="#666" font-size="10">What did it actually do?</text>
+
+        <!-- Arrow 3 -->
+        <path d="M 720 100 L 770 100" stroke="#ef5350" stroke-width="3" fill="none" marker-end="url(#evalArrow3)"/>
+
+        <!-- Step 4: Judge -->
+        <rect x="770" y="40" width="160" height="120" rx="14" fill="#2a2a4e" stroke="#66bb6a" stroke-width="2"/>
+        <text x="850" y="75" text-anchor="middle" fill="#66bb6a" font-size="14" font-weight="bold">JUDGE</text>
+        <text x="850" y="100" text-anchor="middle" fill="#aaa" font-size="11">Expected vs Actual</text>
+        <text x="850" y="130" text-anchor="middle" fill="#66bb6a" font-size="18">✓ or ✗</text>
+
+        <!-- Bottom insight box -->
+        <rect x="170" y="200" width="610" height="100" rx="12" fill="rgba(66,165,245,0.1)" stroke="#42a5f5" stroke-width="1"/>
+        <text x="475" y="235" text-anchor="middle" fill="#fff" font-size="16" font-weight="600">The key insight:</text>
+        <text x="475" y="260" text-anchor="middle" fill="#aaa" font-size="14">Specific prompts → Specific test cases → Automated regression tests</text>
+        <text x="475" y="285" text-anchor="middle" fill="#666" font-size="12">Every prompt rule becomes a verifiable contract</text>
+
+        <defs>
+            <marker id="evalArrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                <polygon points="0 0, 10 3.5, 0 7" fill="#42a5f5"/>
+            </marker>
+            <marker id="evalArrow2" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                <polygon points="0 0, 10 3.5, 0 7" fill="#ffca28"/>
+            </marker>
+            <marker id="evalArrow3" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                <polygon points="0 0, 10 3.5, 0 7" fill="#ef5350"/>
+            </marker>
+        </defs>
+    </svg>
+    </div>
+</section>
+
+<!-- Hybrid Evaluation -->
+<section>
+    <h2>Hybrid Evaluation: Two Types of Checks</h2>
+    <div class="two-column" style="gap: 1.5em; max-width: 950px; margin-top: 1em;">
+        <div style="background: rgba(66,165,245,0.1); border-radius: 14px; padding: 1.2em; border: 1px solid rgba(66,165,245,0.3);">
+            <h4 style="color: var(--accent-blue); margin: 0 0 0.8em 0; display: flex; align-items: center; gap: 0.5em;">
+                <span style="font-size: 1.3em;">⚡</span> Deterministic Rules
+            </h4>
+            <ul style="margin: 0; padding-left: 1.2em; font-size: 0.85em; color: #ccc;">
+                <li style="margin-bottom: 0.5em;">Calendar conflicts → <span style="color: var(--accent-red);">fail</span></li>
+                <li style="margin-bottom: 0.5em;">Offering busy times → <span style="color: var(--accent-red);">fail</span></li>
+                <li style="margin-bottom: 0.5em;">Missing required fields → <span style="color: var(--accent-red);">fail</span></li>
+                <li>Same action twice → <span style="color: var(--accent-red);">fail</span></li>
+            </ul>
+            <p style="margin: 1em 0 0 0; color: #888; font-size: 0.75em; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 0.8em;">
+                Fast, cheap, 100% consistent
+            </p>
+        </div>
+        <div style="background: rgba(102,187,106,0.1); border-radius: 14px; padding: 1.2em; border: 1px solid rgba(102,187,106,0.3);">
+            <h4 style="color: var(--accent-green); margin: 0 0 0.8em 0; display: flex; align-items: center; gap: 0.5em;">
+                <span style="font-size: 1.3em;">🧠</span> LLM-as-Judge
+            </h4>
+            <ul style="margin: 0; padding-left: 1.2em; font-size: 0.85em; color: #ccc;">
+                <li style="margin-bottom: 0.5em;">Tone appropriate? → <span style="color: var(--accent-green);">judge</span></li>
+                <li style="margin-bottom: 0.5em;">Made assumptions? → <span style="color: var(--accent-green);">judge</span></li>
+                <li style="margin-bottom: 0.5em;">Pressured user? → <span style="color: var(--accent-green);">judge</span></li>
+                <li>Followed intent? → <span style="color: var(--accent-green);">judge</span></li>
+            </ul>
+            <p style="margin: 1em 0 0 0; color: #888; font-size: 0.75em; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 0.8em;">
+                Nuanced, catches behavioral issues
+            </p>
+        </div>
+    </div>
+    <p class="fragment" style="margin-top: 1.5em; color: #888; font-size: 1em;">
+        Use deterministic where possible, LLM-as-judge for <em>behavior</em>
+    </p>
+</section>
+
+<!-- Judge Rubric Example -->
+<section>
+    <h2>Example: Judge Rubric</h2>
+    <div style="display: flex; gap: 1.5em; max-width: 1000px;">
+        <div style="flex: 1.2;">
+            <pre><code class="language-markdown" style="font-size: 0.52em; line-height: 1.35;">## Judge: Assumptive Language Detection
+
+Goal: Did assistant pressure user without consent?
+
+ERROR if:
+- "Which option works best?" (no prior consent)
+- "Pick a time" without asking availability first
+- "I'll send the invite" (assumes acceptance)
+
+NOT ERROR if:
+- Recipient asked to meet
+- Recipient provided availability
+- Third-party handed off scheduling
+
+Example ERROR:
+"Here are Ashish's slots: [times]
+Do any work? I'll send the invite."
+→ Selection pressure + no consent = ❌
+
+Example OK:
+"Happy to help schedule. What times
+work for you this week?"
+→ Asking availability first = ✓</code></pre>
+        </div>
+        <div style="flex: 0.8; font-size: 0.8em; display: flex; flex-direction: column; justify-content: center;">
+            <div style="background: var(--card-bg); border-radius: 12px; padding: 1em; margin-bottom: 0.8em;">
+                <div style="color: var(--accent-yellow); font-weight: 600; margin-bottom: 0.5em;">Why this works:</div>
+                <ul style="margin: 0; padding-left: 1em; color: #aaa;">
+                    <li>Clear decision procedure</li>
+                    <li>Concrete examples</li>
+                    <li>Edge cases defined</li>
+                </ul>
+            </div>
+            <div style="background: var(--card-bg); border-radius: 12px; padding: 1em;">
+                <div style="color: var(--accent-green); font-weight: 600; margin-bottom: 0.5em;">Result:</div>
+                <p style="margin: 0; color: #aaa;">One rubric catches an entire <em>category</em> of behavioral errors</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Eval Graduation Path -->
     <div style="margin-top: 1.5em; max-width: 750px;">
             <div style="display: flex; align-items: center; gap: 1em; margin: 0.8em 0; padding: 0.8em; background: var(--card-bg); border-radius: 10px; border-left: 4px solid var(--accent-red);">
                 <div style="min-width: 80px; text-align: center;">
