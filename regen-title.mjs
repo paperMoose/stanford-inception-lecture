@@ -9,40 +9,28 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
 async function generate() {
-  console.log("Generating epic title slide background...");
+  console.log("Generating clean, simple title slide background...");
 
   const response = await ai.models.generateContent({
     model: "gemini-2.0-flash-exp-image-generation",
-    contents: `Create a breathtaking, cinematic wide-angle photograph-style image for a tech presentation title slide.
+    contents: `Create a simple, elegant abstract background for a professional presentation.
 
-    SCENE: A vast, dark cosmos transitioning into a luminous digital frontier. Imagine standing at the edge of space
-    looking down at an abstract representation of Earth's digital transformation.
+    STYLE: Clean, minimal, modern. Think Apple keynote or high-end corporate presentation.
 
-    FOREGROUND: Streams of glowing data particles and light trails converging toward a bright focal point,
-    like rivers of intelligence flowing toward a central singularity.
+    DESIGN: Soft gradient with subtle geometric shapes or gentle flowing curves.
+    Nothing busy or complex. Elegant simplicity.
 
-    MIDGROUND: Abstract geometric structures - crystalline formations or elegant wireframe architecture
-    that suggests advanced AI infrastructure, floating in space.
+    COLORS: Dark navy/purple base (#1a1a2e) with soft blue (#42a5f5) and
+    subtle teal accents. Maybe some gentle bokeh or soft light effects.
 
-    BACKGROUND: Deep space gradient from rich purple-black (#0a0a1a) to deep blue (#1a1a3e), with subtle
-    nebula-like clouds and distant stars.
+    MOOD: Professional, sophisticated, calm, trustworthy.
 
-    LIGHTING: A dramatic central light source creating god rays and lens flare effects.
-    Primary glow in bright blue (#42a5f5), secondary accents in electric green (#66bb6a).
-
-    MOOD: Awe-inspiring, like witnessing the birth of a new technological era.
-    Epic scale. Cinematic quality. The feeling of standing at the threshold of something transformative.
-
-    STYLE: Ultra-high quality, photorealistic rendering meets abstract digital art.
-    Think: Interstellar meets Blade Runner 2049 meets abstract data visualization.
-
-    CRITICAL REQUIREMENTS:
-    - 16:9 aspect ratio, landscape orientation
-    - EDGE TO EDGE coverage, no borders
-    - NO text, NO logos, NO icons, NO UI elements
-    - Upper 40% should be darker/clearer for title text overlay
-    - Rich detail throughout but not cluttered
-    - Professional presentation quality`,
+    REQUIREMENTS:
+    - 16:9 aspect ratio
+    - Very subtle and understated - NOT busy
+    - NO text, NO logos, NO icons
+    - Should work as a background with text overlaid
+    - Clean and professional, like a premium tech company presentation`,
     config: { responseModalities: ["image", "text"] },
   });
 
