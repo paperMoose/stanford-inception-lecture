@@ -4,6 +4,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Building AI-Native Companies | Stanford Inception</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/theme/black.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/highlight/monokai.css">
@@ -22,18 +25,29 @@
             --darker-bg: #12121f;
             --card-bg: #2a2a4e;
         }
-        .reveal { font-size: 32px; }
-        .reveal h1, .reveal h2 { text-transform: none; }
-        .reveal h1 { font-size: 2.2em; }
-        .reveal h2 { font-size: 1.6em; }
-        .reveal pre { box-shadow: none; width: 100%; }
-        .reveal pre code { max-height: 500px; font-size: 0.65em; line-height: 1.4; }
+        .reveal { font-size: 28px; font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; }
+        .reveal h1, .reveal h2, .reveal h3, .reveal h4 {
+            text-transform: none;
+            letter-spacing: -0.02em;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        .reveal h1 { font-size: 2.4em; font-weight: 700; }
+        .reveal h2 { font-size: 1.8em; font-weight: 600; margin-bottom: 0.8em; }
+        .reveal h3 { font-weight: 500; }
+        .reveal pre { box-shadow: none; width: 100%; max-width: 100%; }
+        .reveal pre code {
+            max-height: 450px;
+            font-size: 0.6em;
+            line-height: 1.4;
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+        }
+        .reveal code { font-family: 'JetBrains Mono', 'Fira Code', monospace; }
         .reveal .highlight-red { color: var(--accent-red); }
         .reveal .highlight-green { color: var(--accent-green); }
         .reveal .highlight-blue { color: var(--accent-blue); }
         .reveal .highlight-yellow { color: var(--accent-yellow); }
-        .reveal .small { font-size: 0.7em; }
-        .reveal .tiny { font-size: 0.55em; }
+        .reveal .small { font-size: 0.75em; }
+        .reveal .tiny { font-size: 0.6em; }
 
         /* Pipeline Diagram Styles */
         .pipeline-container {
@@ -75,17 +89,18 @@
 
         /* Stat Box Styles */
         .stat-box {
-            background: linear-gradient(135deg, var(--card-bg), #3a3a6e);
-            border-radius: 12px;
-            padding: 1.2em;
+            background: linear-gradient(145deg, var(--card-bg), #3a3a6e);
+            border-radius: 16px;
+            padding: 1.4em;
             margin: 0.5em;
             text-align: center;
-            border: 1px solid #444;
+            border: 1px solid rgba(255,255,255,0.08);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.2);
         }
-        .stat-number { font-size: 2.8em; font-weight: bold; color: var(--accent-blue); }
+        .stat-number { font-size: 2.8em; font-weight: 700; color: var(--accent-blue); }
         .stat-number.green { color: var(--accent-green); }
         .stat-number.red { color: var(--accent-red); }
-        .stat-label { font-size: 0.75em; color: #aaa; margin-top: 0.3em; }
+        .stat-label { font-size: 0.75em; color: #888; margin-top: 0.3em; }
 
         /* Bar Chart Styles */
         .bar-chart {
@@ -161,30 +176,31 @@
 
         /* Comparison Panel Styles */
         .compare-panel {
-            border-radius: 12px;
-            padding: 1em;
+            border-radius: 16px;
+            padding: 1.2em;
             flex: 1;
         }
         .compare-panel.bad {
-            background: rgba(239, 83, 80, 0.15);
-            border: 2px solid var(--accent-red);
+            background: rgba(239, 83, 80, 0.1);
+            border: 1px solid rgba(239, 83, 80, 0.3);
         }
         .compare-panel.good {
-            background: rgba(102, 187, 106, 0.15);
-            border: 2px solid var(--accent-green);
+            background: rgba(102, 187, 106, 0.1);
+            border: 1px solid rgba(102, 187, 106, 0.3);
         }
         .compare-panel h4 {
             margin-top: 0;
-            margin-bottom: 0.5em;
+            margin-bottom: 0.6em;
             display: flex;
             align-items: center;
             gap: 0.5em;
+            font-weight: 600;
         }
         .compare-panel pre {
             margin: 0;
             font-size: 0.6em;
-            background: rgba(0,0,0,0.3);
-            border-radius: 8px;
+            background: rgba(0,0,0,0.4);
+            border-radius: 10px;
         }
 
         /* Flow Chart Styles */
@@ -195,30 +211,33 @@
             gap: 0;
         }
         .flow-step {
-            background: linear-gradient(135deg, var(--card-bg), #3a3a6e);
-            border: 2px solid var(--accent-blue);
-            border-radius: 10px;
-            padding: 0.7em 1.5em;
-            min-width: 350px;
+            background: linear-gradient(145deg, var(--card-bg), #3a3a6e);
+            border: 1px solid rgba(66,165,245,0.3);
+            border-radius: 14px;
+            padding: 0.8em 1.8em;
+            min-width: 380px;
             display: flex;
             align-items: center;
-            gap: 0.8em;
+            gap: 1em;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.2);
         }
         .flow-step .step-icon {
-            font-size: 1.5em;
+            font-size: 1.4em;
             width: 1.5em;
             text-align: center;
         }
         .flow-step .step-text {
             font-size: 0.85em;
+            text-align: left;
         }
         .flow-step .step-text strong {
             color: #fff;
         }
         .flow-arrow {
             color: var(--accent-blue);
-            font-size: 1.5em;
-            line-height: 0.8;
+            font-size: 1.3em;
+            line-height: 0.7;
+            opacity: 0.7;
         }
 
         /* Do/Don't List Styles */
@@ -226,19 +245,21 @@
             list-style: none;
             padding: 0;
             margin: 0;
-            font-size: 0.85em;
+            font-size: 0.82em;
         }
         .do-dont-list li {
             display: flex;
             align-items: flex-start;
-            gap: 0.5em;
-            margin-bottom: 0.6em;
-            padding: 0.4em;
-            border-radius: 6px;
+            gap: 0.6em;
+            margin-bottom: 0.7em;
+            padding: 0.5em 0.6em;
+            border-radius: 8px;
+            text-align: left;
         }
         .do-dont-list .icon {
-            font-size: 1.2em;
+            font-size: 1.1em;
             flex-shrink: 0;
+            font-weight: 600;
         }
         .do-dont-list .dont { color: var(--accent-red); }
         .do-dont-list .do { color: var(--accent-green); }
@@ -274,20 +295,67 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 2em;
-            height: 2em;
-            border-radius: 50%;
-            font-size: 0.8em;
+            width: 2.2em;
+            height: 2.2em;
+            border-radius: 10px;
+            font-size: 0.85em;
+            font-weight: 600;
         }
-        .icon-badge.blue { background: rgba(66, 165, 245, 0.3); }
-        .icon-badge.green { background: rgba(102, 187, 106, 0.3); }
-        .icon-badge.red { background: rgba(239, 83, 80, 0.3); }
+        .icon-badge.blue { background: rgba(66, 165, 245, 0.2); color: var(--accent-blue); }
+        .icon-badge.green { background: rgba(102, 187, 106, 0.2); color: var(--accent-green); }
+        .icon-badge.red { background: rgba(239, 83, 80, 0.2); color: var(--accent-red); }
 
         /* Slide-specific adjustments */
-        .reveal section { padding: 20px; text-align: center; }
-        .reveal section > * { margin-left: auto; margin-right: auto; }
-        .reveal section svg { display: block; margin-left: auto; margin-right: auto; }
+        .reveal section {
+            padding: 30px 40px 70px 40px;
+            text-align: center;
+            display: flex !important;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .reveal section > * {
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 1100px;
+        }
+        .reveal section h1, .reveal section h2 {
+            width: 100%;
+            max-width: 1100px;
+        }
+        .reveal section svg {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 100%;
+            height: auto;
+        }
         .reveal pre { text-align: left; }
+
+        /* Professional card styling */
+        .card {
+            background: linear-gradient(135deg, var(--card-bg), #3a3a6e);
+            border-radius: 16px;
+            padding: 1.5em;
+            border: 1px solid rgba(255,255,255,0.08);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        /* Subtle background pattern */
+        .reveal .slides {
+            background: radial-gradient(ellipse at center, rgba(42,42,78,0.3) 0%, transparent 70%);
+        }
+
+        /* Responsive SVG containers */
+        .svg-container {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .svg-container svg {
+            width: 100%;
+            height: auto;
+        }
     </style>
 </head>
 <body>
@@ -295,45 +363,107 @@
 <div class="slides">
 
 <!-- Title -->
-<section>
-    <h1>Building AI-Native Companies</h1>
-    <h3 style="color: var(--accent-blue);">And Evaluating Agents Without Losing Your Mind</h3>
-    <p style="margin-top: 2em;">
-        <strong>Ryan Brandt</strong><br>
-        <span class="small" style="color: #aaa;">Vunda Labs</span>
-    </p>
-    <p class="small" style="margin-top: 2em; color: #666;">
-        Stanford Inception | February 3, 2026
-    </p>
+<section data-background-image="images/bg-title-hero.png" data-background-size="cover" data-background-opacity="0.4">
+    <div style="text-align: center;">
+        <h1 style="margin-bottom: 0.2em; font-size: 2.6em;">Building AI-Native Companies</h1>
+        <h3 style="color: var(--accent-blue); font-weight: 400; margin-top: 0; font-size: 1.3em;">And Evaluating Agents Without Losing Your Mind</h3>
+        <div style="width: 100px; height: 3px; background: linear-gradient(90deg, var(--accent-blue), var(--accent-green)); margin: 2.5em auto; border-radius: 2px;"></div>
+        <div>
+            <p style="margin: 0; font-size: 1.5em; font-weight: 600;">Ryan Brandt</p>
+            <p style="margin: 0.4em 0 0 0; color: #888; font-size: 1em;">Vunda AI</p>
+        </div>
+        <p style="margin-top: 3em; color: #555; font-size: 0.85em; letter-spacing: 0.08em; font-weight: 500;">
+            STANFORD INCEPTION &nbsp;·&nbsp; FEBRUARY 3, 2026
+        </p>
+    </div>
 </section>
 
 <!-- Agenda -->
 <section>
     <h2>Today's Agenda</h2>
-    <div style="display: flex; flex-direction: column; gap: 0.8em; margin: 1em auto; max-width: 500px; text-align: left;">
-        <div style="display: flex; align-items: center; gap: 1em;">
-            <span class="icon-badge blue">1</span>
-            <span><strong>AI-Native Operations</strong> — What it actually means</span>
+    <div style="display: flex; flex-direction: column; gap: 1.2em; margin: 1.5em auto; max-width: 550px; text-align: left;">
+        <div style="display: flex; align-items: center; gap: 1.2em; padding: 0.6em 1em; background: rgba(66,165,245,0.08); border-radius: 12px; border-left: 3px solid var(--accent-blue);">
+            <span class="icon-badge blue" style="font-weight: 600;">1</span>
+            <span><strong>AI-Native Operations</strong><br><span style="color: #888; font-size: 0.85em;">What it actually means</span></span>
         </div>
-        <div style="display: flex; align-items: center; gap: 1em;">
-            <span class="icon-badge blue">2</span>
-            <span><strong>Automated Consulting</strong> — Live pipeline demo</span>
+        <div style="display: flex; align-items: center; gap: 1.2em; padding: 0.6em 1em; background: rgba(66,165,245,0.08); border-radius: 12px; border-left: 3px solid var(--accent-blue);">
+            <span class="icon-badge blue" style="font-weight: 600;">2</span>
+            <span><strong>Automated Consulting</strong><br><span style="color: #888; font-size: 0.85em;">Live pipeline demo</span></span>
         </div>
-        <div style="display: flex; align-items: center; gap: 1em;">
-            <span class="icon-badge blue">3</span>
-            <span><strong>Agent Evals</strong> — 179 failures analyzed</span>
+        <div style="display: flex; align-items: center; gap: 1.2em; padding: 0.6em 1em; background: rgba(66,165,245,0.08); border-radius: 12px; border-left: 3px solid var(--accent-blue);">
+            <span class="icon-badge blue" style="font-weight: 600;">3</span>
+            <span><strong>Agent Evals</strong><br><span style="color: #888; font-size: 0.85em;">179 failures analyzed</span></span>
         </div>
-        <div style="display: flex; align-items: center; gap: 1em;">
-            <span class="icon-badge blue">4</span>
-            <span><strong>Q&A</strong> — The good stuff</span>
+        <div style="display: flex; align-items: center; gap: 1.2em; padding: 0.6em 1em; background: rgba(66,165,245,0.08); border-radius: 12px; border-left: 3px solid var(--accent-blue);">
+            <span class="icon-badge blue" style="font-weight: 600;">4</span>
+            <span><strong>Q&A</strong><br><span style="color: #888; font-size: 0.85em;">The good stuff</span></span>
         </div>
     </div>
 </section>
 
 <!-- Part 1: AI Native -->
+<section data-background-image="images/bg-part1-ai-native.png" data-background-size="cover" data-background-opacity="0.35">
+    <div style="text-align: center;">
+        <p style="color: var(--accent-blue); font-size: 1.2em; margin: 0; letter-spacing: 0.15em; text-transform: uppercase;">Part 1</p>
+        <h2 style="margin-top: 0.3em; font-size: 2.2em;">What Does "AI Native" Mean?</h2>
+    </div>
+</section>
+
+<!-- Industry Voices - Quote Collage -->
 <section>
-    <h1>Part 1</h1>
-    <h2 style="color: var(--accent-blue);">What Does "AI Native" Mean?</h2>
+    <h2>What the Fastest Are Doing</h2>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.2em; margin-top: 1em; font-size: 0.78em; max-width: 920px;">
+        <!-- Karpathy -->
+        <div style="background: linear-gradient(145deg, #1a1d21, #16181c); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 1.2em; text-align: left; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
+            <div style="display: flex; align-items: center; gap: 0.6em; margin-bottom: 0.6em;">
+                <div style="width: 42px; height: 42px; background: linear-gradient(135deg, #1da1f2, #0d8ecf); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1em; font-weight: 600; color: #fff;">AK</div>
+                <div>
+                    <div style="font-weight: 600; color: #fff;">Andrej Karpathy</div>
+                    <div style="color: #666; font-size: 0.8em;">@karpathy · Dec 2025</div>
+                </div>
+            </div>
+            <p style="margin: 0; color: #d1d5db; line-height: 1.5;">"I've never felt this much behind as a programmer. The profession is being <span style="color: var(--accent-blue); font-weight: 500;">dramatically refactored</span>..."</p>
+        </div>
+
+        <!-- Dario -->
+        <div style="background: linear-gradient(145deg, #1a1d21, #16181c); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 1.2em; text-align: left; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
+            <div style="display: flex; align-items: center; gap: 0.6em; margin-bottom: 0.6em;">
+                <div style="width: 42px; height: 42px; background: linear-gradient(135deg, #d4a574, #c4956a); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1em; font-weight: 600; color: #fff;">DA</div>
+                <div>
+                    <div style="font-weight: 600; color: #fff;">Dario Amodei</div>
+                    <div style="color: #666; font-size: 0.8em;">Anthropic CEO · Mar 2025</div>
+                </div>
+            </div>
+            <p style="margin: 0; color: #d1d5db; line-height: 1.5;">"We'll be there in 3-6 months—where AI is writing <span style="color: var(--accent-green); font-weight: 500;">90% of the code</span>."</p>
+        </div>
+
+        <!-- Boris -->
+        <div style="background: linear-gradient(145deg, #1a1d21, #16181c); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 1.2em; text-align: left; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
+            <div style="display: flex; align-items: center; gap: 0.6em; margin-bottom: 0.6em;">
+                <div style="width: 42px; height: 42px; background: linear-gradient(135deg, #9c27b0, #7b1fa2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1em; font-weight: 600; color: #fff;">BC</div>
+                <div>
+                    <div style="font-weight: 600; color: #fff;">Boris Cherny</div>
+                    <div style="color: #666; font-size: 0.8em;">Claude Code Creator · Jan 2026</div>
+                </div>
+            </div>
+            <p style="margin: 0; color: #d1d5db; line-height: 1.5;">"I run <span style="color: var(--accent-yellow); font-weight: 500;">5 Claudes in parallel</span> in my terminal. <span style="color: var(--accent-blue); font-weight: 500;">80-90%</span> of Claude Code is written using Claude Code."</p>
+        </div>
+
+        <!-- Theo -->
+        <div style="background: linear-gradient(145deg, #1a1d21, #16181c); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 1.2em; text-align: left; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
+            <div style="display: flex; align-items: center; gap: 0.6em; margin-bottom: 0.6em;">
+                <div style="width: 42px; height: 42px; background: linear-gradient(135deg, #ef5350, #d32f2f); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1em; font-weight: 600; color: #fff;">T3</div>
+                <div>
+                    <div style="font-weight: 600; color: #fff;">Theo (t3.gg)</div>
+                    <div style="color: #666; font-size: 0.8em;">@theo · Dec 2025</div>
+                </div>
+            </div>
+            <p style="margin: 0; color: #d1d5db; line-height: 1.5;">"In teams I advise, <span style="color: var(--accent-green); font-weight: 500;">70-90% of code</span> is now generated by AI. Not with assistance—<span style="color: var(--accent-yellow); font-weight: 500;">directly generated</span>."</p>
+        </div>
+    </div>
+    <p class="fragment" style="margin-top: 1.2em; color: #666; font-size: 0.9em;">
+        This isn't hype. It's what top performers are doing <em>right now</em>.
+    </p>
 </section>
 
 <section>
@@ -363,48 +493,51 @@
 
 <section>
     <h2>What AI Native <span class="highlight-green">IS</span></h2>
-    <div style="background: linear-gradient(135deg, var(--card-bg), #3a3a6e); border: 2px solid var(--accent-green); border-radius: 16px; padding: 1.5em; margin: 1em auto; max-width: 700px;">
-        <p style="font-size: 1.3em; margin: 0;">
+    <div style="background: linear-gradient(135deg, var(--card-bg), #3a3a6e); border: 2px solid var(--accent-green); border-radius: 20px; padding: 2em 3em; margin: 1.5em auto; max-width: 650px;">
+        <p style="font-size: 1.4em; margin: 0; line-height: 1.5;">
             System design where AI is a<br>
             <strong style="color: var(--accent-green);">first-class execution layer</strong>
         </p>
     </div>
-    <p class="fragment" style="margin-top: 1.5em; font-size: 1.1em;">
+    <p class="fragment" style="margin-top: 2em; font-size: 1.2em;">
         Not a tool you use. An <strong>actor that does work</strong>.
     </p>
 </section>
 
 <section>
     <h2>The Test</h2>
-    <div style="background: var(--card-bg); border-radius: 12px; padding: 1.5em; margin: 1em auto; max-width: 600px;">
-        <p style="font-size: 1.2em; margin: 0;">
+    <div style="background: var(--card-bg); border-radius: 16px; padding: 2em 3em; margin: 1.5em auto; max-width: 600px;">
+        <p style="font-size: 1.3em; margin: 0; line-height: 1.5;">
             Can unstructured input become<br>
             <strong style="color: var(--accent-blue);">executed work product</strong><br>
             with zero human in the loop?
         </p>
     </div>
-    <div class="fragment" style="margin-top: 1.5em; display: flex; justify-content: center; gap: 0.5em; align-items: center; font-size: 1em;">
-        <span style="background: #333; padding: 0.4em 0.8em; border-radius: 6px;">Meeting notes</span>
-        <span style="color: var(--accent-blue);">→</span>
-        <span style="background: #333; padding: 0.4em 0.8em; border-radius: 6px;">Code</span>
-        <span style="color: var(--accent-blue);">→</span>
-        <span style="background: #333; padding: 0.4em 0.8em; border-radius: 6px;">Commit</span>
-        <span style="color: var(--accent-blue);">→</span>
-        <span style="background: var(--accent-green); padding: 0.4em 0.8em; border-radius: 6px; color: #000;">PR</span>
+    <div class="fragment" style="margin-top: 2em; display: flex; justify-content: center; gap: 0.6em; align-items: center; font-size: 0.95em;">
+        <span style="background: #333; padding: 0.5em 1em; border-radius: 8px;">Meeting notes</span>
+        <span style="color: var(--accent-blue); font-size: 1.2em;">→</span>
+        <span style="background: #333; padding: 0.5em 1em; border-radius: 8px;">Code</span>
+        <span style="color: var(--accent-blue); font-size: 1.2em;">→</span>
+        <span style="background: #333; padding: 0.5em 1em; border-radius: 8px;">Commit</span>
+        <span style="color: var(--accent-blue); font-size: 1.2em;">→</span>
+        <span style="background: var(--accent-green); padding: 0.5em 1em; border-radius: 8px; color: #000; font-weight: 600;">PR</span>
     </div>
 </section>
 
 <!-- Part 2: Automated Consulting -->
-<section>
-    <h1>Part 2</h1>
-    <h2 style="color: var(--accent-blue);">Automated Consulting Pipeline</h2>
-    <p class="small" style="color: #888;">Live demo time</p>
+<section data-background-image="images/bg-part2-pipeline.png" data-background-size="cover" data-background-opacity="0.35">
+    <div style="text-align: center;">
+        <p style="color: var(--accent-blue); font-size: 1.2em; margin: 0; letter-spacing: 0.15em; text-transform: uppercase;">Part 2</p>
+        <h2 style="margin-top: 0.3em; font-size: 2.2em;">Automated Consulting Pipeline</h2>
+        <p style="color: #666; margin-top: 1em; font-size: 1.1em;">Live demo time</p>
+    </div>
 </section>
 
 <!-- Pipeline Diagram - BIG SVG FLOWCHART -->
 <section>
     <h2>The Pipeline</h2>
-    <svg width="1100" height="500" viewBox="0 0 1100 500" style="display: block; margin: 0 auto;">
+    <div class="svg-container">
+    <svg viewBox="0 0 1100 420" preserveAspectRatio="xMidYMid meet">
             <!-- Stage 1: Input -->
             <rect x="50" y="60" width="220" height="120" rx="16" fill="#2a2a4e" stroke="#42a5f5" stroke-width="3"/>
             <text x="160" y="105" text-anchor="middle" fill="#fff" font-size="42">📥</text>
@@ -473,13 +606,14 @@
                 </marker>
             </defs>
         </svg>
+    </div>
 </section>
 
 <!-- Spec Format - Full Code Example -->
-<section>
+<section data-background-image="images/spec-driven.png" data-background-size="cover" data-background-opacity="0.12">
     <h2>The Spec Format</h2>
-    <div style="display: flex; gap: 1em; justify-content: center;">
-            <div style="flex: 2;">
+    <div style="display: flex; gap: 1.5em; justify-content: center; max-width: 1000px;">
+            <div style="flex: 2; max-width: 600px;">
                 <pre><code class="language-markdown" style="font-size: 0.55em;">Repo: ~/git/acme-api
 Client: acme_corp
 Intent: Add JWT-based user authentication to the REST API
@@ -531,7 +665,7 @@ Files to modify:
 <!-- Why This Works -->
 <section>
     <h2>Why This Works</h2>
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1em; margin-top: 1em; max-width: 800px; margin-left: auto; margin-right: auto;">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.2em; margin-top: 1.5em; max-width: 700px;">
             <div class="stat-box">
                 <div style="font-size: 2em; margin-bottom: 0.2em;">✓</div>
                 <h4 style="color: var(--accent-green); margin: 0;">Checkable</h4>
@@ -558,7 +692,7 @@ Files to modify:
 <!-- Demo Commands -->
 <section>
     <h2>Demo: Transcript → PR</h2>
-    <div style="background: var(--darker-bg); border-radius: 12px; padding: 1em; margin-top: 1em; max-width: 700px; margin-left: auto; margin-right: auto;">
+    <div style="background: var(--darker-bg); border-radius: 16px; padding: 1.5em; margin-top: 1.5em; max-width: 650px; border: 1px solid #333;">
             <pre><code class="language-bash" style="font-size: 0.7em;"># From meeting notes to spec
 python pipeline.py spec notes.txt
 
@@ -580,34 +714,34 @@ python execute_spec.py \
 </section>
 
 <!-- Context as Asset -->
-<section>
+<section data-background-image="images/context-compounding.png" data-background-size="600px" data-background-position="center bottom" data-background-opacity="0.12">
     <h2>Context as Appreciating Asset</h2>
-    <div style="background: var(--card-bg); border-radius: 12px; padding: 1em; margin-top: 1em; max-width: 900px; margin-left: auto; margin-right: auto;">
+    <div style="background: var(--card-bg); border-radius: 14px; padding: 1.2em 1.5em; margin-top: 0.8em; max-width: 800px;">
             <div style="display: flex; align-items: center; gap: 2em;">
                 <div style="flex: 1;">
-                    <div class="bar-chart">
-                        <div class="bar-container">
+                    <div class="bar-chart" style="margin: 0.5em 0;">
+                        <div class="bar-container" style="margin: 0.6em 0;">
                             <div class="bar-label"><span>Week 1</span></div>
-                            <div class="bar-track"><div class="bar-fill blue" style="width: 20%;">20%</div></div>
+                            <div class="bar-track" style="height: 32px;"><div class="bar-fill blue" style="width: 20%;">20%</div></div>
                         </div>
-                        <div class="bar-container">
+                        <div class="bar-container" style="margin: 0.6em 0;">
                             <div class="bar-label"><span>Week 4</span></div>
-                            <div class="bar-track"><div class="bar-fill blue" style="width: 50%;">50%</div></div>
+                            <div class="bar-track" style="height: 32px;"><div class="bar-fill blue" style="width: 50%;">50%</div></div>
                         </div>
-                        <div class="bar-container">
+                        <div class="bar-container" style="margin: 0.6em 0;">
                             <div class="bar-label"><span>Week 8</span></div>
-                            <div class="bar-track"><div class="bar-fill blue" style="width: 80%;">80%</div></div>
+                            <div class="bar-track" style="height: 32px;"><div class="bar-fill blue" style="width: 80%;">80%</div></div>
                         </div>
-                        <div class="bar-container">
+                        <div class="bar-container" style="margin: 0.6em 0;">
                             <div class="bar-label"><span>Week 12</span></div>
-                            <div class="bar-track"><div class="bar-fill green" style="width: 95%;">95%</div></div>
+                            <div class="bar-track" style="height: 32px;"><div class="bar-fill green" style="width: 95%;">95%</div></div>
                         </div>
                     </div>
-                    <p class="tiny" style="text-align: center; color: #888;">Accuracy without human intervention</p>
+                    <p class="tiny" style="text-align: center; color: #888; margin-top: 0.3em;">Accuracy without human intervention</p>
                 </div>
                 <div style="flex: 1; font-size: 0.85em;">
-                    <p>Every interaction adds to the context:</p>
-                    <ul style="margin-top: 0.5em;">
+                    <p style="margin: 0;">Every interaction adds to the context:</p>
+                    <ul style="margin-top: 0.5em; margin-bottom: 0;">
                         <li class="fragment">Client preferences accumulate</li>
                         <li class="fragment">Past decisions inform future ones</li>
                         <li class="fragment">The more you use it, the better it gets</li>
@@ -621,16 +755,18 @@ python execute_spec.py \
 </section>
 
 <!-- Part 3: Agent Evals -->
-<section>
-    <h1>Part 3</h1>
-    <h2 style="color: var(--accent-blue);">Agent Evaluation</h2>
-    <p class="small" style="color: #888;">179 failures analyzed</p>
+<section data-background-image="images/bg-part3-evaluation.png" data-background-size="cover" data-background-opacity="0.35">
+    <div style="text-align: center;">
+        <p style="color: var(--accent-blue); font-size: 1.2em; margin: 0; letter-spacing: 0.15em; text-transform: uppercase;">Part 3</p>
+        <h2 style="margin-top: 0.3em; font-size: 2.2em;">Agent Evaluation</h2>
+        <p style="color: #666; margin-top: 1em; font-size: 1.1em;">179 failures analyzed</p>
+    </div>
 </section>
 
 <!-- Cold Start Paradox -->
 <section>
     <h2>The Cold Start Paradox</h2>
-    <div style="font-size: 1.1em; line-height: 2; max-width: 700px; margin: 0 auto;">
+    <div style="font-size: 1em; line-height: 2; max-width: 650px;">
             <p class="fragment" style="background: var(--card-bg); padding: 0.5em 1em; border-radius: 8px; margin: 0.3em 0;">"I need evals to ship safely"</p>
             <p class="fragment" style="color: var(--accent-blue); font-size: 1.5em; margin: 0.2em 0;">↓</p>
             <p class="fragment" style="background: var(--card-bg); padding: 0.5em 1em; border-radius: 8px; margin: 0.3em 0;">"But I need production data for evals"</p>
@@ -644,8 +780,12 @@ python execute_spec.py \
 
 <!-- Resolution -->
 <section>
+    <div style="position: absolute; top: 20px; right: 40px; opacity: 0.7;">
+        <img src="images/human-in-loop.png" alt="" style="width: 100px; height: 100px;">
+    </div>
     <h2>The Resolution: <span style="color: var(--accent-green);">Human-in-the-loop bootstrap</span></h2>
-    <svg width="900" height="520" viewBox="0 0 900 520" style="margin-top: 0.5em;">
+    <div class="svg-container" style="max-width: 800px;">
+    <svg viewBox="0 0 900 500" preserveAspectRatio="xMidYMid meet">
         <!-- Step 1 -->
         <rect x="200" y="20" width="500" height="70" rx="12" fill="#2a2a4e" stroke="#42a5f5" stroke-width="2"/>
         <text x="240" y="65" fill="#fff" font-size="28">1️⃣</text>
@@ -695,51 +835,52 @@ python execute_spec.py \
             </marker>
         </defs>
     </svg>
+    </div>
 </section>
 
 <!-- 179 Rejections Stats - BIG PIE CHART -->
 <section>
     <h2>Case Study: Scheduling Assistant</h2>
-    <div style="display: flex; align-items: center; justify-content: center; gap: 3em; margin-top: 1em;">
+    <div style="display: flex; align-items: center; justify-content: center; gap: 5em; margin-top: 1.5em; max-width: 900px;">
         <!-- Large SVG Pie Chart -->
-        <svg width="400" height="400" viewBox="0 0 400 400">
+        <svg width="320" height="320" viewBox="0 0 400 400" style="filter: drop-shadow(0 4px 20px rgba(0,0,0,0.3));">
             <!-- 42% blue slice (76 actionable) - 42% = 396 of 942 circumference -->
             <circle cx="200" cy="200" r="150" fill="transparent"
-                stroke="#42a5f5" stroke-width="80"
+                stroke="#42a5f5" stroke-width="70"
                 stroke-dasharray="396 942" stroke-dashoffset="0"
                 transform="rotate(-90 200 200)"/>
             <!-- 58% gray slice (103 noise) -->
             <circle cx="200" cy="200" r="150" fill="transparent"
-                stroke="#555" stroke-width="80"
+                stroke="#3a3a5e" stroke-width="70"
                 stroke-dasharray="546 942" stroke-dashoffset="-396"
                 transform="rotate(-90 200 200)"/>
             <!-- Center circle -->
-            <circle cx="200" cy="200" r="100" fill="#1a1a2e"/>
+            <circle cx="200" cy="200" r="105" fill="#1a1a2e"/>
             <!-- Center text -->
-            <text x="200" y="185" text-anchor="middle" fill="#fff" font-size="48" font-weight="bold">179</text>
-            <text x="200" y="220" text-anchor="middle" fill="#888" font-size="18">rejections</text>
+            <text x="200" y="190" text-anchor="middle" fill="#fff" font-size="52" font-weight="700" font-family="Inter, sans-serif">179</text>
+            <text x="200" y="225" text-anchor="middle" fill="#666" font-size="16" font-family="Inter, sans-serif">rejections</text>
         </svg>
         <!-- Legend -->
-        <div style="font-size: 1.1em; text-align: left;">
-            <div style="display: flex; align-items: center; gap: 1em; margin-bottom: 1.2em;">
-                <div style="width: 50px; height: 50px; background: #42a5f5; border-radius: 8px;"></div>
+        <div style="font-size: 1em; text-align: left;">
+            <div style="display: flex; align-items: center; gap: 1.2em; margin-bottom: 1.5em;">
+                <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #42a5f5, #1e88e5); border-radius: 12px;"></div>
                 <div>
-                    <div style="font-size: 1.8em; font-weight: bold; color: #42a5f5;">76 <span style="font-size: 0.6em; color: #888;">(42%)</span></div>
-                    <div style="color: #aaa;">Actionable</div>
-                    <div style="color: #666; font-size: 0.7em;">Led to prompt fixes</div>
+                    <div style="font-size: 1.9em; font-weight: 700; color: #42a5f5;">76 <span style="font-size: 0.5em; color: #666; font-weight: 500;">(42%)</span></div>
+                    <div style="color: #aaa; font-size: 0.95em;">Actionable</div>
+                    <div style="color: #555; font-size: 0.75em;">Led to prompt fixes</div>
                 </div>
             </div>
-            <div style="display: flex; align-items: center; gap: 1em; margin-bottom: 1.2em;">
-                <div style="width: 50px; height: 50px; background: #555; border-radius: 8px;"></div>
+            <div style="display: flex; align-items: center; gap: 1.2em; margin-bottom: 1.5em;">
+                <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #4a4a6e, #3a3a5e); border-radius: 12px;"></div>
                 <div>
-                    <div style="font-size: 1.8em; font-weight: bold; color: #888;">103 <span style="font-size: 0.6em; color: #666;">(58%)</span></div>
-                    <div style="color: #aaa;">Noise / Uncategorized</div>
-                    <div style="color: #666; font-size: 0.7em;">Edge cases, user tests, etc.</div>
+                    <div style="font-size: 1.9em; font-weight: 700; color: #888;">103 <span style="font-size: 0.5em; color: #555; font-weight: 500;">(58%)</span></div>
+                    <div style="color: #aaa; font-size: 0.95em;">Noise / Uncategorized</div>
+                    <div style="color: #555; font-size: 0.75em;">Edge cases, user tests, etc.</div>
                 </div>
             </div>
-            <div style="margin-top: 1em; padding: 0.8em; background: rgba(66,165,245,0.1); border-radius: 8px; border-left: 3px solid #42a5f5;">
-                <div style="color: #42a5f5; font-weight: bold;">Key insight:</div>
-                <div style="color: #aaa; font-size: 0.85em;">76 failures → ~20 prompt rules</div>
+            <div style="margin-top: 1.5em; padding: 1em 1.2em; background: rgba(66,165,245,0.08); border-radius: 12px; border-left: 3px solid #42a5f5;">
+                <div style="color: #42a5f5; font-weight: 600; font-size: 0.9em;">Key insight:</div>
+                <div style="color: #aaa; font-size: 0.9em; margin-top: 0.3em;">76 failures → ~20 prompt rules</div>
             </div>
         </div>
     </div>
@@ -748,7 +889,8 @@ python execute_spec.py \
 <!-- Failure Categories - BIG HORIZONTAL BAR CHART -->
 <section>
     <h2>Top Actionable Categories</h2>
-    <svg width="1000" height="450" viewBox="0 0 1000 450" style="margin-top: 0.5em; display: block; margin-left: auto; margin-right: auto;">
+    <div class="svg-container" style="max-width: 950px;">
+    <svg viewBox="0 0 1000 430" preserveAspectRatio="xMidYMid meet">
             <!-- Y-axis labels and bars -->
             <!-- STOP_IGNORED - 23 -->
             <text x="200" y="55" text-anchor="end" fill="#fff" font-size="18" font-family="monospace">STOP_IGNORED</text>
@@ -804,12 +946,41 @@ python execute_spec.py \
                 (88 more were uncategorized noise - edge cases, user tests, etc.)
             </text>
         </svg>
+    </div>
+</section>
+
+<!-- Key Insight - Prompts Are The Problem -->
+<section data-background-image="images/bg-key-insight.png" data-background-size="cover" data-background-opacity="0.25">
+    <h2>Key Insight</h2>
+    <div style="background: linear-gradient(135deg, var(--card-bg), #3a3a6e); border-radius: 20px; padding: 2em 3em; margin: 1em auto; max-width: 750px; border: 2px solid var(--accent-blue);">
+        <p style="font-size: 1.6em; margin: 0; line-height: 1.5;">
+            Your <span style="color: var(--accent-red);">prompts</span> are usually<br>
+            the problem, not the <span style="color: var(--accent-blue);">model</span>.
+        </p>
+    </div>
+    <div style="margin-top: 2em; display: flex; justify-content: center; align-items: center; gap: 2.5em;">
+        <div class="fragment" style="text-align: center;">
+            <div style="font-size: 2.8em; font-weight: bold; color: var(--accent-green);">76</div>
+            <div style="color: #888; font-size: 0.9em;">failures fixed<br>with prompt rules</div>
+        </div>
+        <div class="fragment" style="text-align: center;">
+            <div style="font-size: 2.5em; font-weight: bold; color: var(--accent-blue);">→</div>
+        </div>
+        <div class="fragment" style="text-align: center;">
+            <div style="font-size: 2.8em; font-weight: bold; color: var(--accent-yellow);">~20</div>
+            <div style="color: #888; font-size: 0.9em;">prompt rules<br>added</div>
+        </div>
+    </div>
+    <p class="fragment" style="margin-top: 2em; color: #888; font-size: 1.1em;">
+        Before blaming the model, check your spec.
+    </p>
 </section>
 
 <!-- STOP_IGNORED Before/After - BIG VISUAL -->
 <section>
     <h2>Example: STOP_IGNORED</h2>
-    <svg width="1100" height="480" viewBox="0 0 1100 480" style="display: block; margin: 0 auto;">
+    <div class="svg-container" style="max-width: 1000px;">
+    <svg viewBox="0 0 1100 450" preserveAspectRatio="xMidYMid meet">
             <!-- BEFORE panel -->
             <rect x="30" y="20" width="500" height="400" rx="16" fill="rgba(239,83,80,0.1)" stroke="#ef5350" stroke-width="3"/>
             <text x="280" y="60" text-anchor="middle" fill="#ef5350" font-size="28" font-weight="bold">✗ BEFORE</text>
@@ -865,59 +1036,98 @@ python execute_spec.py \
             <!-- Result -->
             <text x="840" y="410" text-anchor="middle" fill="#66bb6a" font-size="24" font-weight="bold">23 → 0 failures</text>
         </svg>
+    </div>
+</section>
+
+<!-- One Fix = Many Failures -->
+<section>
+    <h2>The ROI of Prompt Fixes</h2>
+    <div class="svg-container" style="max-width: 900px;">
+    <svg viewBox="0 0 900 380" preserveAspectRatio="xMidYMid meet">
+        <!-- Left side: Single rule -->
+        <rect x="40" y="20" width="280" height="220" rx="20" fill="rgba(102,187,106,0.12)" stroke="#66bb6a" stroke-width="2"/>
+        <text x="180" y="60" text-anchor="middle" fill="#66bb6a" font-size="18" font-weight="600">1 Prompt Rule</text>
+        <text x="180" y="125" text-anchor="middle" fill="#fff" font-size="64" font-weight="700">1</text>
+        <text x="180" y="170" text-anchor="middle" fill="#aaa" font-size="13" font-family="monospace">"If user says STOP,</text>
+        <text x="180" y="188" text-anchor="middle" fill="#aaa" font-size="13" font-family="monospace">immediately halt"</text>
+        <text x="180" y="225" text-anchor="middle" fill="#666" font-size="12">~10 lines of prompt text</text>
+
+        <!-- Center arrow section -->
+        <text x="448" y="100" text-anchor="middle" fill="#66bb6a" font-size="14" font-weight="600">eliminates</text>
+        <path d="M 340 130 L 555 130" stroke="#66bb6a" stroke-width="5" fill="none" marker-end="url(#bigGreenArrow)"/>
+
+        <!-- Right side: Many failures -->
+        <rect x="580" y="20" width="280" height="220" rx="20" fill="rgba(239,83,80,0.12)" stroke="#ef5350" stroke-width="2"/>
+        <text x="720" y="60" text-anchor="middle" fill="#ef5350" font-size="18" font-weight="600">23 Failures</text>
+        <text x="720" y="125" text-anchor="middle" fill="#fff" font-size="64" font-weight="700">23</text>
+        <text x="720" y="170" text-anchor="middle" fill="#aaa" font-size="13">STOP_IGNORED rejections</text>
+        <text x="720" y="195" text-anchor="middle" fill="#666" font-size="12">Frustrated users, manual cleanup</text>
+        <text x="720" y="218" text-anchor="middle" fill="#666" font-size="12">Trust erosion with each occurrence</text>
+
+        <!-- Bottom insight -->
+        <rect x="175" y="280" width="550" height="55" rx="14" fill="rgba(42,42,78,0.8)" stroke="#42a5f5" stroke-width="2"/>
+        <text x="450" y="315" text-anchor="middle" fill="#fff" font-size="17">Top 5 categories = <tspan fill="#66bb6a" font-weight="bold">60 failures</tspan> fixed with <tspan fill="#ffca28" font-weight="bold">5 rules</tspan></text>
+
+        <defs>
+            <marker id="bigGreenArrow" markerWidth="18" markerHeight="12" refX="16" refY="6" orient="auto">
+                <polygon points="0 0, 18 6, 0 12" fill="#66bb6a"/>
+            </marker>
+        </defs>
+    </svg>
+    </div>
 </section>
 
 <!-- The Pattern - Vertical Flowchart -->
 <section>
     <h2>The Pattern: Failure → Fix</h2>
-    <div class="flow-vertical" style="font-size: 0.9em;">
-            <div class="flow-step">
-                <span class="step-icon" style="color: var(--accent-red);">🚨</span>
-                <span class="step-text"><strong>Failure Category</strong><br><span style="color: #888;">Group similar rejections</span></span>
+    <div class="flow-vertical" style="font-size: 0.8em; margin-top: 0.5em;">
+            <div class="flow-step" style="padding: 0.5em 1.2em; min-width: 320px;">
+                <span class="step-icon" style="color: var(--accent-red); font-size: 1.2em;">🚨</span>
+                <span class="step-text"><strong>Failure Category</strong> — <span style="color: #888;">Group similar rejections</span></span>
             </div>
-            <div class="flow-arrow">↓</div>
-            <div class="flow-step">
-                <span class="step-icon" style="color: var(--accent-yellow);">💬</span>
-                <span class="step-text"><strong>User Feedback</strong><br><span style="color: #888;">"Why did you reject this?"</span></span>
+            <div class="flow-arrow" style="font-size: 1em; margin: 0.1em 0;">↓</div>
+            <div class="flow-step" style="padding: 0.5em 1.2em; min-width: 320px;">
+                <span class="step-icon" style="color: var(--accent-yellow); font-size: 1.2em;">💬</span>
+                <span class="step-text"><strong>User Feedback</strong> — <span style="color: #888;">"Why did you reject this?"</span></span>
             </div>
-            <div class="flow-arrow">↓</div>
-            <div class="flow-step">
-                <span class="step-icon" style="color: var(--accent-blue);">🔍</span>
-                <span class="step-text"><strong>Root Cause</strong><br><span style="color: #888;">What was missing from the spec?</span></span>
+            <div class="flow-arrow" style="font-size: 1em; margin: 0.1em 0;">↓</div>
+            <div class="flow-step" style="padding: 0.5em 1.2em; min-width: 320px;">
+                <span class="step-icon" style="color: var(--accent-blue); font-size: 1.2em;">🔍</span>
+                <span class="step-text"><strong>Root Cause</strong> — <span style="color: #888;">What was missing from the spec?</span></span>
             </div>
-            <div class="flow-arrow">↓</div>
-            <div class="flow-step">
-                <span class="step-icon" style="color: var(--accent-green);">🔧</span>
-                <span class="step-text"><strong>Prompt Fix</strong><br><span style="color: #888;">Add explicit rule or constraint</span></span>
+            <div class="flow-arrow" style="font-size: 1em; margin: 0.1em 0;">↓</div>
+            <div class="flow-step" style="padding: 0.5em 1.2em; min-width: 320px;">
+                <span class="step-icon" style="color: var(--accent-green); font-size: 1.2em;">🔧</span>
+                <span class="step-text"><strong>Prompt Fix</strong> — <span style="color: #888;">Add explicit rule or constraint</span></span>
             </div>
-            <div class="flow-arrow">↓</div>
-            <div class="flow-step" style="border-color: var(--accent-green);">
-                <span class="step-icon" style="color: var(--accent-green);">✅</span>
-                <span class="step-text"><strong>Eval Test</strong><br><span style="color: #888;">Catches this failure forever</span></span>
+            <div class="flow-arrow" style="font-size: 1em; margin: 0.1em 0;">↓</div>
+            <div class="flow-step" style="padding: 0.5em 1.2em; min-width: 320px; border-color: var(--accent-green);">
+                <span class="step-icon" style="color: var(--accent-green); font-size: 1.2em;">✅</span>
+                <span class="step-text"><strong>Eval Test</strong> — <span style="color: #888;">Catches this failure forever</span></span>
             </div>
         </div>
 </section>
 
 <!-- Failures Are Data -->
-<section>
+<section data-background-image="images/bg-failures-data.png" data-background-size="cover" data-background-opacity="0.25">
     <h2>Failures Are Data</h2>
-    <div style="background: linear-gradient(135deg, var(--card-bg), #3a3a6e); border-radius: 16px; padding: 1.5em; margin: 1em auto; max-width: 700px;">
-        <p style="font-size: 1.3em; margin: 0;">
+    <div style="background: linear-gradient(135deg, var(--card-bg), #3a3a6e); border-radius: 18px; padding: 1.5em 2.5em; margin: 1em auto; max-width: 600px;">
+        <p style="font-size: 1.3em; margin: 0; line-height: 1.4;">
             Every rejection is a <strong style="color: var(--accent-green);">prompt fix</strong><br>
             waiting to happen.
         </p>
     </div>
-    <div style="margin: 1em auto; max-width: 600px;">
-        <div class="fragment" style="display: flex; align-items: center; gap: 1em; margin: 0.6em 0; padding: 0.5em; background: rgba(102,187,106,0.1); border-radius: 8px;">
-            <span style="color: var(--accent-green); font-size: 1.3em;">✓</span>
+    <div style="margin: 1em auto; max-width: 550px;">
+        <div class="fragment" style="display: flex; align-items: center; gap: 0.8em; margin: 0.5em 0; padding: 0.5em 0.8em; background: rgba(102,187,106,0.1); border-radius: 8px; font-size: 0.95em;">
+            <span style="color: var(--accent-green); font-size: 1.2em;">✓</span>
             <span>Don't hide failures — <strong>categorize them</strong></span>
         </div>
-        <div class="fragment" style="display: flex; align-items: center; gap: 1em; margin: 0.6em 0; padding: 0.5em; background: rgba(102,187,106,0.1); border-radius: 8px;">
-            <span style="color: var(--accent-green); font-size: 1.3em;">✓</span>
+        <div class="fragment" style="display: flex; align-items: center; gap: 0.8em; margin: 0.5em 0; padding: 0.5em 0.8em; background: rgba(102,187,106,0.1); border-radius: 8px; font-size: 0.95em;">
+            <span style="color: var(--accent-green); font-size: 1.2em;">✓</span>
             <span>Don't blame the model — <strong>fix the spec</strong></span>
         </div>
-        <div class="fragment" style="display: flex; align-items: center; gap: 1em; margin: 0.6em 0; padding: 0.5em; background: rgba(102,187,106,0.1); border-radius: 8px;">
-            <span style="color: var(--accent-green); font-size: 1.3em;">✓</span>
+        <div class="fragment" style="display: flex; align-items: center; gap: 0.8em; margin: 0.5em 0; padding: 0.5em 0.8em; background: rgba(102,187,106,0.1); border-radius: 8px; font-size: 0.95em;">
+            <span style="color: var(--accent-green); font-size: 1.2em;">✓</span>
             <span>Don't build evals in isolation — <strong>use production data</strong></span>
         </div>
     </div>
@@ -926,10 +1136,10 @@ python execute_spec.py \
 <!-- Writing Good Prompts - Do's and Don'ts -->
 <section>
     <h2>Writing Good Prompts</h2>
-    <p style="font-size: 1.1em; color: #aaa; margin-bottom: 0.8em;">
+    <p style="font-size: 1em; color: #888; margin-bottom: 1em; font-style: italic;">
             "Good is the absence of bad"
         </p>
-        <div class="two-column tight">
+        <div class="two-column tight" style="max-width: 900px;">
             <div style="background: rgba(239,83,80,0.1); border-radius: 12px; padding: 1em; border: 1px solid var(--accent-red);">
                 <h4 style="color: var(--accent-red); margin-top: 0;">✗ Don't</h4>
                 <ul class="do-dont-list">
@@ -978,7 +1188,7 @@ python execute_spec.py \
 <!-- Eval Graduation Path -->
 <section>
     <h2>Eval Graduation Path</h2>
-    <div style="margin-top: 1em; max-width: 800px; margin-left: auto; margin-right: auto;">
+    <div style="margin-top: 1.5em; max-width: 750px;">
             <div style="display: flex; align-items: center; gap: 1em; margin: 0.8em 0; padding: 0.8em; background: var(--card-bg); border-radius: 10px; border-left: 4px solid var(--accent-red);">
                 <div style="min-width: 80px; text-align: center;">
                     <div style="font-size: 2em; font-weight: bold; color: var(--accent-red);">100%</div>
@@ -1016,9 +1226,9 @@ python execute_spec.py \
 </section>
 
 <!-- Takeaways -->
-<section>
+<section data-background-image="images/takeaways.png" data-background-size="cover" data-background-opacity="0.1">
     <h2>Key Takeaways</h2>
-    <div style="display: flex; flex-direction: column; gap: 0.6em; margin-top: 1em;">
+    <div style="display: flex; flex-direction: column; gap: 0.8em; margin-top: 1em; max-width: 700px;">
         <div class="fragment" style="display: flex; align-items: center; gap: 1em; padding: 0.7em; background: var(--card-bg); border-radius: 10px; border-left: 4px solid var(--accent-blue);">
             <span style="font-size: 1.5em;">📋</span>
             <div>
@@ -1051,25 +1261,38 @@ python execute_spec.py \
 </section>
 
 <!-- Q&A -->
-<section>
-    <h1>Q&A</h1>
-    <p style="margin-top: 2em;">
-        <strong style="font-size: 1.2em;">Ryan Brandt</strong><br>
-        <span style="color: var(--accent-blue);">ryan@vunda.io</span>
-    </p>
-    <div style="margin-top: 2em; display: flex; justify-content: center; gap: 2em;">
-        <div style="text-align: center;">
-            <div style="font-size: 2em;">📝</div>
-            <span class="small" style="color: #888;">vunda.io/blog</span>
+<section data-background-image="images/bg-qa.png" data-background-size="cover" data-background-opacity="0.35">
+    <div style="text-align: center;">
+        <h1 style="font-size: 3.5em; margin-bottom: 0.3em; font-weight: 700;">Q&A</h1>
+        <div style="width: 80px; height: 4px; background: linear-gradient(90deg, var(--accent-blue), var(--accent-green)); margin: 0 auto 2em auto; border-radius: 2px;"></div>
+        <div style="margin-top: 1.5em;">
+            <p style="font-size: 1.6em; margin: 0; font-weight: 600;">Ryan Brandt</p>
+            <p style="margin: 0.6em 0 0 0;">
+                <a href="mailto:ryan@vunda.ai" style="color: var(--accent-blue); text-decoration: none; font-size: 1.1em;">ryan@vunda.ai</a>
+            </p>
         </div>
-        <div style="text-align: center;">
-            <div style="font-size: 2em;">🐦</div>
-            <span class="small" style="color: #888;">@ryanbrandt</span>
+        <div style="margin-top: 3em; display: flex; justify-content: center; gap: 4em;">
+            <div style="text-align: center;">
+                <div style="width: 60px; height: 60px; background: rgba(66,165,245,0.15); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin: 0 auto 0.8em auto;">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#42a5f5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                        <line x1="16" y1="13" x2="8" y2="13"></line>
+                        <line x1="16" y1="17" x2="8" y2="17"></line>
+                    </svg>
+                </div>
+                <span style="color: #aaa; font-size: 0.95em;">vunda.ai/blog</span>
+            </div>
+            <div style="text-align: center;">
+                <div style="width: 60px; height: 60px; background: rgba(66,165,245,0.15); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin: 0 auto 0.8em auto;">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="#42a5f5">
+                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                    </svg>
+                </div>
+                <span style="color: #aaa; font-size: 0.95em;">@_PaperMoose_</span>
+            </div>
         </div>
     </div>
-    <p class="small" style="margin-top: 2em; color: #666;">
-        More on prompting and AI-native design
-    </p>
 </section>
 
 </div>
@@ -1082,11 +1305,14 @@ python execute_spec.py \
         hash: true,
         slideNumber: true,
         plugins: [ RevealHighlight ],
-        transition: 'slide',
+        transition: 'fade',
         backgroundTransition: 'fade',
         center: true,
-        width: 1200,
-        height: 700
+        width: 1280,
+        height: 720,
+        margin: 0.08,
+        minScale: 0.2,
+        maxScale: 2.0
     });
 </script>
 </body>

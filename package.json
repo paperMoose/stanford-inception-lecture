@@ -1,0 +1,24 @@
+{
+  "name": "stanford-inception-lecture",
+  "version": "1.0.0",
+  "description": "**Date:** February 3, 2026 **Duration:** 80 minutes (~40% presentation / ~60% Q&A) **Audience:** ~75 technical students, AI startup track **Format:** Not recorded (can share real examples freely)",
+  "main": "index.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@google/genai": "^1.38.0",
+    "@types/node": "^25.1.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.3"
+  }
+}
