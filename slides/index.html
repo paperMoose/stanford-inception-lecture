@@ -772,575 +772,550 @@ python execute_spec.py \
     <div style="text-align: center;">
         <p style="color: var(--accent-blue); font-size: 1.2em; margin: 0; letter-spacing: 0.15em; text-transform: uppercase;">Part 3</p>
         <h2 style="margin-top: 0.3em; font-size: 2.2em;">Agent Evaluation</h2>
-        <p style="color: #666; margin-top: 1em; font-size: 1.1em;">179 failures analyzed</p>
+        <p style="color: #666; margin-top: 1em; font-size: 1.1em;">Prompt-driven first, error-driven second</p>
     </div>
 </section>
 
-<!-- Cold Start Paradox -->
+<!-- Two Types of Failures -->
 <section>
-    <h2>The Cold Start Paradox</h2>
-    <div style="font-size: 1em; line-height: 2; max-width: 650px;">
-            <p class="fragment" style="background: var(--card-bg); padding: 0.5em 1em; border-radius: 8px; margin: 0.3em 0;">"I need evals to ship safely"</p>
-            <p class="fragment" style="color: var(--accent-blue); font-size: 1.5em; margin: 0.2em 0;">↓</p>
-            <p class="fragment" style="background: var(--card-bg); padding: 0.5em 1em; border-radius: 8px; margin: 0.3em 0;">"But I need production data for evals"</p>
-            <p class="fragment" style="color: var(--accent-blue); font-size: 1.5em; margin: 0.2em 0;">↓</p>
-            <p class="fragment" style="background: var(--card-bg); padding: 0.5em 1em; border-radius: 8px; margin: 0.3em 0;">"But I can't get data without shipping"</p>
-        </div>
-        <p class="fragment" style="margin-top: 1em; color: var(--accent-red); font-size: 2em;">
-            🤔
-        </p>
-</section>
-
-<!-- Resolution -->
-<section>
-    <div style="position: absolute; top: 20px; right: 40px; opacity: 0.7;">
-        <img src="images/human-in-loop.png" alt="" style="width: 100px; height: 100px;">
-    </div>
-    <h2>The Resolution: <span style="color: var(--accent-green);">Human-in-the-loop bootstrap</span></h2>
-    <div class="svg-container" style="max-width: 800px;">
-    <svg viewBox="0 0 900 500" preserveAspectRatio="xMidYMid meet">
-        <!-- Step 1 -->
-        <rect x="200" y="20" width="500" height="70" rx="12" fill="#2a2a4e" stroke="#42a5f5" stroke-width="2"/>
-        <text x="240" y="65" fill="#fff" font-size="28">1️⃣</text>
-        <text x="290" y="62" fill="#fff" font-size="22">Ship with human review on <tspan font-weight="bold">every</tspan> action</text>
-
-        <!-- Arrow 1 -->
-        <path d="M 450 90 L 450 120" stroke="#42a5f5" stroke-width="3" fill="none" marker-end="url(#stepArrow)"/>
-
-        <!-- Step 2 -->
-        <rect x="200" y="120" width="500" height="70" rx="12" fill="#2a2a4e" stroke="#42a5f5" stroke-width="2"/>
-        <text x="240" y="165" fill="#fff" font-size="28">2️⃣</text>
-        <text x="290" y="162" fill="#fff" font-size="22">Collect rejections + <tspan font-weight="bold">reasons</tspan></text>
-
-        <!-- Arrow 2 -->
-        <path d="M 450 190 L 450 220" stroke="#42a5f5" stroke-width="3" fill="none" marker-end="url(#stepArrow)"/>
-
-        <!-- Step 3 -->
-        <rect x="200" y="220" width="500" height="70" rx="12" fill="#2a2a4e" stroke="#ffca28" stroke-width="2"/>
-        <text x="240" y="265" fill="#fff" font-size="28">3️⃣</text>
-        <text x="290" y="262" fill="#fff" font-size="22">Categorize failures → <tspan font-weight="bold">fix prompts</tspan></text>
-
-        <!-- Arrow 3 -->
-        <path d="M 450 290 L 450 320" stroke="#ffca28" stroke-width="3" fill="none" marker-end="url(#stepArrow2)"/>
-
-        <!-- Step 4 -->
-        <rect x="200" y="320" width="500" height="70" rx="12" fill="#2a2a4e" stroke="#66bb6a" stroke-width="2"/>
-        <text x="240" y="365" fill="#fff" font-size="28">4️⃣</text>
-        <text x="290" y="362" fill="#fff" font-size="22">Graduate to <tspan font-weight="bold">spot checks</tspan></text>
-
-        <!-- Arrow 4 -->
-        <path d="M 450 390 L 450 420" stroke="#66bb6a" stroke-width="3" fill="none" marker-end="url(#stepArrow3)"/>
-
-        <!-- Step 5 -->
-        <rect x="200" y="420" width="500" height="70" rx="12" fill="#2a2a4e" stroke="#66bb6a" stroke-width="3"/>
-        <text x="240" y="465" fill="#fff" font-size="28">5️⃣</text>
-        <text x="290" y="462" fill="#fff" font-size="22">Automate eval on <tspan font-weight="bold">critical paths only</tspan></text>
-
-        <defs>
-            <marker id="stepArrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-                <polygon points="0 0, 10 3.5, 0 7" fill="#42a5f5"/>
-            </marker>
-            <marker id="stepArrow2" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-                <polygon points="0 0, 10 3.5, 0 7" fill="#ffca28"/>
-            </marker>
-            <marker id="stepArrow3" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-                <polygon points="0 0, 10 3.5, 0 7" fill="#66bb6a"/>
-            </marker>
-        </defs>
-    </svg>
-    </div>
-</section>
-
-<!-- 179 Rejections Stats - BIG PIE CHART -->
-<section>
-    <h2>Case Study: Scheduling Assistant</h2>
-    <div style="display: flex; align-items: center; justify-content: center; gap: 5em; margin-top: 1.5em; max-width: 900px;">
-        <!-- Large SVG Pie Chart -->
-        <svg width="320" height="320" viewBox="0 0 400 400" style="filter: drop-shadow(0 4px 20px rgba(0,0,0,0.3));">
-            <!-- 42% blue slice (76 actionable) - 42% = 396 of 942 circumference -->
-            <circle cx="200" cy="200" r="150" fill="transparent"
-                stroke="#42a5f5" stroke-width="70"
-                stroke-dasharray="396 942" stroke-dashoffset="0"
-                transform="rotate(-90 200 200)"/>
-            <!-- 58% gray slice (103 noise) -->
-            <circle cx="200" cy="200" r="150" fill="transparent"
-                stroke="#3a3a5e" stroke-width="70"
-                stroke-dasharray="546 942" stroke-dashoffset="-396"
-                transform="rotate(-90 200 200)"/>
-            <!-- Center circle -->
-            <circle cx="200" cy="200" r="105" fill="#1a1a2e"/>
-            <!-- Center text -->
-            <text x="200" y="190" text-anchor="middle" fill="#fff" font-size="52" font-weight="700" font-family="Inter, sans-serif">179</text>
-            <text x="200" y="225" text-anchor="middle" fill="#666" font-size="16" font-family="Inter, sans-serif">rejections</text>
-        </svg>
-        <!-- Legend -->
-        <div style="font-size: 1em; text-align: left;">
-            <div style="display: flex; align-items: center; gap: 1.2em; margin-bottom: 1.5em;">
-                <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #42a5f5, #1e88e5); border-radius: 12px;"></div>
-                <div>
-                    <div style="font-size: 1.9em; font-weight: 700; color: #42a5f5;">76 <span style="font-size: 0.5em; color: #666; font-weight: 500;">(42%)</span></div>
-                    <div style="color: #aaa; font-size: 0.95em;">Actionable</div>
-                    <div style="color: #555; font-size: 0.75em;">Led to prompt fixes</div>
-                </div>
+    <h2>Two Types of Failures</h2>
+    <div class="two-column" style="gap: 2em; max-width: 950px; margin-top: 1.5em;">
+        <div style="background: rgba(66,165,245,0.1); border-radius: 16px; padding: 1.5em; border: 2px solid var(--accent-blue);">
+            <h3 style="color: var(--accent-blue); margin: 0 0 0.8em 0; font-size: 1.4em;">Spec Failures</h3>
+            <p style="color: #ccc; font-size: 0.95em; margin: 0 0 1em 0;">
+                Your prompt was incomplete or unclear
+            </p>
+            <div style="background: rgba(0,0,0,0.2); border-radius: 8px; padding: 0.8em; font-size: 0.85em;">
+                <div style="color: #888; margin-bottom: 0.5em;">Example:</div>
+                <div style="color: #aaa; font-style: italic;">"Schedule a quick sync"</div>
+                <div style="color: var(--accent-red); margin-top: 0.5em;">→ Model guesses 60 min (you meant 15)</div>
             </div>
-            <div style="display: flex; align-items: center; gap: 1.2em; margin-bottom: 1.5em;">
-                <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #4a4a6e, #3a3a5e); border-radius: 12px;"></div>
-                <div>
-                    <div style="font-size: 1.9em; font-weight: 700; color: #888;">103 <span style="font-size: 0.5em; color: #555; font-weight: 500;">(58%)</span></div>
-                    <div style="color: #aaa; font-size: 0.95em;">Noise / Uncategorized</div>
-                    <div style="color: #555; font-size: 0.75em;">Edge cases, user tests, etc.</div>
-                </div>
+            <p style="color: var(--accent-green); margin: 1em 0 0 0; font-weight: 600;">
+                ✓ Fixable with better prompts
+            </p>
+        </div>
+        <div style="background: rgba(239,83,80,0.1); border-radius: 16px; padding: 1.5em; border: 2px solid var(--accent-red);">
+            <h3 style="color: var(--accent-red); margin: 0 0 0.8em 0; font-size: 1.4em;">Generalization Failures</h3>
+            <p style="color: #ccc; font-size: 0.95em; margin: 0 0 1em 0;">
+                Model can't extend rules to new situations
+            </p>
+            <div style="background: rgba(0,0,0,0.2); border-radius: 8px; padding: 0.8em; font-size: 0.85em;">
+                <div style="color: #888; margin-bottom: 0.5em;">Example:</div>
+                <div style="color: #aaa; font-style: italic;">Prompt covers 20 edge cases perfectly</div>
+                <div style="color: var(--accent-red); margin-top: 0.5em;">→ Case #21 still breaks it</div>
             </div>
-            <div style="margin-top: 1.5em; padding: 1em 1.2em; background: rgba(66,165,245,0.08); border-radius: 12px; border-left: 3px solid #42a5f5;">
-                <div style="color: #42a5f5; font-weight: 600; font-size: 0.9em;">Key insight:</div>
-                <div style="color: #aaa; font-size: 0.9em; margin-top: 0.3em;">76 failures → ~20 prompt rules</div>
-            </div>
+            <p style="color: var(--accent-yellow); margin: 1em 0 0 0; font-weight: 600;">
+                ⚠ Route to human or accept limitation
+            </p>
         </div>
     </div>
-</section>
-
-<!-- Failure Categories - BIG HORIZONTAL BAR CHART -->
-<section>
-    <h2>Top Actionable Categories</h2>
-    <div class="svg-container" style="max-width: 950px;">
-    <svg viewBox="0 0 1000 430" preserveAspectRatio="xMidYMid meet">
-            <!-- Y-axis labels and bars -->
-            <!-- STOP_IGNORED - 23 -->
-            <text x="200" y="55" text-anchor="end" fill="#fff" font-size="18" font-family="monospace">STOP_IGNORED</text>
-            <rect x="210" y="35" width="460" height="40" rx="6" fill="url(#redGrad)"/>
-            <text x="680" y="62" fill="#fff" font-size="20" font-weight="bold">23</text>
-            <text x="720" y="62" fill="#888" font-size="14">User said stop, agent kept going</text>
-
-            <!-- WRONG_DURATION - 13 -->
-            <text x="200" y="115" text-anchor="end" fill="#fff" font-size="18" font-family="monospace">WRONG_DURATION</text>
-            <rect x="210" y="95" width="260" height="40" rx="6" fill="url(#yellowGrad)"/>
-            <text x="480" y="122" fill="#fff" font-size="20" font-weight="bold">13</text>
-            <text x="520" y="122" fill="#888" font-size="14">Guessed wrong meeting length</text>
-
-            <!-- EXPLANATION_REQUEST - 10 -->
-            <text x="200" y="175" text-anchor="end" fill="#fff" font-size="18" font-family="monospace">EXPLANATION_REQUEST</text>
-            <rect x="210" y="155" width="200" height="40" rx="6" fill="url(#yellowGrad)"/>
-            <text x="420" y="182" fill="#fff" font-size="20" font-weight="bold">10</text>
-            <text x="460" y="182" fill="#888" font-size="14">User asked "why?" - no response</text>
-
-            <!-- CALENDAR_ORDER - 9 -->
-            <text x="200" y="235" text-anchor="end" fill="#fff" font-size="18" font-family="monospace">CALENDAR_ORDER</text>
-            <rect x="210" y="215" width="180" height="40" rx="6" fill="url(#blueGrad)"/>
-            <text x="400" y="242" fill="#fff" font-size="20" font-weight="bold">9</text>
-            <text x="440" y="242" fill="#888" font-size="14">Sent invite before checking availability</text>
-
-            <!-- EXEC_OVERRIDE - 5 -->
-            <text x="200" y="295" text-anchor="end" fill="#fff" font-size="18" font-family="monospace">EXEC_OVERRIDE</text>
-            <rect x="210" y="275" width="100" height="40" rx="6" fill="url(#blueGrad)"/>
-            <text x="320" y="302" fill="#fff" font-size="20" font-weight="bold">5</text>
-            <text x="360" y="302" fill="#888" font-size="14">Boss's override ignored</text>
-
-            <!-- Gradients -->
-            <defs>
-                <linearGradient id="redGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" style="stop-color:#d32f2f"/>
-                    <stop offset="100%" style="stop-color:#ef5350"/>
-                </linearGradient>
-                <linearGradient id="yellowGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" style="stop-color:#f57c00"/>
-                    <stop offset="100%" style="stop-color:#ffca28"/>
-                </linearGradient>
-                <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" style="stop-color:#1e88e5"/>
-                    <stop offset="100%" style="stop-color:#42a5f5"/>
-                </linearGradient>
-            </defs>
-
-            <!-- Bottom summary -->
-            <text x="500" y="380" text-anchor="middle" fill="#66bb6a" font-size="22">
-                These 60 failures → 5 prompt rules → prevented recurrence
-            </text>
-            <text x="500" y="420" text-anchor="middle" fill="#888" font-size="16">
-                (88 more were uncategorized noise - edge cases, user tests, etc.)
-            </text>
-        </svg>
-    </div>
-</section>
-
-<!-- Key Insight - Prompts Are The Problem -->
-<section data-background-image="images/bg-key-insight.png" data-background-size="cover" data-background-opacity="0.25">
-    <h2>Key Insight</h2>
-    <div style="background: linear-gradient(135deg, var(--card-bg), #3a3a6e); border-radius: 20px; padding: 2em 3em; margin: 1em auto; max-width: 750px; border: 2px solid var(--accent-blue);">
-        <p style="font-size: 1.6em; margin: 0; line-height: 1.5;">
-            Your <span style="color: var(--accent-red);">prompts</span> are usually<br>
-            the problem, not the <span style="color: var(--accent-blue);">model</span>.
-        </p>
-    </div>
-    <div style="margin-top: 2em; display: flex; justify-content: center; align-items: center; gap: 2.5em;">
-        <div class="fragment" style="text-align: center;">
-            <div style="font-size: 2.8em; font-weight: bold; color: var(--accent-green);">76</div>
-            <div style="color: #888; font-size: 0.9em;">failures fixed<br>with prompt rules</div>
-        </div>
-        <div class="fragment" style="text-align: center;">
-            <div style="font-size: 2.5em; font-weight: bold; color: var(--accent-blue);">→</div>
-        </div>
-        <div class="fragment" style="text-align: center;">
-            <div style="font-size: 2.8em; font-weight: bold; color: var(--accent-yellow);">~20</div>
-            <div style="color: #888; font-size: 0.9em;">prompt rules<br>added</div>
-        </div>
-    </div>
-    <p class="fragment" style="margin-top: 2em; color: #888; font-size: 1.1em;">
-        Before blaming the model, check your spec.
+    <p class="fragment" style="margin-top: 1.5em; color: #888; font-size: 1.1em;">
+        The question: <strong style="color: #fff;">How do you tell them apart?</strong>
     </p>
 </section>
 
-<!-- STOP_IGNORED Before/After - BIG VISUAL -->
+<!-- Phase 1: Prompt-Driven Evaluation -->
 <section>
-    <h2>Example: STOP_IGNORED</h2>
-    <div class="svg-container" style="max-width: 1000px;">
-    <svg viewBox="0 0 1100 450" preserveAspectRatio="xMidYMid meet">
-            <!-- BEFORE panel -->
-            <rect x="30" y="20" width="500" height="400" rx="16" fill="rgba(239,83,80,0.1)" stroke="#ef5350" stroke-width="3"/>
-            <text x="280" y="60" text-anchor="middle" fill="#ef5350" font-size="28" font-weight="bold">✗ BEFORE</text>
-
-            <!-- Chat bubbles - before -->
-            <rect x="60" y="90" width="300" height="40" rx="12" fill="#333"/>
-            <text x="80" y="117" fill="#fff" font-size="14">👤 "Schedule team sync for Tuesday"</text>
-
-            <rect x="170" y="145" width="320" height="40" rx="12" fill="#1e88e5"/>
-            <text x="190" y="172" fill="#fff" font-size="14">🤖 "I'll schedule that for 2pm"</text>
-
-            <rect x="60" y="200" width="350" height="45" rx="12" fill="#ef5350"/>
-            <text x="80" y="230" fill="#fff" font-size="16" font-weight="bold">👤 "STOP - I need to rethink"</text>
-
-            <!-- Agent keeps going -->
-            <rect x="170" y="260" width="280" height="35" rx="10" fill="#333" stroke="#ef5350" stroke-width="2"/>
-            <text x="190" y="283" fill="#aaa" font-size="13">🤖 [Sends calendar invite]</text>
-
-            <rect x="170" y="305" width="280" height="35" rx="10" fill="#333" stroke="#ef5350" stroke-width="2"/>
-            <text x="190" y="328" fill="#aaa" font-size="13">🤖 [Sends reminder email]</text>
-
-            <rect x="170" y="350" width="280" height="35" rx="10" fill="#333" stroke="#ef5350" stroke-width="2"/>
-            <text x="190" y="373" fill="#aaa" font-size="13">🤖 [Updates project tracker]</text>
-
-            <!-- Rejection count -->
-            <text x="280" y="420" text-anchor="middle" fill="#ef5350" font-size="20" font-weight="bold">23 rejections</text>
-
-            <!-- Arrow between panels -->
-            <path d="M 550 220 L 590 220" stroke="#66bb6a" stroke-width="6" fill="none" marker-end="url(#greenArrow)"/>
-            <defs>
-                <marker id="greenArrow" markerWidth="12" markerHeight="9" refX="11" refY="4.5" orient="auto">
-                    <polygon points="0 0, 12 4.5, 0 9" fill="#66bb6a"/>
-                </marker>
-            </defs>
-
-            <!-- AFTER panel -->
-            <rect x="600" y="20" width="480" height="400" rx="16" fill="rgba(102,187,106,0.1)" stroke="#66bb6a" stroke-width="3"/>
-            <text x="840" y="60" text-anchor="middle" fill="#66bb6a" font-size="28" font-weight="bold">✓ AFTER (Prompt Fix)</text>
-
-            <!-- The fix -->
-            <rect x="630" y="85" width="420" height="280" rx="12" fill="#12121f"/>
-            <text x="650" y="115" fill="#ffca28" font-size="14" font-weight="bold" font-family="monospace">CRITICAL STOP HANDLING:</text>
-            <text x="650" y="145" fill="#aaa" font-size="13" font-family="monospace">If user message contains:</text>
-            <text x="670" y="170" fill="#66bb6a" font-size="13" font-family="monospace">• "stop", "STOP", "halt", "wait"</text>
-            <text x="670" y="195" fill="#66bb6a" font-size="13" font-family="monospace">• "hold on", "cancel", "nevermind"</text>
-            <text x="650" y="230" fill="#aaa" font-size="13" font-family="monospace">Then:</text>
-            <text x="670" y="255" fill="#fff" font-size="13" font-family="monospace">1. IMMEDIATELY stop all actions</text>
-            <text x="670" y="280" fill="#fff" font-size="13" font-family="monospace">2. Do NOT send any invites</text>
-            <text x="670" y="305" fill="#fff" font-size="13" font-family="monospace">3. Do NOT modify calendars</text>
-            <text x="670" y="330" fill="#fff" font-size="13" font-family="monospace">4. Reply: "Stopped. What would</text>
-            <text x="700" y="355" fill="#fff" font-size="13" font-family="monospace">you like to change?"</text>
-
-            <!-- Result -->
-            <text x="840" y="410" text-anchor="middle" fill="#66bb6a" font-size="24" font-weight="bold">23 → 0 failures</text>
-        </svg>
-    </div>
-</section>
-
-<!-- One Fix = Many Failures -->
-<section>
-    <h2>The ROI of Prompt Fixes</h2>
-    <div class="svg-container" style="max-width: 900px;">
-    <svg viewBox="0 0 900 380" preserveAspectRatio="xMidYMid meet">
-        <!-- Left side: Single rule -->
-        <rect x="40" y="20" width="280" height="220" rx="20" fill="rgba(102,187,106,0.12)" stroke="#66bb6a" stroke-width="2"/>
-        <text x="180" y="60" text-anchor="middle" fill="#66bb6a" font-size="18" font-weight="600">1 Prompt Rule</text>
-        <text x="180" y="125" text-anchor="middle" fill="#fff" font-size="64" font-weight="700">1</text>
-        <text x="180" y="170" text-anchor="middle" fill="#aaa" font-size="13" font-family="monospace">"If user says STOP,</text>
-        <text x="180" y="188" text-anchor="middle" fill="#aaa" font-size="13" font-family="monospace">immediately halt"</text>
-        <text x="180" y="225" text-anchor="middle" fill="#666" font-size="12">~10 lines of prompt text</text>
-
-        <!-- Center arrow section -->
-        <text x="448" y="100" text-anchor="middle" fill="#66bb6a" font-size="14" font-weight="600">eliminates</text>
-        <path d="M 340 130 L 555 130" stroke="#66bb6a" stroke-width="5" fill="none" marker-end="url(#bigGreenArrow)"/>
-
-        <!-- Right side: Many failures -->
-        <rect x="580" y="20" width="280" height="220" rx="20" fill="rgba(239,83,80,0.12)" stroke="#ef5350" stroke-width="2"/>
-        <text x="720" y="60" text-anchor="middle" fill="#ef5350" font-size="18" font-weight="600">23 Failures</text>
-        <text x="720" y="125" text-anchor="middle" fill="#fff" font-size="64" font-weight="700">23</text>
-        <text x="720" y="170" text-anchor="middle" fill="#aaa" font-size="13">STOP_IGNORED rejections</text>
-        <text x="720" y="195" text-anchor="middle" fill="#666" font-size="12">Frustrated users, manual cleanup</text>
-        <text x="720" y="218" text-anchor="middle" fill="#666" font-size="12">Trust erosion with each occurrence</text>
-
-        <!-- Bottom insight -->
-        <rect x="175" y="280" width="550" height="55" rx="14" fill="rgba(42,42,78,0.8)" stroke="#42a5f5" stroke-width="2"/>
-        <text x="450" y="315" text-anchor="middle" fill="#fff" font-size="17">Top 5 categories = <tspan fill="#66bb6a" font-weight="bold">60 failures</tspan> fixed with <tspan fill="#ffca28" font-weight="bold">5 rules</tspan></text>
-
-        <defs>
-            <marker id="bigGreenArrow" markerWidth="18" markerHeight="12" refX="16" refY="6" orient="auto">
-                <polygon points="0 0, 18 6, 0 12" fill="#66bb6a"/>
-            </marker>
-        </defs>
-    </svg>
-    </div>
-</section>
-
-<!-- The Pattern - Vertical Flowchart -->
-<section>
-    <h2>The Pattern: Failure → Fix</h2>
-    <div class="flow-vertical" style="font-size: 0.8em; margin-top: 0.5em;">
-            <div class="flow-step" style="padding: 0.5em 1.2em; min-width: 320px;">
-                <span class="step-icon" style="color: var(--accent-red); font-size: 1.2em;">🚨</span>
-                <span class="step-text"><strong>Failure Category</strong> — <span style="color: #888;">Group similar rejections</span></span>
-            </div>
-            <div class="flow-arrow" style="font-size: 1em; margin: 0.1em 0;">↓</div>
-            <div class="flow-step" style="padding: 0.5em 1.2em; min-width: 320px;">
-                <span class="step-icon" style="color: var(--accent-yellow); font-size: 1.2em;">💬</span>
-                <span class="step-text"><strong>User Feedback</strong> — <span style="color: #888;">"Why did you reject this?"</span></span>
-            </div>
-            <div class="flow-arrow" style="font-size: 1em; margin: 0.1em 0;">↓</div>
-            <div class="flow-step" style="padding: 0.5em 1.2em; min-width: 320px;">
-                <span class="step-icon" style="color: var(--accent-blue); font-size: 1.2em;">🔍</span>
-                <span class="step-text"><strong>Root Cause</strong> — <span style="color: #888;">What was missing from the spec?</span></span>
-            </div>
-            <div class="flow-arrow" style="font-size: 1em; margin: 0.1em 0;">↓</div>
-            <div class="flow-step" style="padding: 0.5em 1.2em; min-width: 320px;">
-                <span class="step-icon" style="color: var(--accent-green); font-size: 1.2em;">🔧</span>
-                <span class="step-text"><strong>Prompt Fix</strong> — <span style="color: #888;">Add explicit rule or constraint</span></span>
-            </div>
-            <div class="flow-arrow" style="font-size: 1em; margin: 0.1em 0;">↓</div>
-            <div class="flow-step" style="padding: 0.5em 1.2em; min-width: 320px; border-color: var(--accent-green);">
-                <span class="step-icon" style="color: var(--accent-green); font-size: 1.2em;">✅</span>
-                <span class="step-text"><strong>Eval Test</strong> — <span style="color: #888;">Catches this failure forever</span></span>
-            </div>
-        </div>
-</section>
-
-<!-- Failures Are Data -->
-<section data-background-image="images/bg-failures-data.png" data-background-size="cover" data-background-opacity="0.25">
-    <h2>Failures Are Data</h2>
-    <div style="background: linear-gradient(135deg, var(--card-bg), #3a3a6e); border-radius: 18px; padding: 1.5em 2.5em; margin: 1em auto; max-width: 600px;">
+    <p style="color: var(--accent-blue); font-size: 0.9em; margin: 0; letter-spacing: 0.1em; text-transform: uppercase;">Phase 1</p>
+    <h2 style="margin-top: 0.2em; margin-bottom: 0.5em;">Prompt-Driven Evaluation</h2>
+    <div style="background: linear-gradient(135deg, var(--card-bg), #3a3a6e); border-radius: 16px; padding: 0.8em 2em; margin: 0.5em auto; max-width: 600px; border: 2px solid var(--accent-blue);">
         <p style="font-size: 1.3em; margin: 0; line-height: 1.4;">
-            Every rejection is a <strong style="color: var(--accent-green);">prompt fix</strong><br>
-            waiting to happen.
+            Your <span style="color: var(--accent-blue);">prompt</span> is your <span style="color: var(--accent-green);">test spec</span>
         </p>
     </div>
-    <div style="margin: 1em auto; max-width: 550px;">
-        <div class="fragment" style="display: flex; align-items: center; gap: 0.8em; margin: 0.5em 0; padding: 0.5em 0.8em; background: rgba(102,187,106,0.1); border-radius: 8px; font-size: 0.95em;">
-            <span style="color: var(--accent-green); font-size: 1.2em;">✓</span>
-            <span>Don't hide failures — <strong>categorize them</strong></span>
+    <div style="margin-top: 0.8em; max-width: 750px;">
+        <div class="fragment" style="display: flex; align-items: center; gap: 0.8em; margin: 0.4em 0; padding: 0.5em 1em; background: var(--card-bg); border-radius: 8px; font-size: 0.95em;">
+            <span style="color: var(--accent-blue); font-size: 1.2em; width: 30px;">1.</span>
+            <span>Every rule in your prompt → a testable assertion</span>
         </div>
-        <div class="fragment" style="display: flex; align-items: center; gap: 0.8em; margin: 0.5em 0; padding: 0.5em 0.8em; background: rgba(102,187,106,0.1); border-radius: 8px; font-size: 0.95em;">
-            <span style="color: var(--accent-green); font-size: 1.2em;">✓</span>
-            <span>Don't blame the model — <strong>fix the spec</strong></span>
+        <div class="fragment" style="display: flex; align-items: center; gap: 0.8em; margin: 0.4em 0; padding: 0.5em 1em; background: var(--card-bg); border-radius: 8px; font-size: 0.95em;">
+            <span style="color: var(--accent-blue); font-size: 1.2em; width: 30px;">2.</span>
+            <span>Generate test cases <em>from</em> the prompt itself</span>
         </div>
-        <div class="fragment" style="display: flex; align-items: center; gap: 0.8em; margin: 0.5em 0; padding: 0.5em 0.8em; background: rgba(102,187,106,0.1); border-radius: 8px; font-size: 0.95em;">
-            <span style="color: var(--accent-green); font-size: 1.2em;">✓</span>
-            <span>Don't build evals in isolation — <strong>use production data</strong></span>
+        <div class="fragment" style="display: flex; align-items: center; gap: 0.8em; margin: 0.4em 0; padding: 0.5em 1em; background: var(--card-bg); border-radius: 8px; font-size: 0.95em;">
+            <span style="color: var(--accent-blue); font-size: 1.2em; width: 30px;">3.</span>
+            <span>Run model → <strong style="color: var(--accent-yellow);">failures surface issues</strong></span>
+        </div>
+        <div class="fragment" style="display: flex; align-items: center; gap: 0.8em; margin: 0.4em 0; padding: 0.5em 1em; background: var(--card-bg); border-radius: 8px; font-size: 0.95em;">
+            <span style="color: var(--accent-blue); font-size: 1.2em; width: 30px;">4.</span>
+            <span>Classify: <strong style="color: var(--accent-green);">spec issue</strong> or <strong style="color: var(--accent-red);">generalization issue</strong>?</span>
         </div>
     </div>
 </section>
 
-<!-- Writing Good Prompts - Do's and Don'ts -->
+<!-- The Diagnostic Loop -->
 <section>
-    <h2>Writing Good Prompts</h2>
-    <p style="font-size: 1em; color: #888; margin-bottom: 1em; font-style: italic;">
-            "Good is the absence of bad"
-        </p>
-        <div class="two-column tight" style="max-width: 900px;">
-            <div style="background: rgba(239,83,80,0.1); border-radius: 12px; padding: 1em; border: 1px solid var(--accent-red);">
-                <h4 style="color: var(--accent-red); margin-top: 0;">✗ Don't</h4>
-                <ul class="do-dont-list">
-                    <li>
-                        <span class="icon dont">✗</span>
-                        <span>Ask the same question twice<br><span class="tiny" style="color: #888;">"What's your name?" after they told you</span></span>
-                    </li>
-                    <li>
-                        <span class="icon dont">✗</span>
-                        <span>Use vague language<br><span class="tiny" style="color: #888;">"Handle errors appropriately"</span></span>
-                    </li>
-                    <li>
-                        <span class="icon dont">✗</span>
-                        <span>Assume user context<br><span class="tiny" style="color: #888;">Timezone, preferences, role</span></span>
-                    </li>
-                    <li>
-                        <span class="icon dont">✗</span>
-                        <span>Return unstructured text<br><span class="tiny" style="color: #888;">Prose when you need structured data</span></span>
-                    </li>
-                </ul>
-            </div>
-            <div style="background: rgba(102,187,106,0.1); border-radius: 12px; padding: 1em; border: 1px solid var(--accent-green);">
-                <h4 style="color: var(--accent-green); margin-top: 0;">✓ Do</h4>
-                <ul class="do-dont-list">
-                    <li>
-                        <span class="icon do">✓</span>
-                        <span>Track conversation state<br><span class="tiny" style="color: #888;">Remember what you've already asked</span></span>
-                    </li>
-                    <li>
-                        <span class="icon do">✓</span>
-                        <span>Define terms explicitly<br><span class="tiny" style="color: #888;">"Quick sync" = 15 minutes</span></span>
-                    </li>
-                    <li>
-                        <span class="icon do">✓</span>
-                        <span>Ask clarifying questions<br><span class="tiny" style="color: #888;">When input is ambiguous</span></span>
-                    </li>
-                    <li>
-                        <span class="icon do">✓</span>
-                        <span>Use fixed output schemas<br><span class="tiny" style="color: #888;">JSON with defined structure</span></span>
-                    </li>
-                </ul>
-            </div>
-        </div>
-</section>
+    <h2 style="margin-bottom: 0.3em;">Classifying Failures</h2>
+    <p style="color: #888; margin: 0 0 0.8em 0; font-size: 0.95em;">The test tells you WHAT failed. You determine WHY.</p>
+    <div class="svg-container" style="max-width: 850px;">
+    <svg viewBox="0 0 850 340" preserveAspectRatio="xMidYMid meet">
+        <!-- Start: Test Fails -->
+        <rect x="325" y="15" width="200" height="50" rx="10" fill="rgba(239,83,80,0.15)" stroke="#ef5350" stroke-width="2"/>
+        <text x="425" y="47" text-anchor="middle" fill="#ef5350" font-size="18" font-weight="600">Test Fails</text>
 
-<!-- Prompt-Driven Evaluation -->
-<section>
-    <h2>Prompt-Driven Evaluation</h2>
-    <p style="color: #888; margin-bottom: 1em;">Your prompt IS your rubric</p>
-    <div class="svg-container" style="max-width: 950px;">
-    <svg viewBox="0 0 950 320" preserveAspectRatio="xMidYMid meet">
-        <!-- Step 1: Prompt Rules -->
-        <rect x="20" y="40" width="200" height="120" rx="14" fill="#2a2a4e" stroke="#42a5f5" stroke-width="2"/>
-        <text x="120" y="75" text-anchor="middle" fill="#42a5f5" font-size="14" font-weight="bold">PROMPT RULES</text>
-        <text x="120" y="100" text-anchor="middle" fill="#aaa" font-size="11" font-family="monospace">"If user says STOP,</text>
-        <text x="120" y="115" text-anchor="middle" fill="#aaa" font-size="11" font-family="monospace">halt immediately"</text>
-        <text x="120" y="145" text-anchor="middle" fill="#666" font-size="10">Each rule = testable case</text>
+        <!-- Arrow down to question -->
+        <path d="M 425 65 L 425 100" stroke="#666" stroke-width="2" fill="none" marker-end="url(#classifyArrow)"/>
 
-        <!-- Arrow 1 -->
-        <path d="M 220 100 L 270 100" stroke="#42a5f5" stroke-width="3" fill="none" marker-end="url(#evalArrow)"/>
+        <!-- Question: Is this in the prompt? -->
+        <rect x="250" y="100" width="350" height="55" rx="10" fill="#2a2a4e" stroke="#ffca28" stroke-width="2"/>
+        <text x="425" y="135" text-anchor="middle" fill="#fff" font-size="17">Is this behavior in the prompt?</text>
 
-        <!-- Step 2: Generate Cases -->
-        <rect x="270" y="40" width="200" height="120" rx="14" fill="#2a2a4e" stroke="#ffca28" stroke-width="2"/>
-        <text x="370" y="75" text-anchor="middle" fill="#ffca28" font-size="14" font-weight="bold">GENERATE CASES</text>
-        <text x="370" y="100" text-anchor="middle" fill="#aaa" font-size="11">Input: "Schedule meeting"</text>
-        <text x="370" y="115" text-anchor="middle" fill="#aaa" font-size="11">Then: "STOP"</text>
-        <text x="370" y="145" text-anchor="middle" fill="#666" font-size="10">Expected: No invite sent</text>
+        <!-- Left path: No - Spec Issue -->
+        <path d="M 250 127 L 140 127 L 140 195" stroke="#66bb6a" stroke-width="2" fill="none" marker-end="url(#classifyArrowGreen)"/>
+        <rect x="170" y="110" width="50" height="24" rx="4" fill="#1a1a2e"/>
+        <text x="195" y="127" text-anchor="middle" fill="#66bb6a" font-size="14" font-weight="600">NO</text>
 
-        <!-- Arrow 2 -->
-        <path d="M 470 100 L 520 100" stroke="#ffca28" stroke-width="3" fill="none" marker-end="url(#evalArrow2)"/>
+        <rect x="30" y="195" width="220" height="130" rx="12" fill="rgba(102,187,106,0.12)" stroke="#66bb6a" stroke-width="2"/>
+        <text x="140" y="225" text-anchor="middle" fill="#66bb6a" font-size="20" font-weight="bold">Spec Issue</text>
+        <line x1="60" y1="240" x2="220" y2="240" stroke="rgba(102,187,106,0.3)" stroke-width="1"/>
+        <text x="140" y="268" text-anchor="middle" fill="#aaa" font-size="13">Behavior not specified</text>
+        <text x="140" y="290" text-anchor="middle" fill="#888" font-size="13">→ Add rule to prompt</text>
+        <text x="140" y="310" text-anchor="middle" fill="#888" font-size="13">→ Re-run test</text>
 
-        <!-- Step 3: Run Agent -->
-        <rect x="520" y="40" width="200" height="120" rx="14" fill="#2a2a4e" stroke="#ef5350" stroke-width="2"/>
-        <text x="620" y="75" text-anchor="middle" fill="#ef5350" font-size="14" font-weight="bold">RUN AGENT</text>
-        <text x="620" y="100" text-anchor="middle" fill="#aaa" font-size="11">Capture full trace:</text>
-        <text x="620" y="115" text-anchor="middle" fill="#aaa" font-size="11">Actions + Context + Output</text>
-        <text x="620" y="145" text-anchor="middle" fill="#666" font-size="10">What did it actually do?</text>
+        <!-- Right path: Yes - Generalization Issue -->
+        <path d="M 600 127 L 710 127 L 710 195" stroke="#ef5350" stroke-width="2" fill="none" marker-end="url(#classifyArrowRed)"/>
+        <rect x="630" y="110" width="50" height="24" rx="4" fill="#1a1a2e"/>
+        <text x="655" y="127" text-anchor="middle" fill="#ef5350" font-size="14" font-weight="600">YES</text>
 
-        <!-- Arrow 3 -->
-        <path d="M 720 100 L 770 100" stroke="#ef5350" stroke-width="3" fill="none" marker-end="url(#evalArrow3)"/>
-
-        <!-- Step 4: Judge -->
-        <rect x="770" y="40" width="160" height="120" rx="14" fill="#2a2a4e" stroke="#66bb6a" stroke-width="2"/>
-        <text x="850" y="75" text-anchor="middle" fill="#66bb6a" font-size="14" font-weight="bold">JUDGE</text>
-        <text x="850" y="100" text-anchor="middle" fill="#aaa" font-size="11">Expected vs Actual</text>
-        <text x="850" y="130" text-anchor="middle" fill="#66bb6a" font-size="18">✓ or ✗</text>
-
-        <!-- Bottom insight box -->
-        <rect x="170" y="200" width="610" height="100" rx="12" fill="rgba(66,165,245,0.1)" stroke="#42a5f5" stroke-width="1"/>
-        <text x="475" y="235" text-anchor="middle" fill="#fff" font-size="16" font-weight="600">The key insight:</text>
-        <text x="475" y="260" text-anchor="middle" fill="#aaa" font-size="14">Specific prompts → Specific test cases → Automated regression tests</text>
-        <text x="475" y="285" text-anchor="middle" fill="#666" font-size="12">Every prompt rule becomes a verifiable contract</text>
+        <rect x="600" y="195" width="220" height="130" rx="12" fill="rgba(239,83,80,0.12)" stroke="#ef5350" stroke-width="2"/>
+        <text x="710" y="225" text-anchor="middle" fill="#ef5350" font-size="20" font-weight="bold">Generalization</text>
+        <line x1="630" y1="240" x2="790" y2="240" stroke="rgba(239,83,80,0.3)" stroke-width="1"/>
+        <text x="710" y="268" text-anchor="middle" fill="#aaa" font-size="13">Model can't generalize</text>
+        <text x="710" y="290" text-anchor="middle" fill="#888" font-size="13">→ Build detector</text>
+        <text x="710" y="310" text-anchor="middle" fill="#888" font-size="13">→ Route to human</text>
 
         <defs>
-            <marker id="evalArrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-                <polygon points="0 0, 10 3.5, 0 7" fill="#42a5f5"/>
+            <marker id="classifyArrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                <polygon points="0 0, 8 3, 0 6" fill="#666"/>
             </marker>
-            <marker id="evalArrow2" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-                <polygon points="0 0, 10 3.5, 0 7" fill="#ffca28"/>
+            <marker id="classifyArrowGreen" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                <polygon points="0 0, 8 3, 0 6" fill="#66bb6a"/>
             </marker>
-            <marker id="evalArrow3" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-                <polygon points="0 0, 10 3.5, 0 7" fill="#ef5350"/>
+            <marker id="classifyArrowRed" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                <polygon points="0 0, 8 3, 0 6" fill="#ef5350"/>
             </marker>
         </defs>
     </svg>
     </div>
 </section>
 
-<!-- Hybrid Evaluation -->
+<!-- Hitting the Wall -->
 <section>
-    <h2>Hybrid Evaluation: Two Types of Checks</h2>
-    <div class="two-column" style="gap: 1.5em; max-width: 950px; margin-top: 1em;">
-        <div style="background: rgba(66,165,245,0.1); border-radius: 14px; padding: 1.2em; border: 1px solid rgba(66,165,245,0.3);">
-            <h4 style="color: var(--accent-blue); margin: 0 0 0.8em 0; display: flex; align-items: center; gap: 0.5em;">
-                <span style="font-size: 1.3em;">⚡</span> Deterministic Rules
-            </h4>
-            <ul style="margin: 0; padding-left: 1.2em; font-size: 0.85em; color: #ccc;">
-                <li style="margin-bottom: 0.5em;">Calendar conflicts → <span style="color: var(--accent-red);">fail</span></li>
-                <li style="margin-bottom: 0.5em;">Offering busy times → <span style="color: var(--accent-red);">fail</span></li>
-                <li style="margin-bottom: 0.5em;">Missing required fields → <span style="color: var(--accent-red);">fail</span></li>
-                <li>Same action twice → <span style="color: var(--accent-red);">fail</span></li>
+    <h2>Knowing When You've Hit the Wall</h2>
+    <div class="two-column" style="gap: 2em; max-width: 900px; margin-top: 1.5em;">
+        <div style="background: rgba(255,202,40,0.1); border-radius: 14px; padding: 1.2em; border: 1px solid var(--accent-yellow);">
+            <h4 style="color: var(--accent-yellow); margin: 0 0 0.8em 0;">Prompt Overload</h4>
+            <ul style="margin: 0; padding-left: 1.2em; font-size: 0.9em; color: #ccc;">
+                <li style="margin-bottom: 0.5em;">Too many rules competing</li>
+                <li style="margin-bottom: 0.5em;">Fixing one breaks another</li>
+                <li style="margin-bottom: 0.5em;">Model gets confused</li>
+                <li>Prompt is pages long</li>
             </ul>
-            <p style="margin: 1em 0 0 0; color: #888; font-size: 0.75em; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 0.8em;">
-                Fast, cheap, 100% consistent
+            <p style="margin: 1em 0 0 0; color: #888; font-size: 0.8em; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 0.8em;">
+                Fix: Simplify scope, split into multiple agents
             </p>
         </div>
-        <div style="background: rgba(102,187,106,0.1); border-radius: 14px; padding: 1.2em; border: 1px solid rgba(102,187,106,0.3);">
-            <h4 style="color: var(--accent-green); margin: 0 0 0.8em 0; display: flex; align-items: center; gap: 0.5em;">
-                <span style="font-size: 1.3em;">🧠</span> LLM-as-Judge
-            </h4>
-            <ul style="margin: 0; padding-left: 1.2em; font-size: 0.85em; color: #ccc;">
-                <li style="margin-bottom: 0.5em;">Tone appropriate? → <span style="color: var(--accent-green);">judge</span></li>
-                <li style="margin-bottom: 0.5em;">Made assumptions? → <span style="color: var(--accent-green);">judge</span></li>
-                <li style="margin-bottom: 0.5em;">Pressured user? → <span style="color: var(--accent-green);">judge</span></li>
-                <li>Followed intent? → <span style="color: var(--accent-green);">judge</span></li>
+        <div style="background: rgba(239,83,80,0.1); border-radius: 14px; padding: 1.2em; border: 1px solid var(--accent-red);">
+            <h4 style="color: var(--accent-red); margin: 0 0 0.8em 0;">Generalization Limit</h4>
+            <ul style="margin: 0; padding-left: 1.2em; font-size: 0.9em; color: #ccc;">
+                <li style="margin-bottom: 0.5em;">Prompt is clear and minimal</li>
+                <li style="margin-bottom: 0.5em;">Model still can't do it</li>
+                <li style="margin-bottom: 0.5em;">Edge cases keep appearing</li>
+                <li>Requires reasoning model can't do</li>
             </ul>
-            <p style="margin: 1em 0 0 0; color: #888; font-size: 0.75em; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 0.8em;">
-                Nuanced, catches behavioral issues
+            <p style="margin: 1em 0 0 0; color: #888; font-size: 0.8em; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 0.8em;">
+                Fix: Route to human, accept limitation
             </p>
         </div>
     </div>
     <p class="fragment" style="margin-top: 1.5em; color: #888; font-size: 1em;">
-        Use deterministic where possible, LLM-as-judge for <em>behavior</em>
+        Either way: you've found a <strong style="color: var(--accent-red);">generalization error</strong> to detect
     </p>
 </section>
 
-<!-- Judge Rubric Example -->
+<!-- Phase 2: Error-Driven Detection -->
 <section>
-    <h2>Example: Judge Rubric</h2>
-    <div style="display: flex; gap: 1.5em; max-width: 1000px;">
-        <div style="flex: 1.2;">
-            <pre><code class="language-markdown" style="font-size: 0.52em; line-height: 1.35;">## Judge: Assumptive Language Detection
+    <p style="color: var(--accent-green); font-size: 0.9em; margin: 0; letter-spacing: 0.1em; text-transform: uppercase;">Phase 2</p>
+    <h2 style="margin-top: 0.2em;">Error-Driven Detection</h2>
+    <p style="color: #888; margin-bottom: 0.8em; font-size: 0.95em;">Systematically categorize failures you can't fix</p>
+    <div class="svg-container" style="max-width: 900px;">
+    <svg viewBox="0 0 900 320" preserveAspectRatio="xMidYMid meet">
+        <!-- Step 1: Open Coding -->
+        <rect x="30" y="30" width="200" height="120" rx="12" fill="#2a2a4e" stroke="#42a5f5" stroke-width="2"/>
+        <text x="130" y="60" text-anchor="middle" fill="#42a5f5" font-size="15" font-weight="bold">OPEN CODING</text>
+        <text x="130" y="85" text-anchor="middle" fill="#aaa" font-size="12">Collect raw failures</text>
+        <text x="130" y="105" text-anchor="middle" fill="#888" font-size="11">Label each with</text>
+        <text x="130" y="120" text-anchor="middle" fill="#888" font-size="11">what went wrong</text>
+        <text x="130" y="142" text-anchor="middle" fill="#666" font-size="10" font-style="italic">"User asked why, no response"</text>
 
-Goal: Did assistant pressure user without consent?
+        <!-- Arrow -->
+        <path d="M 230 90 L 280 90" stroke="#42a5f5" stroke-width="2" fill="none" marker-end="url(#errArrow)"/>
 
-ERROR if:
-- "Which option works best?" (no prior consent)
-- "Pick a time" without asking availability first
-- "I'll send the invite" (assumes acceptance)
+        <!-- Step 2: Axial Coding -->
+        <rect x="280" y="30" width="200" height="120" rx="12" fill="#2a2a4e" stroke="#ffca28" stroke-width="2"/>
+        <text x="380" y="60" text-anchor="middle" fill="#ffca28" font-size="15" font-weight="bold">AXIAL CODING</text>
+        <text x="380" y="85" text-anchor="middle" fill="#aaa" font-size="12">Group into categories</text>
+        <text x="380" y="105" text-anchor="middle" fill="#888" font-size="11">Find common patterns</text>
+        <text x="380" y="120" text-anchor="middle" fill="#888" font-size="11">across failures</text>
+        <text x="380" y="142" text-anchor="middle" fill="#666" font-size="10" font-style="italic">"EXPLANATION_REQUEST (10)"</text>
 
-NOT ERROR if:
-- Recipient asked to meet
-- Recipient provided availability
-- Third-party handed off scheduling
+        <!-- Arrow -->
+        <path d="M 480 90 L 530 90" stroke="#ffca28" stroke-width="2" fill="none" marker-end="url(#errArrow2)"/>
 
-Example ERROR:
-"Here are Ashish's slots: [times]
-Do any work? I'll send the invite."
-→ Selection pressure + no consent = ❌
+        <!-- Step 3: Build Detectors -->
+        <rect x="530" y="30" width="200" height="120" rx="12" fill="#2a2a4e" stroke="#ef5350" stroke-width="2"/>
+        <text x="630" y="60" text-anchor="middle" fill="#ef5350" font-size="15" font-weight="bold">BUILD DETECTORS</text>
+        <text x="630" y="85" text-anchor="middle" fill="#aaa" font-size="12">Pattern matching on</text>
+        <text x="630" y="105" text-anchor="middle" fill="#888" font-size="11">production traces</text>
+        <text x="630" y="120" text-anchor="middle" fill="#888" font-size="11">for each category</text>
+        <text x="630" y="142" text-anchor="middle" fill="#666" font-size="10" font-style="italic">"if 'why' in message..."</text>
 
-Example OK:
-"Happy to help schedule. What times
-work for you this week?"
-→ Asking availability first = ✓</code></pre>
+        <!-- Arrow -->
+        <path d="M 730 90 L 780 90" stroke="#ef5350" stroke-width="2" fill="none" marker-end="url(#errArrow3)"/>
+
+        <!-- Step 4: Route -->
+        <rect x="780" y="30" width="100" height="120" rx="12" fill="rgba(102,187,106,0.15)" stroke="#66bb6a" stroke-width="2"/>
+        <text x="830" y="60" text-anchor="middle" fill="#66bb6a" font-size="15" font-weight="bold">ROUTE</text>
+        <text x="830" y="90" text-anchor="middle" fill="#aaa" font-size="11">→ Human</text>
+        <text x="830" y="110" text-anchor="middle" fill="#aaa" font-size="11">→ Fallback</text>
+        <text x="830" y="130" text-anchor="middle" fill="#aaa" font-size="11">→ Log</text>
+
+        <!-- Bottom: Hamel credit -->
+        <rect x="200" y="190" width="500" height="110" rx="10" fill="rgba(66,165,245,0.08)" stroke="rgba(66,165,245,0.3)" stroke-width="1"/>
+        <text x="450" y="220" text-anchor="middle" fill="#42a5f5" font-size="14" font-weight="600">The Hamel Hussain Approach</text>
+        <text x="450" y="248" text-anchor="middle" fill="#aaa" font-size="13">Study your errors deeply → Build targeted detectors</text>
+        <text x="450" y="275" text-anchor="middle" fill="#888" font-size="12">Each failure category becomes a rule you can check in production</text>
+
+        <defs>
+            <marker id="errArrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                <polygon points="0 0, 8 3, 0 6" fill="#42a5f5"/>
+            </marker>
+            <marker id="errArrow2" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                <polygon points="0 0, 8 3, 0 6" fill="#ffca28"/>
+            </marker>
+            <marker id="errArrow3" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                <polygon points="0 0, 8 3, 0 6" fill="#ef5350"/>
+            </marker>
+        </defs>
+    </svg>
+    </div>
+</section>
+
+<!-- The Full Picture -->
+<section>
+    <h2>The Full Picture</h2>
+    <div class="svg-container" style="max-width: 900px;">
+    <svg viewBox="0 0 900 300" preserveAspectRatio="xMidYMid meet">
+        <!-- Phase 1 Box -->
+        <rect x="30" y="20" width="380" height="250" rx="14" fill="rgba(66,165,245,0.08)" stroke="#42a5f5" stroke-width="2"/>
+        <text x="220" y="52" text-anchor="middle" fill="#42a5f5" font-size="16" font-weight="bold">Phase 1: Prompt-Driven</text>
+
+        <text x="55" y="85" fill="#aaa" font-size="13">1. Generate tests from prompt</text>
+        <text x="55" y="110" fill="#aaa" font-size="13">2. Run model against tests</text>
+        <text x="55" y="135" fill="#aaa" font-size="13">3. Classify failures: spec or generalization?</text>
+        <text x="55" y="160" fill="#aaa" font-size="13">4. Fix spec issues, iterate</text>
+
+        <rect x="55" y="185" width="320" height="55" rx="8" fill="rgba(102,187,106,0.12)" stroke="#66bb6a" stroke-width="1"/>
+        <text x="215" y="210" text-anchor="middle" fill="#66bb6a" font-size="13" font-weight="600">Output: Spec issues fixed</text>
+        <text x="215" y="228" text-anchor="middle" fill="#888" font-size="11">Generalization issues identified</text>
+
+        <!-- Arrow between phases -->
+        <path d="M 410 145 L 480 145" stroke="#fff" stroke-width="3" fill="none" marker-end="url(#phaseArrow)"/>
+
+        <!-- Phase 2 Box -->
+        <rect x="490" y="20" width="380" height="250" rx="14" fill="rgba(102,187,106,0.08)" stroke="#66bb6a" stroke-width="2"/>
+        <text x="680" y="52" text-anchor="middle" fill="#66bb6a" font-size="16" font-weight="bold">Phase 2: Error-Driven</text>
+
+        <text x="515" y="85" fill="#aaa" font-size="13">1. Open coding: label failures</text>
+        <text x="515" y="110" fill="#aaa" font-size="13">2. Axial coding: group into categories</text>
+        <text x="515" y="135" fill="#aaa" font-size="13">3. Build detectors for each category</text>
+        <text x="515" y="160" fill="#aaa" font-size="13">4. Route flagged cases appropriately</text>
+
+        <rect x="515" y="185" width="320" height="55" rx="8" fill="rgba(255,202,40,0.12)" stroke="#ffca28" stroke-width="1"/>
+        <text x="675" y="210" text-anchor="middle" fill="#ffca28" font-size="13" font-weight="600">Output: Generalization errors caught</text>
+        <text x="675" y="228" text-anchor="middle" fill="#888" font-size="11">Humans see only hard cases</text>
+
+        <defs>
+            <marker id="phaseArrow" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+                <polygon points="0 0, 10 4, 0 8" fill="#fff"/>
+            </marker>
+        </defs>
+    </svg>
+    </div>
+</section>
+
+<!-- Open Coding Deep Dive -->
+<section>
+    <h2>Open Coding: The Hamel Method</h2>
+    <p style="color: #888; margin-bottom: 0.8em; font-size: 0.95em;">Qualitative research adapted for LLM failures</p>
+    <div class="two-column" style="gap: 2em; max-width: 950px; margin-top: 1em;">
+        <div style="background: var(--card-bg); border-radius: 14px; padding: 1.2em; border-left: 4px solid var(--accent-blue);">
+            <h4 style="color: var(--accent-blue); margin: 0 0 0.8em 0;">The Process</h4>
+            <ol style="margin: 0; padding-left: 1.2em; font-size: 0.9em; color: #ccc;">
+                <li style="margin-bottom: 0.6em;">Review <strong>30-50 traces</strong> manually</li>
+                <li style="margin-bottom: 0.6em;">Write exploratory notes ("journaling")</li>
+                <li style="margin-bottom: 0.6em;">Focus on <strong>first failure</strong> — errors cascade</li>
+                <li style="margin-bottom: 0.6em;">One domain expert for consistency</li>
+            </ol>
         </div>
-        <div style="flex: 0.8; font-size: 0.8em; display: flex; flex-direction: column; justify-content: center;">
-            <div style="background: var(--card-bg); border-radius: 12px; padding: 1em; margin-bottom: 0.8em;">
-                <div style="color: var(--accent-yellow); font-weight: 600; margin-bottom: 0.5em;">Why this works:</div>
-                <ul style="margin: 0; padding-left: 1em; color: #aaa;">
-                    <li>Clear decision procedure</li>
-                    <li>Concrete examples</li>
-                    <li>Edge cases defined</li>
-                </ul>
+        <div style="background: rgba(0,0,0,0.3); border-radius: 14px; padding: 1.2em; font-family: monospace; font-size: 0.8em;">
+            <div style="color: #888; margin-bottom: 0.8em;">Example notes:</div>
+            <div style="color: #ef5350; margin-bottom: 0.5em;">❌ Trace #42</div>
+            <div style="color: #aaa; margin-bottom: 0.3em;">"User said 'quick sync' but agent scheduled 60min"</div>
+            <div style="color: #ef5350; margin: 0.8em 0 0.5em 0;">❌ Trace #67</div>
+            <div style="color: #aaa; margin-bottom: 0.3em;">"Sent invite before checking availability"</div>
+            <div style="color: #ef5350; margin: 0.8em 0 0.5em 0;">❌ Trace #89</div>
+            <div style="color: #aaa;">"User asked 'why' — agent ignored question"</div>
+        </div>
+    </div>
+    <p class="fragment" style="margin-top: 1.2em; color: #888; font-size: 0.95em;">
+        Key insight: <strong style="color: #fff;">No categories yet</strong> — just observations
+    </p>
+</section>
+
+<!-- Axial Coding Deep Dive -->
+<section>
+    <h2>Axial Coding: Build Your Taxonomy</h2>
+    <p style="color: #888; margin-bottom: 0.8em; font-size: 0.95em;">Group observations into actionable categories</p>
+    <div class="svg-container" style="max-width: 900px;">
+    <svg viewBox="0 0 900 340" preserveAspectRatio="xMidYMid meet">
+        <!-- Raw notes (left) -->
+        <rect x="30" y="30" width="250" height="280" rx="12" fill="rgba(66,165,245,0.1)" stroke="#42a5f5" stroke-width="2"/>
+        <text x="155" y="60" text-anchor="middle" fill="#42a5f5" font-size="14" font-weight="bold">Raw Notes (Open Coding)</text>
+        <text x="50" y="95" fill="#888" font-size="11">"quick sync" → 60min</text>
+        <text x="50" y="115" fill="#888" font-size="11">"brief chat" → 45min</text>
+        <text x="50" y="135" fill="#888" font-size="11">"short call" → 60min</text>
+        <line x1="50" y1="150" x2="260" y2="150" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+        <text x="50" y="170" fill="#888" font-size="11">invited before checking cal</text>
+        <text x="50" y="190" fill="#888" font-size="11">sent invite, then saw conflict</text>
+        <line x1="50" y1="205" x2="260" y2="205" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+        <text x="50" y="225" fill="#888" font-size="11">user asked "why", no answer</text>
+        <text x="50" y="245" fill="#888" font-size="11">"what made you pick 3pm?"</text>
+        <line x1="50" y1="260" x2="260" y2="260" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+        <text x="50" y="280" fill="#888" font-size="11">user said STOP, kept going</text>
+        <text x="50" y="300" fill="#888" font-size="11">"wait" ignored</text>
+
+        <!-- Arrow -->
+        <path d="M 280 170 L 350 170" stroke="#ffca28" stroke-width="3" fill="none" marker-end="url(#axialArrow)"/>
+        <text x="315" y="155" text-anchor="middle" fill="#ffca28" font-size="11">group</text>
+
+        <!-- Categories (right) -->
+        <rect x="370" y="30" width="500" height="280" rx="12" fill="rgba(102,187,106,0.1)" stroke="#66bb6a" stroke-width="2"/>
+        <text x="620" y="60" text-anchor="middle" fill="#66bb6a" font-size="14" font-weight="bold">Failure Taxonomy (Axial Coding)</text>
+
+        <!-- Category boxes -->
+        <rect x="390" y="80" width="220" height="50" rx="8" fill="rgba(239,83,80,0.15)" stroke="#ef5350" stroke-width="1"/>
+        <text x="500" y="100" text-anchor="middle" fill="#ef5350" font-size="13" font-weight="600">WRONG_DURATION</text>
+        <text x="500" y="118" text-anchor="middle" fill="#888" font-size="11">13 occurrences</text>
+
+        <rect x="630" y="80" width="220" height="50" rx="8" fill="rgba(239,83,80,0.15)" stroke="#ef5350" stroke-width="1"/>
+        <text x="740" y="100" text-anchor="middle" fill="#ef5350" font-size="13" font-weight="600">CALENDAR_ORDER</text>
+        <text x="740" y="118" text-anchor="middle" fill="#888" font-size="11">9 occurrences</text>
+
+        <rect x="390" y="145" width="220" height="50" rx="8" fill="rgba(255,202,40,0.15)" stroke="#ffca28" stroke-width="1"/>
+        <text x="500" y="165" text-anchor="middle" fill="#ffca28" font-size="13" font-weight="600">EXPLANATION_REQUEST</text>
+        <text x="500" y="183" text-anchor="middle" fill="#888" font-size="11">10 occurrences</text>
+
+        <rect x="630" y="145" width="220" height="50" rx="8" fill="rgba(255,202,40,0.15)" stroke="#ffca28" stroke-width="1"/>
+        <text x="740" y="165" text-anchor="middle" fill="#ffca28" font-size="13" font-weight="600">STOP_IGNORED</text>
+        <text x="740" y="183" text-anchor="middle" fill="#888" font-size="11">23 occurrences</text>
+
+        <!-- Bottom note -->
+        <rect x="390" y="215" width="460" height="75" rx="8" fill="rgba(66,165,245,0.08)" stroke="rgba(66,165,245,0.3)" stroke-width="1"/>
+        <text x="620" y="245" text-anchor="middle" fill="#42a5f5" font-size="12" font-weight="600">Theoretical Saturation</text>
+        <text x="620" y="268" text-anchor="middle" fill="#888" font-size="11">Keep coding until new traces reveal no new failure modes</text>
+
+        <defs>
+            <marker id="axialArrow" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+                <polygon points="0 0, 10 4, 0 8" fill="#ffca28"/>
+            </marker>
+        </defs>
+    </svg>
+    </div>
+</section>
+
+<!-- Rubric Scoring Hierarchy -->
+<section>
+    <h2>Rubric Scoring: The Hierarchy</h2>
+    <p style="color: #888; margin-bottom: 0.8em; font-size: 0.95em;">Deterministic first, LLM judge only when necessary</p>
+    <div style="max-width: 850px; margin-top: 1em;">
+        <!-- Tier 1: Deterministic -->
+        <div class="fragment" style="display: flex; gap: 1.5em; margin-bottom: 1em; padding: 1em; background: rgba(102,187,106,0.1); border-radius: 12px; border: 2px solid var(--accent-green);">
+            <div style="min-width: 100px; text-align: center;">
+                <div style="font-size: 2em; font-weight: bold; color: var(--accent-green);">1</div>
+                <div style="font-size: 0.8em; color: #888;">Deterministic</div>
             </div>
-            <div style="background: var(--card-bg); border-radius: 12px; padding: 1em;">
-                <div style="color: var(--accent-green); font-weight: 600; margin-bottom: 0.5em;">Result:</div>
-                <p style="margin: 0; color: #aaa;">One rubric catches an entire <em>category</em> of behavioral errors</p>
+            <div style="flex: 1;">
+                <strong style="color: var(--accent-green);">Assertions</strong> — per-test-case checks<br>
+                <code style="font-size: 0.75em; color: #aaa;">tool_called</code> ·
+                <code style="font-size: 0.75em; color: #aaa;">param_contains</code> ·
+                <code style="font-size: 0.75em; color: #aaa;">step_order</code> ·
+                <code style="font-size: 0.75em; color: #aaa;">tool_count</code>
+                <div style="margin-top: 0.5em; font-size: 0.85em; color: #666;">Fast, cheap, 100% reproducible</div>
             </div>
+        </div>
+
+        <!-- Tier 2: Invariants -->
+        <div class="fragment" style="display: flex; gap: 1.5em; margin-bottom: 1em; padding: 1em; background: rgba(255,202,40,0.1); border-radius: 12px; border: 2px solid var(--accent-yellow);">
+            <div style="min-width: 100px; text-align: center;">
+                <div style="font-size: 2em; font-weight: bold; color: var(--accent-yellow);">2</div>
+                <div style="font-size: 0.8em; color: #888;">Invariants</div>
+            </div>
+            <div style="flex: 1;">
+                <strong style="color: var(--accent-yellow);">Universal rules</strong> — apply to all outputs<br>
+                <code style="font-size: 0.75em; color: #aaa;">EMAIL_SIGNATURE_REQUIRED</code> ·
+                <code style="font-size: 0.75em; color: #aaa;">SMS_BREVITY</code> ·
+                <code style="font-size: 0.75em; color: #aaa;">NO_MINIMIZERS</code>
+                <div style="margin-top: 0.5em; font-size: 0.85em; color: #666;">Catches entire categories of behavioral errors</div>
+            </div>
+        </div>
+
+        <!-- Tier 3: LLM Judge -->
+        <div class="fragment" style="display: flex; gap: 1.5em; padding: 1em; background: rgba(66,165,245,0.1); border-radius: 12px; border: 2px solid var(--accent-blue);">
+            <div style="min-width: 100px; text-align: center;">
+                <div style="font-size: 2em; font-weight: bold; color: var(--accent-blue);">3</div>
+                <div style="font-size: 0.8em; color: #888;">LLM Judge</div>
+            </div>
+            <div style="flex: 1;">
+                <strong style="color: var(--accent-blue);">Nuanced judgment</strong> — only when needed<br>
+                <span style="font-size: 0.85em; color: #aaa;">"Is this response helpful?" · "Does the tone match?" · "Is this appropriate?"</span>
+                <div style="margin-top: 0.5em; font-size: 0.85em; color: #666;">Expensive, slower, requires calibration against human labels</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- When to Use Which -->
+<section>
+    <h2>Decision Framework</h2>
+    <p style="color: #888; margin-bottom: 0.8em; font-size: 0.95em;">Do the simplest thing that works</p>
+    <div class="svg-container" style="max-width: 850px;">
+    <svg viewBox="0 0 850 320" preserveAspectRatio="xMidYMid meet">
+        <!-- Start -->
+        <rect x="325" y="10" width="200" height="45" rx="10" fill="#2a2a4e" stroke="#fff" stroke-width="2"/>
+        <text x="425" y="40" text-anchor="middle" fill="#fff" font-size="15">New check needed</text>
+
+        <!-- Arrow down -->
+        <path d="M 425 55 L 425 85" stroke="#666" stroke-width="2" fill="none" marker-end="url(#decArrow)"/>
+
+        <!-- Question 1 -->
+        <rect x="250" y="85" width="350" height="50" rx="10" fill="#2a2a4e" stroke="#66bb6a" stroke-width="2"/>
+        <text x="425" y="115" text-anchor="middle" fill="#fff" font-size="14">Can you write a regex or exact match?</text>
+
+        <!-- Yes path (left) -->
+        <path d="M 250 110 L 150 110 L 150 170" stroke="#66bb6a" stroke-width="2" fill="none" marker-end="url(#decArrowGreen)"/>
+        <rect x="200" y="95" width="40" height="20" rx="4" fill="#1a1a2e"/>
+        <text x="220" y="109" text-anchor="middle" fill="#66bb6a" font-size="12" font-weight="bold">YES</text>
+
+        <rect x="50" y="170" width="200" height="70" rx="10" fill="rgba(102,187,106,0.15)" stroke="#66bb6a" stroke-width="2"/>
+        <text x="150" y="200" text-anchor="middle" fill="#66bb6a" font-size="15" font-weight="bold">Deterministic</text>
+        <text x="150" y="225" text-anchor="middle" fill="#888" font-size="11">tool_called, param_contains</text>
+
+        <!-- No path (right) to question 2 -->
+        <path d="M 600 110 L 700 110 L 700 170" stroke="#ffca28" stroke-width="2" fill="none" marker-end="url(#decArrowYellow)"/>
+        <rect x="610" y="95" width="35" height="20" rx="4" fill="#1a1a2e"/>
+        <text x="627" y="109" text-anchor="middle" fill="#ffca28" font-size="12" font-weight="bold">NO</text>
+
+        <!-- Question 2 -->
+        <rect x="550" y="170" width="300" height="50" rx="10" fill="#2a2a4e" stroke="#ffca28" stroke-width="2"/>
+        <text x="700" y="200" text-anchor="middle" fill="#fff" font-size="14">Is it a universal rule (all outputs)?</text>
+
+        <!-- Yes path from Q2 -->
+        <path d="M 550 195 L 450 195 L 450 260" stroke="#ffca28" stroke-width="2" fill="none" marker-end="url(#decArrowYellow)"/>
+        <rect x="480" y="182" width="40" height="20" rx="4" fill="#1a1a2e"/>
+        <text x="500" y="196" text-anchor="middle" fill="#ffca28" font-size="12" font-weight="bold">YES</text>
+
+        <rect x="350" y="260" width="200" height="50" rx="10" fill="rgba(255,202,40,0.15)" stroke="#ffca28" stroke-width="2"/>
+        <text x="450" y="290" text-anchor="middle" fill="#ffca28" font-size="15" font-weight="bold">Invariant</text>
+
+        <!-- No path from Q2 -->
+        <path d="M 700 220 L 700 260" stroke="#42a5f5" stroke-width="2" fill="none" marker-end="url(#decArrowBlue)"/>
+        <rect x="680" y="225" width="35" height="20" rx="4" fill="#1a1a2e"/>
+        <text x="697" y="239" text-anchor="middle" fill="#42a5f5" font-size="12" font-weight="bold">NO</text>
+
+        <rect x="600" y="260" width="200" height="50" rx="10" fill="rgba(66,165,245,0.15)" stroke="#42a5f5" stroke-width="2"/>
+        <text x="700" y="290" text-anchor="middle" fill="#42a5f5" font-size="15" font-weight="bold">LLM Judge</text>
+
+        <defs>
+            <marker id="decArrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                <polygon points="0 0, 8 3, 0 6" fill="#666"/>
+            </marker>
+            <marker id="decArrowGreen" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                <polygon points="0 0, 8 3, 0 6" fill="#66bb6a"/>
+            </marker>
+            <marker id="decArrowYellow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                <polygon points="0 0, 8 3, 0 6" fill="#ffca28"/>
+            </marker>
+            <marker id="decArrowBlue" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                <polygon points="0 0, 8 3, 0 6" fill="#42a5f5"/>
+            </marker>
+        </defs>
+    </svg>
+    </div>
+</section>
+
+<!-- Case Study Through This Lens -->
+<section>
+    <h2>Case Study: 179 Rejections</h2>
+    <p style="color: #888; margin-bottom: 1em;">Viewed through the two-phase lens</p>
+    <div class="svg-container" style="max-width: 900px;">
+    <svg viewBox="0 0 900 320" preserveAspectRatio="xMidYMid meet">
+        <!-- Total -->
+        <text x="450" y="40" text-anchor="middle" fill="#fff" font-size="24" font-weight="bold">179 total rejections</text>
+
+        <!-- Split -->
+        <path d="M 450 55 L 450 80" stroke="#888" stroke-width="2"/>
+        <path d="M 450 80 L 250 120" stroke="#888" stroke-width="2"/>
+        <path d="M 450 80 L 650 120" stroke="#888" stroke-width="2"/>
+
+        <!-- Spec Failures (left) -->
+        <rect x="100" y="120" width="300" height="160" rx="14" fill="rgba(102,187,106,0.15)" stroke="#66bb6a" stroke-width="3"/>
+        <text x="250" y="155" text-anchor="middle" fill="#66bb6a" font-size="20" font-weight="bold">~76 Spec Failures</text>
+        <text x="250" y="185" text-anchor="middle" fill="#aaa" font-size="14">Fixed with prompt rules</text>
+
+        <text x="130" y="220" fill="#888" font-size="12">• WRONG_DURATION → define defaults</text>
+        <text x="130" y="242" fill="#888" font-size="12">• CALENDAR_ORDER → enforce sequence</text>
+        <text x="130" y="264" fill="#888" font-size="12">• EXEC_OVERRIDE → priority rules</text>
+
+        <!-- Generalization Failures (right) -->
+        <rect x="500" y="120" width="300" height="160" rx="14" fill="rgba(239,83,80,0.15)" stroke="#ef5350" stroke-width="3"/>
+        <text x="650" y="155" text-anchor="middle" fill="#ef5350" font-size="20" font-weight="bold">~103 Edge Cases</text>
+        <text x="650" y="185" text-anchor="middle" fill="#aaa" font-size="14">Detection candidates</text>
+
+        <text x="530" y="220" fill="#888" font-size="12">• Ambiguous user intent</text>
+        <text x="530" y="242" fill="#888" font-size="12">• Multi-step reasoning failures</text>
+        <text x="530" y="264" fill="#888" font-size="12">• Context exceeded capacity</text>
+
+        <!-- Bottom insight -->
+        <text x="450" y="310" text-anchor="middle" fill="#fff" font-size="16">Phase 1 fixed 76. Phase 2 catches the rest before they hurt users.</text>
+    </svg>
+    </div>
+</section>
+
+<!-- The Payoff -->
+<section data-background-image="images/bg-key-insight.png" data-background-size="cover" data-background-opacity="0.25">
+    <h2 style="margin-bottom: 0.4em;">The Payoff</h2>
+    <div style="background: linear-gradient(135deg, var(--card-bg), #3a3a6e); border-radius: 16px; padding: 0.8em 2em; margin: 0.4em auto; max-width: 600px; border: 2px solid var(--accent-green);">
+        <p style="font-size: 1.2em; margin: 0; line-height: 1.4;">
+            Most failures are <span style="color: var(--accent-green);">spec failures</span>. <span style="color: #888; font-size: 0.85em;">You can fix them.</span>
+        </p>
+    </div>
+    <div style="margin-top: 0.8em; max-width: 600px;">
+        <div class="fragment" style="display: flex; align-items: center; gap: 0.6em; margin: 0.3em 0; padding: 0.45em 0.8em; background: var(--card-bg); border-radius: 8px; font-size: 0.9em;">
+            <span style="color: var(--accent-blue); font-size: 1.1em;">1</span>
+            <span>Prompt-driven eval finds spec gaps fast</span>
+        </div>
+        <div class="fragment" style="display: flex; align-items: center; gap: 0.6em; margin: 0.3em 0; padding: 0.45em 0.8em; background: var(--card-bg); border-radius: 8px; font-size: 0.9em;">
+            <span style="color: var(--accent-blue); font-size: 1.1em;">2</span>
+            <span>Classifying failures shows generalization limits</span>
+        </div>
+        <div class="fragment" style="display: flex; align-items: center; gap: 0.6em; margin: 0.3em 0; padding: 0.45em 0.8em; background: var(--card-bg); border-radius: 8px; font-size: 0.9em;">
+            <span style="color: var(--accent-blue); font-size: 1.1em;">3</span>
+            <span>Error-driven detection catches what you can't fix</span>
+        </div>
+        <div class="fragment" style="display: flex; align-items: center; gap: 0.6em; margin: 0.3em 0; padding: 0.45em 0.8em; background: var(--card-bg); border-radius: 8px; font-size: 0.9em;">
+            <span style="color: var(--accent-blue); font-size: 1.1em;">4</span>
+            <span>Humans only see the hard cases</span>
         </div>
     </div>
 </section>
