@@ -1385,10 +1385,10 @@ python execute_spec.py \
         <!-- Eval Loop (left) -->
         <rect x="100" y="160" width="300" height="120" rx="12" fill="rgba(66,165,245,0.1)" stroke="#42a5f5" stroke-width="2"/>
         <text x="250" y="185" text-anchor="middle" fill="#42a5f5" font-size="13" font-weight="bold">Eval Loop (Claude)</text>
-        <text x="250" y="210" text-anchor="middle" fill="#aaa" font-size="11">pass/fail → human reads → edit prompt</text>
-        <text x="250" y="235" text-anchor="middle" fill="#888" font-size="10">Model weights: frozen (API)</text>
-        <text x="250" y="255" text-anchor="middle" fill="#888" font-size="10">Episodes: 10s-100s</text>
-        <text x="250" y="275" text-anchor="middle" fill="#666" font-size="10">Update: prompt engineering</text>
+        <text x="250" y="210" text-anchor="middle" fill="#aaa" font-size="11">pass/fail → edit prompt</text>
+        <text x="250" y="230" text-anchor="middle" fill="#888" font-size="10">Model weights: frozen (API)</text>
+        <text x="250" y="248" text-anchor="middle" fill="#888" font-size="10">Update: human OR agentic loop</text>
+        <text x="250" y="266" text-anchor="middle" fill="#666" font-size="10">(deterministic verifiers enable auto-optimization)</text>
 
         <!-- RL Loop (right) -->
         <rect x="500" y="160" width="300" height="120" rx="12" fill="rgba(102,187,106,0.1)" stroke="#66bb6a" stroke-width="2"/>
@@ -1400,8 +1400,8 @@ python execute_spec.py \
     </svg>
     </div>
     <p class="fragment" style="margin-top: 0.5em; font-size: 0.85em; color: #888;">
-        Why eval not RL? <strong style="color: #fff;">Claude's weights are frozen</strong> — you can only update the prompt.<br>
-        <span style="color: #666;">But if you're fine-tuning open source, your sim becomes a training env.</span>
+        Key: <strong style="color: #fff;">Deterministic verifiers unlock automation</strong> — agent can optimize its own prompt.<br>
+        <span style="color: #666;">With open source models, same sim becomes an RL training environment.</span>
     </p>
 </section>
 
