@@ -1229,6 +1229,195 @@ python execute_spec.py \
     </p>
 </section>
 
+<!-- Outcome vs Transcript -->
+<section>
+    <h2>Check the Outcome, Not the Transcript</h2>
+    <p style="color: #888; margin-bottom: 0.6em; font-size: 0.9em;">What the agent <em>did</em> matters more than what it <em>said</em> it did</p>
+    <div class="two-column" style="gap: 2em; max-width: 900px; margin-top: 0.8em;">
+        <!-- Bad: Transcript only -->
+        <div style="background: rgba(239,83,80,0.1); border-radius: 14px; padding: 1em; border: 2px solid var(--accent-red);">
+            <h4 style="color: var(--accent-red); margin: 0 0 0.6em 0;">❌ Checking Transcript</h4>
+            <div style="background: rgba(0,0,0,0.3); border-radius: 8px; padding: 0.8em; font-family: monospace; font-size: 0.75em; color: #aaa;">
+                <div>agent called <span style="color: #66bb6a;">send_email</span></div>
+                <div>  to: ["sarah@co.com"]</div>
+                <div>  subject: "Meeting"</div>
+                <div style="margin-top: 0.5em; color: var(--accent-green);">✓ tool_called: pass</div>
+                <div style="color: var(--accent-green);">✓ param_contains: pass</div>
+            </div>
+            <p style="color: #888; font-size: 0.8em; margin: 0.8em 0 0 0;">
+                But did the email actually get sent?<br>
+                <span style="color: var(--accent-red);">The tool might have silently failed.</span>
+            </p>
+        </div>
+        <!-- Good: Mock state -->
+        <div style="background: rgba(102,187,106,0.1); border-radius: 14px; padding: 1em; border: 2px solid var(--accent-green);">
+            <h4 style="color: var(--accent-green); margin: 0 0 0.6em 0;">✓ Checking Mock State</h4>
+            <div style="background: rgba(0,0,0,0.3); border-radius: 8px; padding: 0.8em; font-family: monospace; font-size: 0.75em; color: #aaa;">
+                <div style="color: #888;"># After agent runs:</div>
+                <div>mock_calendar.events == [</div>
+                <div>  {title: "Meeting", ...}</div>
+                <div>]</div>
+                <div style="margin-top: 0.5em; color: var(--accent-green);">✓ Event exists in state</div>
+                <div style="color: var(--accent-green);">✓ Correct attendees</div>
+            </div>
+            <p style="color: #888; font-size: 0.8em; margin: 0.8em 0 0 0;">
+                Verify the actual environment changed.<br>
+                <span style="color: var(--accent-green);">Ground truth, not claims.</span>
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Agent Simulation Environment -->
+<section>
+    <h2>Agent Simulation Environments</h2>
+    <p style="color: #888; margin-bottom: 0.6em; font-size: 0.9em;">A sandboxed world where agents can act without consequences</p>
+    <div class="svg-container" style="max-width: 900px;">
+    <svg viewBox="0 0 900 280" preserveAspectRatio="xMidYMid meet">
+        <!-- Agent box -->
+        <rect x="30" y="80" width="150" height="120" rx="12" fill="#2a2a4e" stroke="#42a5f5" stroke-width="2"/>
+        <text x="105" y="115" text-anchor="middle" fill="#42a5f5" font-size="14" font-weight="bold">Agent</text>
+        <text x="105" y="140" text-anchor="middle" fill="#888" font-size="11">(Claude Code,</text>
+        <text x="105" y="155" text-anchor="middle" fill="#888" font-size="11">your agent)</text>
+        <text x="105" y="185" text-anchor="middle" fill="#666" font-size="10">Prompt + Tools</text>
+
+        <!-- Arrow to sim -->
+        <path d="M 180 140 L 250 140" stroke="#42a5f5" stroke-width="2" fill="none" marker-end="url(#simArrow)"/>
+        <text x="215" y="130" text-anchor="middle" fill="#888" font-size="10">tool calls</text>
+
+        <!-- Simulation Environment -->
+        <rect x="260" y="30" width="400" height="220" rx="14" fill="rgba(102,187,106,0.08)" stroke="#66bb6a" stroke-width="2"/>
+        <text x="460" y="60" text-anchor="middle" fill="#66bb6a" font-size="14" font-weight="bold">Simulation Environment</text>
+
+        <!-- Mock services inside -->
+        <rect x="285" y="80" width="110" height="50" rx="8" fill="rgba(66,165,245,0.15)" stroke="#42a5f5" stroke-width="1"/>
+        <text x="340" y="100" text-anchor="middle" fill="#42a5f5" font-size="11">Mock Calendar</text>
+        <text x="340" y="118" text-anchor="middle" fill="#666" font-size="9">events[], availability</text>
+
+        <rect x="410" y="80" width="110" height="50" rx="8" fill="rgba(66,165,245,0.15)" stroke="#42a5f5" stroke-width="1"/>
+        <text x="465" y="100" text-anchor="middle" fill="#42a5f5" font-size="11">Mock Email</text>
+        <text x="465" y="118" text-anchor="middle" fill="#666" font-size="9">sent[], inbox[]</text>
+
+        <rect x="535" y="80" width="110" height="50" rx="8" fill="rgba(66,165,245,0.15)" stroke="#42a5f5" stroke-width="1"/>
+        <text x="590" y="100" text-anchor="middle" fill="#42a5f5" font-size="11">Mock SMS</text>
+        <text x="590" y="118" text-anchor="middle" fill="#666" font-size="9">messages[]</text>
+
+        <!-- State box -->
+        <rect x="285" y="150" width="360" height="80" rx="8" fill="rgba(255,202,40,0.1)" stroke="#ffca28" stroke-width="1"/>
+        <text x="465" y="175" text-anchor="middle" fill="#ffca28" font-size="12" font-weight="600">Observable State</text>
+        <text x="465" y="195" text-anchor="middle" fill="#888" font-size="10">Contacts, preferences, history, filesystem</text>
+        <text x="465" y="215" text-anchor="middle" fill="#666" font-size="10">↳ Check this after agent runs</text>
+
+        <!-- Arrow to eval -->
+        <path d="M 660 140 L 730 140" stroke="#66bb6a" stroke-width="2" fill="none" marker-end="url(#simArrowGreen)"/>
+        <text x="695" y="130" text-anchor="middle" fill="#888" font-size="10">state</text>
+
+        <!-- Eval box -->
+        <rect x="740" y="80" width="130" height="120" rx="12" fill="#2a2a4e" stroke="#ffca28" stroke-width="2"/>
+        <text x="805" y="115" text-anchor="middle" fill="#ffca28" font-size="14" font-weight="bold">Grader</text>
+        <text x="805" y="140" text-anchor="middle" fill="#888" font-size="10">Assertions</text>
+        <text x="805" y="155" text-anchor="middle" fill="#888" font-size="10">Invariants</text>
+        <text x="805" y="175" text-anchor="middle" fill="#888" font-size="10">LLM Judge</text>
+
+        <defs>
+            <marker id="simArrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                <polygon points="0 0, 8 3, 0 6" fill="#42a5f5"/>
+            </marker>
+            <marker id="simArrowGreen" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                <polygon points="0 0, 8 3, 0 6" fill="#66bb6a"/>
+            </marker>
+        </defs>
+    </svg>
+    </div>
+</section>
+
+<!-- Why Sim Environments -->
+<section>
+    <h2>Why Use a Simulation Environment?</h2>
+    <div style="max-width: 800px; margin-top: 1em;">
+        <div class="fragment" style="display: flex; align-items: flex-start; gap: 1em; margin-bottom: 0.8em; padding: 0.6em; background: var(--card-bg); border-radius: 10px;">
+            <span style="font-size: 1.3em;">🔒</span>
+            <div>
+                <strong style="color: var(--accent-green);">Safe to fail</strong><br>
+                <span style="font-size: 0.85em; color: #888;">Agent can send 100 emails, book 50 meetings — nothing real happens</span>
+            </div>
+        </div>
+        <div class="fragment" style="display: flex; align-items: flex-start; gap: 1em; margin-bottom: 0.8em; padding: 0.6em; background: var(--card-bg); border-radius: 10px;">
+            <span style="font-size: 1.3em;">🔄</span>
+            <div>
+                <strong style="color: var(--accent-blue);">Reproducible</strong><br>
+                <span style="font-size: 0.85em; color: #888;">Reset state between trials, run same scenario 100x, compare results</span>
+            </div>
+        </div>
+        <div class="fragment" style="display: flex; align-items: flex-start; gap: 1em; margin-bottom: 0.8em; padding: 0.6em; background: var(--card-bg); border-radius: 10px;">
+            <span style="font-size: 1.3em;">⚡</span>
+            <div>
+                <strong style="color: var(--accent-yellow);">Fast iteration</strong><br>
+                <span style="font-size: 0.85em; color: #888;">No rate limits, no API costs for external services, instant feedback</span>
+            </div>
+        </div>
+        <div class="fragment" style="display: flex; align-items: flex-start; gap: 1em; padding: 0.6em; background: var(--card-bg); border-radius: 10px;">
+            <span style="font-size: 1.3em;">🎭</span>
+            <div>
+                <strong style="color: #ccc;">Controllable scenarios</strong><br>
+                <span style="font-size: 0.85em; color: #888;">Inject edge cases: conflicting calendars, slow APIs, adversarial users</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Sim vs RL -->
+<section>
+    <h2>Agent Sims vs RL Environments</h2>
+    <p style="color: #888; margin-bottom: 0.6em; font-size: 0.9em;">Similar structure, different goals</p>
+    <div style="max-width: 850px; margin-top: 0.8em;">
+        <table style="width: 100%; border-collapse: collapse; font-size: 0.85em;">
+            <thead>
+                <tr style="border-bottom: 2px solid #444;">
+                    <th style="text-align: left; padding: 0.6em; color: #888;"></th>
+                    <th style="text-align: left; padding: 0.6em; color: var(--accent-blue);">Agent Sim (Evals)</th>
+                    <th style="text-align: left; padding: 0.6em; color: var(--accent-green);">RL Environment</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="border-bottom: 1px solid #333;">
+                    <td style="padding: 0.6em; color: #888;">Goal</td>
+                    <td style="padding: 0.6em;">Measure performance</td>
+                    <td style="padding: 0.6em;">Train policy</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #333;">
+                    <td style="padding: 0.6em; color: #888;">Feedback</td>
+                    <td style="padding: 0.6em;">Pass/fail + diagnostics</td>
+                    <td style="padding: 0.6em;">Reward signal</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #333;">
+                    <td style="padding: 0.6em; color: #888;">Episodes</td>
+                    <td style="padding: 0.6em;">10s-100s per eval run</td>
+                    <td style="padding: 0.6em;">Millions for training</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #333;">
+                    <td style="padding: 0.6em; color: #888;">Agent</td>
+                    <td style="padding: 0.6em;">LLM (frozen weights)</td>
+                    <td style="padding: 0.6em;">Policy network (updating)</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #333;">
+                    <td style="padding: 0.6em; color: #888;">State</td>
+                    <td style="padding: 0.6em;">Mock services, files, DBs</td>
+                    <td style="padding: 0.6em;">Game state, physics sim</td>
+                </tr>
+                <tr>
+                    <td style="padding: 0.6em; color: #888;">Reset</td>
+                    <td style="padding: 0.6em;">Per test case</td>
+                    <td style="padding: 0.6em;">Per episode</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <p class="fragment" style="margin-top: 1em; font-size: 0.9em; color: #888;">
+        Key insight: <strong style="color: #fff;">Same abstraction</strong> (state, actions, transitions) — but you're <em>evaluating</em> not <em>training</em>
+    </p>
+</section>
+
 <!-- Case Study Through This Lens -->
 <section>
     <h2>Case Study: 179 Rejections</h2>
