@@ -726,6 +726,77 @@ python execute_spec.py \
         </p>
 </section>
 
+<!-- YCompanionator Case Study -->
+<section>
+    <h2>Real Example: <span style="color: var(--accent-green);">YCompanionator</span></h2>
+    <p style="color: #888; margin-bottom: 0.6em; font-size: 0.9em;">Conversation → Spec → Ship → Results</p>
+    <div class="svg-container" style="max-width: 900px;">
+    <svg viewBox="0 0 900 120" preserveAspectRatio="xMidYMid meet">
+        <!-- Step 1 -->
+        <rect x="30" y="30" width="180" height="60" rx="10" fill="#2a2a4e" stroke="#42a5f5" stroke-width="2"/>
+        <text x="120" y="55" text-anchor="middle" fill="#42a5f5" font-size="12" font-weight="bold">1. Conversation</text>
+        <text x="120" y="75" text-anchor="middle" fill="#888" font-size="10">Recorded call with Annie</text>
+
+        <path d="M 210 60 L 250 60" stroke="#42a5f5" stroke-width="2" fill="none" marker-end="url(#ycArrow)"/>
+
+        <!-- Step 2 -->
+        <rect x="250" y="30" width="180" height="60" rx="10" fill="#2a2a4e" stroke="#ffca28" stroke-width="2"/>
+        <text x="340" y="55" text-anchor="middle" fill="#ffca28" font-size="12" font-weight="bold">2. Spec Generated</text>
+        <text x="340" y="75" text-anchor="middle" fill="#888" font-size="10">Matching algo, UI, emails</text>
+
+        <path d="M 430 60 L 470 60" stroke="#ffca28" stroke-width="2" fill="none" marker-end="url(#ycArrow2)"/>
+
+        <!-- Step 3 -->
+        <rect x="470" y="30" width="180" height="60" rx="10" fill="#2a2a4e" stroke="#66bb6a" stroke-width="2"/>
+        <text x="560" y="55" text-anchor="middle" fill="#66bb6a" font-size="12" font-weight="bold">3. Agent Executed</text>
+        <text x="560" y="75" text-anchor="middle" fill="#888" font-size="10">Ralph loop → deployed</text>
+
+        <path d="M 650 60 L 690 60" stroke="#66bb6a" stroke-width="2" fill="none" marker-end="url(#ycArrow3)"/>
+
+        <!-- Step 4 -->
+        <rect x="690" y="30" width="180" height="60" rx="10" fill="rgba(102,187,106,0.2)" stroke="#66bb6a" stroke-width="3"/>
+        <text x="780" y="55" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold">4. Shipped!</text>
+        <text x="780" y="75" text-anchor="middle" fill="#66bb6a" font-size="10">ycompanionator.com</text>
+
+        <defs>
+            <marker id="ycArrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                <polygon points="0 0, 8 3, 0 6" fill="#42a5f5"/>
+            </marker>
+            <marker id="ycArrow2" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                <polygon points="0 0, 8 3, 0 6" fill="#ffca28"/>
+            </marker>
+            <marker id="ycArrow3" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                <polygon points="0 0, 8 3, 0 6" fill="#66bb6a"/>
+            </marker>
+        </defs>
+    </svg>
+    </div>
+
+    <!-- Stats -->
+    <div style="display: flex; gap: 1.5em; justify-content: center; margin-top: 1em; max-width: 800px;">
+        <div class="fragment" style="text-align: center; padding: 0.8em 1.2em; background: var(--card-bg); border-radius: 10px;">
+            <div style="font-size: 2em; font-weight: bold; color: var(--accent-blue);">352</div>
+            <div style="font-size: 0.8em; color: #888;">profiles created</div>
+        </div>
+        <div class="fragment" style="text-align: center; padding: 0.8em 1.2em; background: var(--card-bg); border-radius: 10px;">
+            <div style="font-size: 2em; font-weight: bold; color: var(--accent-yellow);">407</div>
+            <div style="font-size: 0.8em; color: #888;">match emails sent</div>
+        </div>
+        <div class="fragment" style="text-align: center; padding: 0.8em 1.2em; background: var(--card-bg); border-radius: 10px;">
+            <div style="font-size: 2em; font-weight: bold; color: var(--accent-green);">81%</div>
+            <div style="font-size: 0.8em; color: #888;">said YES</div>
+        </div>
+        <div class="fragment" style="text-align: center; padding: 0.8em 1.2em; background: rgba(239,83,80,0.15); border-radius: 10px; border: 2px solid var(--accent-red);">
+            <div style="font-size: 2em; font-weight: bold; color: var(--accent-red);">5</div>
+            <div style="font-size: 0.8em; color: #888;">real couples 💕</div>
+        </div>
+    </div>
+
+    <p class="fragment" style="margin-top: 1em; font-size: 0.9em; color: #888;">
+        500k Twitter impressions → 352 signups → <strong style="color: var(--accent-green);">5 couples</strong>
+    </p>
+</section>
+
 <!-- Context as Asset -->
 <section data-background-image="images/context-compounding.png" data-background-size="600px" data-background-position="center bottom" data-background-opacity="0.12">
     <h2>Context as Appreciating Asset</h2>
