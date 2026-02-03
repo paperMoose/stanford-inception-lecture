@@ -380,22 +380,26 @@
 <!-- Agenda -->
 <section>
     <h2>Today's Agenda</h2>
-    <div style="display: flex; flex-direction: column; gap: 1.2em; margin: 1.5em auto; max-width: 550px; text-align: left;">
-        <div style="display: flex; align-items: center; gap: 1.2em; padding: 0.6em 1em; background: rgba(66,165,245,0.08); border-radius: 12px; border-left: 3px solid var(--accent-blue);">
-            <span class="icon-badge blue" style="font-weight: 600;">1</span>
-            <span><strong>AI-Native Operations</strong><br><span style="color: #888; font-size: 0.85em;">What it actually means</span></span>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.8em; margin: 1em auto; max-width: 750px; text-align: left;">
+        <div style="display: flex; align-items: center; gap: 1em; padding: 0.5em 0.9em; background: rgba(66,165,245,0.08); border-radius: 10px; border-left: 3px solid var(--accent-blue);">
+            <span style="font-weight: 700; color: var(--accent-blue);">1</span>
+            <span><strong>AI-Native Operations</strong><br><span style="color: #888; font-size: 0.8em;">What it actually means</span></span>
         </div>
-        <div style="display: flex; align-items: center; gap: 1.2em; padding: 0.6em 1em; background: rgba(66,165,245,0.08); border-radius: 12px; border-left: 3px solid var(--accent-blue);">
-            <span class="icon-badge blue" style="font-weight: 600;">2</span>
-            <span><strong>Automated Consulting</strong><br><span style="color: #888; font-size: 0.85em;">Live pipeline demo</span></span>
+        <div style="display: flex; align-items: center; gap: 1em; padding: 0.5em 0.9em; background: rgba(66,165,245,0.08); border-radius: 10px; border-left: 3px solid var(--accent-green);">
+            <span style="font-weight: 700; color: var(--accent-green);">2</span>
+            <span><strong>Automated Consulting</strong><br><span style="color: #888; font-size: 0.8em;">Spec-driven development</span></span>
         </div>
-        <div style="display: flex; align-items: center; gap: 1.2em; padding: 0.6em 1em; background: rgba(66,165,245,0.08); border-radius: 12px; border-left: 3px solid var(--accent-blue);">
-            <span class="icon-badge blue" style="font-weight: 600;">3</span>
-            <span><strong>Agent Evals</strong><br><span style="color: #888; font-size: 0.85em;">179 failures analyzed</span></span>
+        <div style="display: flex; align-items: center; gap: 1em; padding: 0.5em 0.9em; background: rgba(66,165,245,0.08); border-radius: 10px; border-left: 3px solid var(--accent-yellow);">
+            <span style="font-weight: 700; color: var(--accent-yellow);">3</span>
+            <span><strong>Agent Evals</strong><br><span style="color: #888; font-size: 0.8em;">179 failures analyzed</span></span>
         </div>
-        <div style="display: flex; align-items: center; gap: 1.2em; padding: 0.6em 1em; background: rgba(66,165,245,0.08); border-radius: 12px; border-left: 3px solid var(--accent-blue);">
-            <span class="icon-badge blue" style="font-weight: 600;">4</span>
-            <span><strong>Q&A</strong><br><span style="color: #888; font-size: 0.85em;">The good stuff</span></span>
+        <div style="display: flex; align-items: center; gap: 1em; padding: 0.5em 0.9em; background: rgba(66,165,245,0.08); border-radius: 10px; border-left: 3px solid var(--accent-red);">
+            <span style="font-weight: 700; color: var(--accent-red);">4</span>
+            <span><strong>The OpenClaw Phenomenon</strong><br><span style="color: #888; font-size: 0.8em;">Where the industry is now</span></span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 1em; padding: 0.5em 0.9em; background: rgba(102,187,106,0.12); border-radius: 10px; border-left: 3px solid var(--accent-green); grid-column: span 2;">
+            <span style="font-weight: 700; color: var(--accent-green);">5</span>
+            <span><strong>heynoah.io</strong> — What I'm building<span style="color: #888; font-size: 0.8em;"> · Clawdbot for everyone else</span></span>
         </div>
     </div>
 </section>
@@ -1916,6 +1920,56 @@ python execute_spec.py \
             style="width: 1000px; height: 480px; border: 2px solid rgba(102,187,106,0.4); border-radius: 12px; background: #fff;"
             loading="lazy"
         ></iframe>
+    </div>
+</section>
+
+<!-- What Noah Is -->
+<section data-background-gradient="radial-gradient(circle at 50% 50%, #1a2e1a 0%, #0d1a0d 100%)">
+    <h2>What Noah Is</h2>
+    <p class="subtitle">AI executive assistant for the rest of us</p>
+
+    <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.8em; margin-top: 1.2em;">
+        <div class="fragment" style="background: var(--card-bg); border-radius: 10px; padding: 0.8em; text-align: center;">
+            <div style="font-size: 1.6em;">💬</div>
+            <p style="margin: 0.4em 0 0 0; font-size: 0.85em; color: #ccc;"><strong>SMS</strong></p>
+        </div>
+        <div class="fragment" style="background: var(--card-bg); border-radius: 10px; padding: 0.8em; text-align: center;">
+            <div style="font-size: 1.6em;">📧</div>
+            <p style="margin: 0.4em 0 0 0; font-size: 0.85em; color: #ccc;"><strong>Email</strong></p>
+        </div>
+        <div class="fragment" style="background: var(--card-bg); border-radius: 10px; padding: 0.8em; text-align: center;">
+            <div style="font-size: 1.6em;">💼</div>
+            <p style="margin: 0.4em 0 0 0; font-size: 0.85em; color: #ccc;"><strong>Slack</strong></p>
+        </div>
+        <div class="fragment" style="background: var(--card-bg); border-radius: 10px; padding: 0.8em; text-align: center;">
+            <div style="font-size: 1.6em;">💚</div>
+            <p style="margin: 0.4em 0 0 0; font-size: 0.85em; color: #ccc;"><strong>WhatsApp</strong></p>
+        </div>
+        <div class="fragment" style="background: var(--card-bg); border-radius: 10px; padding: 0.8em; text-align: center;">
+            <div style="font-size: 1.6em;">📅</div>
+            <p style="margin: 0.4em 0 0 0; font-size: 0.85em; color: #ccc;"><strong>Calendar</strong></p>
+        </div>
+    </div>
+
+    <div class="fragment" style="margin-top: 1.5em; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1em;">
+        <div style="background: rgba(102,187,106,0.1); border-radius: 8px; padding: 0.7em; border: 1px solid rgba(102,187,106,0.3); text-align: center;">
+            <p style="margin: 0; font-size: 0.85em; color: var(--accent-green);"><strong>No Mac Mini</strong></p>
+            <p style="margin: 0.2em 0 0 0; font-size: 0.7em; color: #888;">Works from any device</p>
+        </div>
+        <div style="background: rgba(102,187,106,0.1); border-radius: 8px; padding: 0.7em; border: 1px solid rgba(102,187,106,0.3); text-align: center;">
+            <p style="margin: 0; font-size: 0.85em; color: var(--accent-green);"><strong>No 14hr Setup</strong></p>
+            <p style="margin: 0.2em 0 0 0; font-size: 0.7em; color: #888;">Text Noah, start working</p>
+        </div>
+        <div style="background: rgba(102,187,106,0.1); border-radius: 8px; padding: 0.7em; border: 1px solid rgba(102,187,106,0.3); text-align: center;">
+            <p style="margin: 0; font-size: 0.85em; color: var(--accent-green);"><strong>No Exposed Keys</strong></p>
+            <p style="margin: 0.2em 0 0 0; font-size: 0.7em; color: #888;">Enterprise-grade security</p>
+        </div>
+    </div>
+
+    <div class="fragment" style="margin-top: 1.2em; padding: 0.8em; background: var(--card-bg); border-radius: 10px; border-left: 4px solid var(--accent-green);">
+        <p style="margin: 0; font-size: 0.9em; text-align: center; color: #ccc;">
+            <strong>The Clawdbot lesson:</strong> People want agents that work for <em>them</em>. We just make it safe.
+        </p>
     </div>
 </section>
 
