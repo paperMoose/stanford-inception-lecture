@@ -1182,71 +1182,51 @@ python execute_spec.py \
 
 <!-- When to Use Which -->
 <section>
-    <h2>Decision Framework</h2>
-    <p style="color: #888; margin-bottom: 0.8em; font-size: 0.95em;">Do the simplest thing that works</p>
-    <div class="svg-container" style="max-width: 850px;">
-    <svg viewBox="0 0 850 320" preserveAspectRatio="xMidYMid meet">
-        <!-- Start -->
-        <rect x="325" y="10" width="200" height="45" rx="10" fill="#2a2a4e" stroke="#fff" stroke-width="2"/>
-        <text x="425" y="40" text-anchor="middle" fill="#fff" font-size="15">New check needed</text>
-
-        <!-- Arrow down -->
-        <path d="M 425 55 L 425 85" stroke="#666" stroke-width="2" fill="none" marker-end="url(#decArrow)"/>
-
-        <!-- Question 1 -->
-        <rect x="250" y="85" width="350" height="50" rx="10" fill="#2a2a4e" stroke="#66bb6a" stroke-width="2"/>
-        <text x="425" y="115" text-anchor="middle" fill="#fff" font-size="14">Can you write a regex or exact match?</text>
-
-        <!-- Yes path (left) -->
-        <path d="M 250 110 L 150 110 L 150 170" stroke="#66bb6a" stroke-width="2" fill="none" marker-end="url(#decArrowGreen)"/>
-        <rect x="200" y="95" width="40" height="20" rx="4" fill="#1a1a2e"/>
-        <text x="220" y="109" text-anchor="middle" fill="#66bb6a" font-size="12" font-weight="bold">YES</text>
-
-        <rect x="50" y="170" width="200" height="70" rx="10" fill="rgba(102,187,106,0.15)" stroke="#66bb6a" stroke-width="2"/>
-        <text x="150" y="200" text-anchor="middle" fill="#66bb6a" font-size="15" font-weight="bold">Deterministic</text>
-        <text x="150" y="225" text-anchor="middle" fill="#888" font-size="11">tool_called, param_contains</text>
-
-        <!-- No path (right) to question 2 -->
-        <path d="M 600 110 L 700 110 L 700 170" stroke="#ffca28" stroke-width="2" fill="none" marker-end="url(#decArrowYellow)"/>
-        <rect x="610" y="95" width="35" height="20" rx="4" fill="#1a1a2e"/>
-        <text x="627" y="109" text-anchor="middle" fill="#ffca28" font-size="12" font-weight="bold">NO</text>
-
-        <!-- Question 2 -->
-        <rect x="550" y="170" width="300" height="50" rx="10" fill="#2a2a4e" stroke="#ffca28" stroke-width="2"/>
-        <text x="700" y="200" text-anchor="middle" fill="#fff" font-size="14">Is it a universal rule (all outputs)?</text>
-
-        <!-- Yes path from Q2 -->
-        <path d="M 550 195 L 450 195 L 450 260" stroke="#ffca28" stroke-width="2" fill="none" marker-end="url(#decArrowYellow)"/>
-        <rect x="480" y="182" width="40" height="20" rx="4" fill="#1a1a2e"/>
-        <text x="500" y="196" text-anchor="middle" fill="#ffca28" font-size="12" font-weight="bold">YES</text>
-
-        <rect x="350" y="260" width="200" height="50" rx="10" fill="rgba(255,202,40,0.15)" stroke="#ffca28" stroke-width="2"/>
-        <text x="450" y="290" text-anchor="middle" fill="#ffca28" font-size="15" font-weight="bold">Invariant</text>
-
-        <!-- No path from Q2 -->
-        <path d="M 700 220 L 700 260" stroke="#42a5f5" stroke-width="2" fill="none" marker-end="url(#decArrowBlue)"/>
-        <rect x="680" y="225" width="35" height="20" rx="4" fill="#1a1a2e"/>
-        <text x="697" y="239" text-anchor="middle" fill="#42a5f5" font-size="12" font-weight="bold">NO</text>
-
-        <rect x="600" y="260" width="200" height="50" rx="10" fill="rgba(66,165,245,0.15)" stroke="#42a5f5" stroke-width="2"/>
-        <text x="700" y="290" text-anchor="middle" fill="#42a5f5" font-size="15" font-weight="bold">LLM Judge</text>
-
-        <defs>
-            <marker id="decArrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
-                <polygon points="0 0, 8 3, 0 6" fill="#666"/>
-            </marker>
-            <marker id="decArrowGreen" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
-                <polygon points="0 0, 8 3, 0 6" fill="#66bb6a"/>
-            </marker>
-            <marker id="decArrowYellow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
-                <polygon points="0 0, 8 3, 0 6" fill="#ffca28"/>
-            </marker>
-            <marker id="decArrowBlue" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
-                <polygon points="0 0, 8 3, 0 6" fill="#42a5f5"/>
-            </marker>
-        </defs>
-    </svg>
+    <h2>Code-Based vs Model-Based Graders</h2>
+    <p style="color: #888; margin-bottom: 0.6em; font-size: 0.9em;">The only question: can you write deterministic logic?</p>
+    <div class="two-column" style="gap: 2em; max-width: 900px; margin-top: 0.8em;">
+        <!-- Code-based (Deterministic) -->
+        <div style="background: rgba(102,187,106,0.1); border-radius: 14px; padding: 1em; border: 2px solid var(--accent-green);">
+            <h3 style="color: var(--accent-green); margin: 0 0 0.6em 0; font-size: 1.2em;">Code-Based Graders</h3>
+            <p style="color: #aaa; font-size: 0.85em; margin: 0 0 0.8em 0;">
+                String matching, regex, state checks
+            </p>
+            <div style="font-size: 0.8em; color: #888; margin-bottom: 0.8em;">
+                <div style="margin-bottom: 0.3em;">✓ Did it call <code>send_email</code>?</div>
+                <div style="margin-bottom: 0.3em;">✓ Does body contain <code>{{SIGNATURE}}</code>?</div>
+                <div style="margin-bottom: 0.3em;">✓ Is SMS under 300 chars?</div>
+                <div>✓ Was availability checked before invite?</div>
+            </div>
+            <div style="background: rgba(102,187,106,0.15); padding: 0.5em; border-radius: 6px; font-size: 0.75em;">
+                <span style="color: var(--accent-green);">Fast</span> ·
+                <span style="color: var(--accent-green);">Cheap</span> ·
+                <span style="color: var(--accent-green);">Reproducible</span> ·
+                <span style="color: var(--accent-green);">Debuggable</span>
+            </div>
+        </div>
+        <!-- Model-based (LLM Judge) -->
+        <div style="background: rgba(66,165,245,0.1); border-radius: 14px; padding: 1em; border: 2px solid var(--accent-blue);">
+            <h3 style="color: var(--accent-blue); margin: 0 0 0.6em 0; font-size: 1.2em;">Model-Based Graders</h3>
+            <p style="color: #aaa; font-size: 0.85em; margin: 0 0 0.8em 0;">
+                LLM judges with rubrics, pairwise comparison
+            </p>
+            <div style="font-size: 0.8em; color: #888; margin-bottom: 0.8em;">
+                <div style="margin-bottom: 0.3em;">? Is this response <em>helpful</em>?</div>
+                <div style="margin-bottom: 0.3em;">? Does the tone match the context?</div>
+                <div style="margin-bottom: 0.3em;">? Is this explanation clear?</div>
+                <div>? Would a user be satisfied?</div>
+            </div>
+            <div style="background: rgba(66,165,245,0.15); padding: 0.5em; border-radius: 6px; font-size: 0.75em;">
+                <span style="color: var(--accent-yellow);">Flexible</span> ·
+                <span style="color: var(--accent-yellow);">Handles nuance</span> ·
+                <span style="color: var(--accent-red);">Expensive</span> ·
+                <span style="color: var(--accent-red);">Needs calibration</span>
+            </div>
+        </div>
     </div>
+    <p class="fragment" style="margin-top: 1em; font-size: 0.95em; color: #fff;">
+        Rule of thumb: <strong style="color: var(--accent-green);">Start deterministic</strong>, add LLM judge only when you can't write the logic
+    </p>
 </section>
 
 <!-- Case Study Through This Lens -->
