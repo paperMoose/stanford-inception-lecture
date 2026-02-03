@@ -1973,6 +1973,43 @@ python execute_spec.py \
     </div>
 </section>
 
+<!-- Secret Agent -->
+<section>
+    <h2>Open Source: secret-agent</h2>
+    <p class="subtitle">How we keep secrets out of agent traces</p>
+
+    <div style="margin-top: 1em; padding: 1em; background: var(--card-bg); border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);">
+        <div style="display: flex; align-items: center; gap: 1em; margin-bottom: 0.8em;">
+            <span style="font-size: 1.8em;">🔐</span>
+            <div>
+                <p style="margin: 0; font-size: 1.1em; font-weight: 600; color: #fff;">paperMoose/secret-agent</p>
+                <p style="margin: 0.2em 0 0 0; font-size: 0.85em; color: #888;">CLI vault that keeps secrets out of AI agent context windows</p>
+            </div>
+        </div>
+        <pre style="margin: 0; font-size: 0.65em; background: #12121f; border-radius: 8px; padding: 0.8em;"><code style="color: #66bb6a;"># Inject secrets as env vars - never in the prompt
+secret-agent exec --env OPENAI_KEY python app.py
+
+# Template secrets into commands
+secret-agent exec curl -H 'Authorization: Bearer {{API_KEY}}' https://api.example.com</code></pre>
+    </div>
+
+    <div class="fragment" style="margin-top: 1em; display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.8em;">
+        <div style="background: rgba(102,187,106,0.1); border-radius: 8px; padding: 0.6em; text-align: center; border: 1px solid rgba(102,187,106,0.2);">
+            <p style="margin: 0; font-size: 0.8em; color: var(--accent-green);"><strong>Secrets never in context</strong></p>
+        </div>
+        <div style="background: rgba(102,187,106,0.1); border-radius: 8px; padding: 0.6em; text-align: center; border: 1px solid rgba(102,187,106,0.2);">
+            <p style="margin: 0; font-size: 0.8em; color: var(--accent-green);"><strong>Traces safe to log</strong></p>
+        </div>
+        <div style="background: rgba(102,187,106,0.1); border-radius: 8px; padding: 0.6em; text-align: center; border: 1px solid rgba(102,187,106,0.2);">
+            <p style="margin: 0; font-size: 0.8em; color: var(--accent-green);"><strong>Auto-redacts output</strong></p>
+        </div>
+    </div>
+
+    <div class="fragment" style="margin-top: 1em; text-align: center;">
+        <a href="https://github.com/paperMoose/secret-agent" style="color: var(--accent-blue); font-size: 0.95em;">github.com/paperMoose/secret-agent</a>
+    </div>
+</section>
+
 <!-- Q&A -->
 <section data-background-image="images/bg-qa.png" data-background-size="cover" data-background-opacity="0.35">
     <div style="text-align: center;">
