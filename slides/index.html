@@ -1368,53 +1368,40 @@ python execute_spec.py \
 
 <!-- Sim vs RL -->
 <section>
-    <h2>Agent Sims vs RL Environments</h2>
-    <p style="color: #888; margin-bottom: 0.6em; font-size: 0.9em;">Similar structure, different goals</p>
-    <div style="max-width: 850px; margin-top: 0.8em;">
-        <table style="width: 100%; border-collapse: collapse; font-size: 0.85em;">
-            <thead>
-                <tr style="border-bottom: 2px solid #444;">
-                    <th style="text-align: left; padding: 0.6em; color: #888;"></th>
-                    <th style="text-align: left; padding: 0.6em; color: var(--accent-blue);">Agent Sim (Evals)</th>
-                    <th style="text-align: left; padding: 0.6em; color: var(--accent-green);">RL Environment</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr style="border-bottom: 1px solid #333;">
-                    <td style="padding: 0.6em; color: #888;">Goal</td>
-                    <td style="padding: 0.6em;">Measure performance</td>
-                    <td style="padding: 0.6em;">Train policy</td>
-                </tr>
-                <tr style="border-bottom: 1px solid #333;">
-                    <td style="padding: 0.6em; color: #888;">Feedback</td>
-                    <td style="padding: 0.6em;">Pass/fail + diagnostics</td>
-                    <td style="padding: 0.6em;">Reward signal</td>
-                </tr>
-                <tr style="border-bottom: 1px solid #333;">
-                    <td style="padding: 0.6em; color: #888;">Episodes</td>
-                    <td style="padding: 0.6em;">10s-100s per eval run</td>
-                    <td style="padding: 0.6em;">Millions for training</td>
-                </tr>
-                <tr style="border-bottom: 1px solid #333;">
-                    <td style="padding: 0.6em; color: #888;">Agent</td>
-                    <td style="padding: 0.6em;">LLM (frozen weights)</td>
-                    <td style="padding: 0.6em;">Policy network (updating)</td>
-                </tr>
-                <tr style="border-bottom: 1px solid #333;">
-                    <td style="padding: 0.6em; color: #888;">State</td>
-                    <td style="padding: 0.6em;">Mock services, files, DBs</td>
-                    <td style="padding: 0.6em;">Game state, physics sim</td>
-                </tr>
-                <tr>
-                    <td style="padding: 0.6em; color: #888;">Reset</td>
-                    <td style="padding: 0.6em;">Per test case</td>
-                    <td style="padding: 0.6em;">Per episode</td>
-                </tr>
-            </tbody>
-        </table>
+    <h2>Same Environment, Different Outer Loop</h2>
+    <p style="color: #888; margin-bottom: 0.5em; font-size: 0.9em;">Your sim can be used for eval <em>or</em> RL training</p>
+    <div class="svg-container" style="max-width: 900px;">
+    <svg viewBox="0 0 900 300" preserveAspectRatio="xMidYMid meet">
+        <!-- Shared Environment Box -->
+        <rect x="250" y="20" width="400" height="80" rx="12" fill="rgba(255,202,40,0.1)" stroke="#ffca28" stroke-width="2"/>
+        <text x="450" y="50" text-anchor="middle" fill="#ffca28" font-size="14" font-weight="bold">Your Simulation Environment</text>
+        <text x="450" y="72" text-anchor="middle" fill="#888" font-size="11">mock calendar, email, contacts, state, grader</text>
+
+        <!-- Arrow down splits -->
+        <path d="M 450 100 L 450 130" stroke="#888" stroke-width="2"/>
+        <path d="M 450 130 L 250 160" stroke="#42a5f5" stroke-width="2"/>
+        <path d="M 450 130 L 650 160" stroke="#66bb6a" stroke-width="2"/>
+
+        <!-- Eval Loop (left) -->
+        <rect x="100" y="160" width="300" height="120" rx="12" fill="rgba(66,165,245,0.1)" stroke="#42a5f5" stroke-width="2"/>
+        <text x="250" y="185" text-anchor="middle" fill="#42a5f5" font-size="13" font-weight="bold">Eval Loop (Claude)</text>
+        <text x="250" y="210" text-anchor="middle" fill="#aaa" font-size="11">pass/fail → human reads → edit prompt</text>
+        <text x="250" y="235" text-anchor="middle" fill="#888" font-size="10">Model weights: frozen (API)</text>
+        <text x="250" y="255" text-anchor="middle" fill="#888" font-size="10">Episodes: 10s-100s</text>
+        <text x="250" y="275" text-anchor="middle" fill="#666" font-size="10">Update: prompt engineering</text>
+
+        <!-- RL Loop (right) -->
+        <rect x="500" y="160" width="300" height="120" rx="12" fill="rgba(102,187,106,0.1)" stroke="#66bb6a" stroke-width="2"/>
+        <text x="650" y="185" text-anchor="middle" fill="#66bb6a" font-size="13" font-weight="bold">RL Loop (Open Source)</text>
+        <text x="650" y="210" text-anchor="middle" fill="#aaa" font-size="11">reward → backprop → update weights</text>
+        <text x="650" y="235" text-anchor="middle" fill="#888" font-size="10">Model weights: trainable (Llama, etc)</text>
+        <text x="650" y="255" text-anchor="middle" fill="#888" font-size="10">Episodes: 1000s-millions</text>
+        <text x="650" y="275" text-anchor="middle" fill="#666" font-size="10">Update: gradient descent</text>
+    </svg>
     </div>
-    <p class="fragment" style="margin-top: 1em; font-size: 0.9em; color: #888;">
-        Key insight: <strong style="color: #fff;">Same abstraction</strong> (state, actions, transitions) — but you're <em>evaluating</em> not <em>training</em>
+    <p class="fragment" style="margin-top: 0.5em; font-size: 0.85em; color: #888;">
+        Why eval not RL? <strong style="color: #fff;">Claude's weights are frozen</strong> — you can only update the prompt.<br>
+        <span style="color: #666;">But if you're fine-tuning open source, your sim becomes a training env.</span>
     </p>
 </section>
 
